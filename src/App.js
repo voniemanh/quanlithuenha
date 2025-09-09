@@ -9,6 +9,7 @@ import PropertyDetail from "./components/Property/PropertyDetail";
 import ContractDetail from "./components/User/ContractDetail";
 import About from "./components/Company/About";
 import Contact from "./components/Company/Contact";
+import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./components/Context/UserContext";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,9 +32,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
-        <footer>
-          <p style={{fontStyle: "italic"}}>© 2025 Holiday rental</p>
-        </footer>
+        <Footer />
       </div>
     </UserProvider>
   );

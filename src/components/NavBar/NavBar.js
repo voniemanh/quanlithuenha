@@ -28,7 +28,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg border-bottom px-3">
+      <nav className="navbar navbar-expand-lg border-bottom fixed-top px-3">
         {/* Logo */}
         <Link to="/" className="navbar-brand img-fluid">
           <img
@@ -95,7 +95,7 @@ export default function NavBar() {
           {/* Button Đăng tin (Admin only) */}
           {currentUser?.role === "admin" && (
             <button
-              onClick={() => navigate("/post")}
+              onClick={() => navigate("/property-manage")}
               className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center me-2"
               style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
             >

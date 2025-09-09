@@ -56,16 +56,6 @@
       "image": "/asset/r3.png"
     },
     {
-      "id": "r4",
-      "name": "Phòng 404 - Chung cư D",
-      "description": "Phòng 35m2, ban công rộng, nhiều ánh sáng",
-      "address": "101 Nguyễn Huệ, Q.1, TP.HCM",
-      "price": 7000000,
-      "status": "available",
-      "createdBy": "u2",
-      "image": "/asset/r4.png"
-    },
-    {
       "id": "r5",
       "name": "Phòng 505 - Chung cư E",
       "description": "Phòng 22m2, giá rẻ, tiện đi lại",
@@ -84,16 +74,6 @@
       "status": "available",
       "createdBy": "u3",
       "image": "/asset/r6.png"
-    },
-    {
-      "id": "r7",
-      "name": "Phòng 707 - Chung cư G",
-      "description": "Phòng 32m2, view hồ bơi, thoáng mát",
-      "address": "404 Điện Biên Phủ, Q.Bình Thạnh, TP.HCM",
-      "price": 6500000,
-      "status": "available",
-      "createdBy": "u1",
-      "image": "/asset/r7.png"
     },
     {
       "id": "r8",

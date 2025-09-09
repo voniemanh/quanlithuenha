@@ -24,26 +24,19 @@ body {
 
 main {
   flex: 1; 
+  padding-top: 100px;
 }
 
 footer{
   background-color: #f8f9fa; 
-  text-align: center;
-  padding: 1rem;
-  border-top: 1px solid #e7e7e7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.8rem;
-  color: #555;
+  font-size: 0.85rem;
+  color: #000;
 }
 
 nav {
   background: #f8f9fa;
+  font-size: 0.8rem!important;
 }
 p {
   margin: 0!important;
-}
-nav {
-  font-size: 0.8rem!important;
 }
