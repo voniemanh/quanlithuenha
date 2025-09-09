@@ -40,6 +40,78 @@
       "price": 6000000,
       "status": "rented",
       "createdBy": "u1"
+    },
+    {
+      "id": "r3",
+      "name": "Phòng 303 - Chung cư C",
+      "description": "Phòng 28m2, đầy đủ tiện nghi, gần siêu thị",
+      "address": "789 Trần Hưng Đạo, Q.1, TP.HCM",
+      "price": 5500000,
+      "status": "available",
+      "createdBy": "u2"
+    },
+    {
+      "id": "r4",
+      "name": "Phòng 404 - Chung cư D",
+      "description": "Phòng 35m2, ban công rộng, nhiều ánh sáng",
+      "address": "101 Nguyễn Huệ, Q.1, TP.HCM",
+      "price": 7000000,
+      "status": "available",
+      "createdBy": "u2"
+    },
+    {
+      "id": "r5",
+      "name": "Phòng 505 - Chung cư E",
+      "description": "Phòng 22m2, giá rẻ, tiện đi lại",
+      "address": "202 Phan Xích Long, Q.Phú Nhuận, TP.HCM",
+      "price": 4500000,
+      "status": "rented",
+      "createdBy": "u3"
+    },
+    {
+      "id": "r6",
+      "name": "Phòng 606 - Chung cư F",
+      "description": "Phòng 40m2, nội thất hiện đại, an ninh tốt",
+      "address": "303 Lê Văn Sỹ, Q.3, TP.HCM",
+      "price": 8000000,
+      "status": "available",
+      "createdBy": "u3"
+    },
+    {
+      "id": "r7",
+      "name": "Phòng 707 - Chung cư G",
+      "description": "Phòng 32m2, view hồ bơi, thoáng mát",
+      "address": "404 Điện Biên Phủ, Q.Bình Thạnh, TP.HCM",
+      "price": 6500000,
+      "status": "available",
+      "createdBy": "u1"
+    },
+    {
+      "id": "r8",
+      "name": "Phòng 808 - Chung cư H",
+      "description": "Phòng 26m2, gần trường học, yên tĩnh",
+      "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
+      "price": 5200000,
+      "status": "rented",
+      "createdBy": "u2"
+    },
+    {
+      "id": "r9",
+      "name": "Phòng 909 - Chung cư I",
+      "description": "Phòng 38m2, thiết kế sang trọng, ban công lớn",
+      "address": "606 Hoàng Văn Thụ, Q.Tân Bình, TP.HCM",
+      "price": 7500000,
+      "status": "available",
+      "createdBy": "u3"
+    },
+    {
+      "id": "r10",
+      "name": "Phòng 1010 - Chung cư J",
+      "description": "Phòng 24m2, đầy đủ tiện nghi, gần chợ",
+      "address": "707 Cách Mạng Tháng 8, Q.10, TP.HCM",
+      "price": 4800000,
+      "status": "available",
+      "createdBy": "u1"
     }
   ],
   "contracts": [

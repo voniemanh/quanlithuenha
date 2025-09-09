@@ -65,7 +65,7 @@ export default function NavBar() {
                   }}
                 >
                   <h6 className="dropdown-header text-dark px-3">
-                    Xin chào, {currentUser.nickname}!
+                    Xin chào, {currentUser.username}!
                   </h6>
                   <li>
                     <hr className="dropdown-divider" />
@@ -97,7 +97,7 @@ export default function NavBar() {
           {currentUser?.role === "admin" && (
             <button
               onClick={() => navigate("/post")}
-              className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center me-3"
+              className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center me-2"
               style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
             >
               <FontAwesomeIcon icon={faPlus} />

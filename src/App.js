@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import Footer from "./components/Footer/Footer";
 import HomePage from "./components/HomePage/HomePage";
 import BookingManage from "./components/Booking/BookingManage";
 import PropertyManage from "./components/Admin/PropertyManage";
@@ -11,6 +10,7 @@ import ContractDetail from "./components/User/ContractDetail";
 import About from "./components/Company/About";
 import Contact from "./components/Company/Contact";
 import { UserProvider } from "./components/Context/UserContext";
+import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
@@ -31,7 +31,9 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
-        <Footer />
+        <footer>
+          <p>© 2023 Công ty TNHH ABC. Bảo lưu mọi quyền.</p>
+        </footer>
       </div>
     </UserProvider>
   );
