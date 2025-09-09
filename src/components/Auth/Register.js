@@ -43,6 +43,7 @@ export default function Register({ show, handleClose }) {
       nickname: formData.nickname,
       email: formData.email,
       password: formData.password,
+      role: "user",
       avatar: preview, 
     };
 
