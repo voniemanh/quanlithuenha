@@ -5,21 +5,23 @@
       "name": "Nguyễn Văn Chủ",
       "username": "admin",
       "password": "123",
-      "role": "admin"
+      "role": "admin",
+      "avatar": "/asset/u1.jpg"
     },
     {
       "id": "u2",
       "name": "Trần Thị Thuê",
       "username": "user1",
       "password": "123",
-      "role": "user"
+      "role": "user",
+      "avatar": "/asset/u2.jpg"
     },
     {
       "id": "8c25",
       "nickname": "alice",
       "email": "alice@example.com",
       "password": "123",
-      "avatar": null
+      "avatar": "/asset/u3.jpg"
     }
   ],
   "properties": [
@@ -30,7 +32,8 @@
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
       "price": 5000000,
       "status": "available",
-      "createdBy": "u1"
+      "createdBy": "u1",
+      "image": "/asset/r1.png"
     },
     {
       "id": "r2",
@@ -39,7 +42,8 @@
       "address": "456 Nguyễn Trãi, Q.5, TP.HCM",
       "price": 6000000,
       "status": "rented",
-      "createdBy": "u1"
+      "createdBy": "u1",
+      "image": "/asset/r2.png"
     },
     {
       "id": "r3",
@@ -48,7 +52,8 @@
       "address": "789 Trần Hưng Đạo, Q.1, TP.HCM",
       "price": 5500000,
       "status": "available",
-      "createdBy": "u2"
+      "createdBy": "u2",
+      "image": "/asset/r3.png"
     },
     {
       "id": "r4",
@@ -57,7 +62,8 @@
       "address": "101 Nguyễn Huệ, Q.1, TP.HCM",
       "price": 7000000,
       "status": "available",
-      "createdBy": "u2"
+      "createdBy": "u2",
+      "image": "/asset/r4.png"
     },
     {
       "id": "r5",
@@ -66,7 +72,8 @@
       "address": "202 Phan Xích Long, Q.Phú Nhuận, TP.HCM",
       "price": 4500000,
       "status": "rented",
-      "createdBy": "u3"
+      "createdBy": "u3",
+      "image": "/asset/r5.png"
     },
     {
       "id": "r6",
@@ -75,7 +82,8 @@
       "address": "303 Lê Văn Sỹ, Q.3, TP.HCM",
       "price": 8000000,
       "status": "available",
-      "createdBy": "u3"
+      "createdBy": "u3",
+      "image": "/asset/r6.png"
     },
     {
       "id": "r7",
@@ -84,7 +92,8 @@
       "address": "404 Điện Biên Phủ, Q.Bình Thạnh, TP.HCM",
       "price": 6500000,
       "status": "available",
-      "createdBy": "u1"
+      "createdBy": "u1",
+      "image": "/asset/r7.png"
     },
     {
       "id": "r8",
@@ -93,7 +102,8 @@
       "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
       "price": 5200000,
       "status": "rented",
-      "createdBy": "u2"
+      "createdBy": "u2",
+      "image": "/asset/r8.png"
     },
     {
       "id": "r9",
@@ -102,7 +112,8 @@
       "address": "606 Hoàng Văn Thụ, Q.Tân Bình, TP.HCM",
       "price": 7500000,
       "status": "available",
-      "createdBy": "u3"
+      "createdBy": "u3",
+      "image": "/asset/r9.png"
     },
     {
       "id": "r10",
@@ -111,7 +122,8 @@
       "address": "707 Cách Mạng Tháng 8, Q.10, TP.HCM",
       "price": 4800000,
       "status": "available",
-      "createdBy": "u1"
+      "createdBy": "u1",
+      "image": "/asset/r10.png"
     }
   ],
   "contracts": [

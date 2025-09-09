@@ -12,7 +12,6 @@ import {
 import { useUser } from "../Context/UserContext";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
-import logo from "../../asset/logo.png";
 
 export default function NavBar() {
   const { currentUser, setCurrentUser } = useUser();
@@ -33,7 +32,7 @@ export default function NavBar() {
         {/* Logo */}
         <Link to="/" className="navbar-brand img-fluid">
           <img
-            src={logo}
+            src={"/asset/logo.png"}
             alt="Logo"
             style={{ maxHeight: "50px", width: "auto" }}
           />

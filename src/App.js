@@ -32,7 +32,7 @@ export default function App() {
           </Routes>
         </main>
         <footer>
-          <p>© 2023 Công ty TNHH ABC. Bảo lưu mọi quyền.</p>
+          <p style={{fontStyle: "italic"}}>© 2025 Holiday Rental</p>
         </footer>
       </div>
     </UserProvider>
