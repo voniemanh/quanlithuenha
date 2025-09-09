@@ -1,25 +1,32 @@
-import React, { useState } from "react";
-import { Button, Form, Alert } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Alert } from "react-bootstrap";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useUser } from "../Context/UserContext";
 import axios from "axios";
-import {USERS_URL} from "../../config";
+import { USERS_URL } from "../../config";
 
 export default function Login({ show, handleClose }) {
-  const { setCurrentUser } = useUser();
+  const { currentUser, setCurrentUser } = useUser();
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleLogin = async () => {
+    const { username, password } = form;
+
+    if (!username || !password) {
+      setError("Vui lòng nhập đầy đủ các trường!");
+      return;
+    }
+
     try {
-      const res = await axios.get(`${USERS_URL}`);
+      const res = await axios.get(USERS_URL);
       const user = res.data.find(
-        u => u.username === form.username && u.password === form.password
+        (u) => u.username === username && u.password === password
       );
+
       if (user) {
         setCurrentUser(user);
         setError("");
@@ -32,36 +39,39 @@ export default function Login({ show, handleClose }) {
     }
   };
 
+  useEffect(() => {
+    if (!currentUser) {
+      setForm({ username: "", password: "" });
+      setError("");
+    }
+  }, [currentUser]);
+
   return (
     <ModalWrapper show={show} handleClose={handleClose} title="Login">
-      <Form onSubmit={handleSubmit}>
+      <div className="d-flex flex-column gap-3">
         {error && <Alert variant="danger">{error}</Alert>}
 
-        <Form.Group className="mb-3">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            name="username"
-            value={form.username}
-            onChange={handleChange}
-            placeholder="Enter username"
-          />
-        </Form.Group>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={form.username}
+          onChange={handleChange}
+          className="form-control"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          className="form-control"
+        />
 
-        <Form.Group className="mb-3">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="Password"
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
+        <Button variant="primary" onClick={handleLogin} className="w-100">
           Login
         </Button>
-      </Form>
+      </div>
     </ModalWrapper>
   );
 }

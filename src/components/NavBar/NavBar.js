@@ -7,6 +7,7 @@ import {
   faSignOutAlt,
   faSignInAlt,
   faUserPlus,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
 import Login from "../Auth/Login";
@@ -35,91 +36,106 @@ export default function NavBar() {
         </Link>
 
         <div className="ms-auto d-flex align-items-center">
-          {/* Button Đăng tin (Admin only) */}
-          {currentUser?.role === "admin" && (
-            <button
-              onClick={() => navigate("/post")}
-              className="btn btn-dark me-3"
-            >
-              + Đăng tin
-            </button>
-          )}
           {/* User Icon */}
           {currentUser && (
             <button
               onClick={() => navigate(`/user-detail/${currentUser.id}`)}
-              className="btn btn-link text-dark me-3"
+              className="btn btn-link text-dark me-3 d-flex align-items-center"
             >
-              <FontAwesomeIcon icon={faUser} size="lg" />
+              <span
+                className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
+                style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
+              >
+                <FontAwesomeIcon icon={faUser} size="lg" />
+              </span>
+            </button>
+          )}
+          {/* Button Đăng tin (Admin only) */}
+          {currentUser?.role === "admin" && (
+            <button
+              onClick={() => navigate("/post")}
+              className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center me-3"
+              style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
+            >
+              <FontAwesomeIcon icon={faPlus} />
             </button>
           )}
           {/* Hamburger */}
-          <div className="dropdown me-2">
-            <button
-              className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
-              style={{ width: "40px", height: "40px" }}
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              <FontAwesomeIcon icon={faBars} />
-            </button>
+        <div className="dropdown ms-2 position-relative">
+          <button
+            className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
+            style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </button>
 
-            {menuOpen && (
-              <ul className="dropdown-menu dropdown-menu-start show mt-2">
-                {!currentUser ? (
-                  <>
-                    <li>
-                      <button
-                        className="dropdown-item"
-                        onClick={() => {
-                          setShowLogin(true);
-                          setMenuOpen(false);
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faSignInAlt} className="me-2" />
-                        Đăng nhập
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className="dropdown-item"
-                        onClick={() => {
-                          setShowRegister(true);
-                          setMenuOpen(false);
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faUserPlus} className="me-2" />
-                        Đăng ký
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li>
-                      <button
-                        className="dropdown-item"
-                        onClick={() => {
-                          navigate(`/user-detail/${currentUser.id}`);
-                          setMenuOpen(false);
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faUser} className="me-2" />
-                        Profile
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        className="dropdown-item"
-                        onClick={handleLogout}
-                      >
-                        <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />
-                        Logout
-                      </button>
-                    </li>
-                  </>
-                )}
-              </ul>
-            )}
-          </div>
+          {menuOpen && (
+            <ul
+              className="dropdown-menu show"
+              style={{
+                position: "absolute",
+                top: "100%",       
+                right: 0,           
+                marginTop: "0.5rem", 
+                minWidth: "150px", 
+              }}
+            >
+              {!currentUser ? (
+                <>
+                  <li>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => {
+                        setShowLogin(true);
+                        setMenuOpen(false);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faSignInAlt} className="me-2" />
+                      Đăng nhập
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => {
+                        setShowRegister(true);
+                        setMenuOpen(false);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faUserPlus} className="me-2" />
+                      Đăng ký
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <h6 className="dropdown-header text-dark px-3">Xin chào, {currentUser.nickname}!</h6>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => {
+                        navigate(`/user-detail/${currentUser.id}`);
+                        setMenuOpen(false);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faUser} className="me-2" />
+                      Profile
+                    </button>
+                  </li>
+                  <li>
+                    <button className="dropdown-item" onClick={handleLogout}>
+                      <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />
+                      Logout
+                    </button>
+                  </li>
+                </>
+              )}
+            </ul>
+          )}
+        </div>
+
         </div>
       </nav>
 

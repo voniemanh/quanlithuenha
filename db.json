@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "Nguyễn Văn Chủ",
+      "username": "admin",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "id": "u2",
+      "name": "Trần Thị Thuê",
+      "username": "user1",
+      "password": "123",
+      "role": "user"
+    },
+    {
+      "id": "8c25",
+      "nickname": "alice",
+      "email": "alice@example.com",
+      "password": "123",
+      "avatar": null
+    }
+  ],
+  "properties": [
+    {
+      "id": "r1",
+      "name": "Phòng 101 - Chung cư A",
+      "description": "Phòng 25m2, có nội thất, gần trung tâm",
+      "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
+      "price": 5000000,
+      "status": "available",
+      "createdBy": "u1"
+    },
+    {
+      "id": "r2",
+      "name": "Phòng 202 - Chung cư B",
+      "description": "Phòng 30m2, view đẹp, yên tĩnh",
+      "address": "456 Nguyễn Trãi, Q.5, TP.HCM",
+      "price": 6000000,
+      "status": "rented",
+      "createdBy": "u1"
+    }
+  ],
+  "contracts": [
+    {
+      "id": "c1",
+      "userId": "u2",
+      "propertyId": "r1",
+      "startDate": "2024-07-10",
+      "status": "pending",
+      "monthlyPayment": 5000000,
+      "paymentHistory": [
+        {
+          "month": "2024-08",
+          "paid": true,
+          "paidAt": "2024-08-01"
+        }
+      ]
+    }
+  ]
+}

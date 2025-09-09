@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useUser } from "../Context/UserContext";
+import axios from "axios";
+import { USERS_URL } from "../../config";
 
 export default function Register({ show, handleClose }) {
-  const { setCurrentUser } = useUser();
+  const { currentUser, setCurrentUser } = useUser();
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
     password: "",
     passwordConfirm: "",
-    avatar: null, 
+    avatar: null,
   });
 
   const [preview, setPreview] = useState(null);
@@ -30,20 +32,43 @@ export default function Register({ show, handleClose }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.passwordConfirm) {
       alert("Passwords do not match!");
       return;
     }
 
-    setCurrentUser({
+    const newUser = {
       nickname: formData.nickname,
       email: formData.email,
-      avatar: preview,
-    });
-    handleClose();
+      password: formData.password,
+      avatar: preview, 
+    };
+
+    try {
+      const res = await axios.post(USERS_URL, newUser);
+
+      setCurrentUser(res.data);
+      handleClose();
+    } catch (error) {
+      console.error("Error registering user:", error);
+      alert("Register failed!");
+    }
   };
+
+  useEffect(() => {
+    if (!currentUser) {
+      setFormData({
+        nickname: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        avatar: null,
+      });
+      setPreview(null);
+    }
+  }, [currentUser]);
 
   return (
     <ModalWrapper show={show} handleClose={handleClose} title="Register">
@@ -96,7 +121,14 @@ export default function Register({ show, handleClose }) {
           <Form.Label>Avatar</Form.Label>
           <Form.Control type="file" accept="image/*" onChange={handleAvatarChange} />
           {preview && (
-            <Image src={preview} alt="avatar preview" roundedCircle className="mt-2" width={80} height={80} />
+            <Image
+              src={preview}
+              alt="avatar preview"
+              roundedCircle
+              className="mt-2"
+              width={80}
+              height={80}
+            />
           )}
         </Form.Group>
 
