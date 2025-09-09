@@ -32,7 +32,7 @@ export default function App() {
           </Routes>
         </main>
         <footer>
-          <p style={{fontStyle: "italic"}}>© 2025 Holiday Rental</p>
+          <p style={{fontStyle: "italic"}}>© 2025 Holiday rental</p>
         </footer>
       </div>
     </UserProvider>

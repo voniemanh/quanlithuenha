@@ -60,12 +60,12 @@ export default function NavBar() {
                     top: "100%",
                     right: 0,
                     marginTop: "0.5rem",
-                    minWidth: "150px",
+                    minWidth: "200px",
                   }}
                 >
-                  <h6 className="dropdown-header text-dark px-3">
-                    Xin chào, {currentUser.username}!
-                  </h6>
+                  <span className="dropdown-header text-dark px-3" style={{fontSize: "1rem"}}>
+                    Hi, {currentUser.username}!
+                  </span>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
@@ -123,7 +123,7 @@ export default function NavBar() {
                   top: "100%",
                   right: 0,
                   marginTop: "0.5rem",
-                  minWidth: "150px",
+                  minWidth: "200px",
                 }}
               >
                 {/* Nếu chưa đăng nhập */}
@@ -169,10 +169,6 @@ export default function NavBar() {
                     </li>
                   </>
                 )}
-
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
 
                 {/* Các mục cố định */}
                 <li>
