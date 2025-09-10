@@ -6,13 +6,18 @@
 .btn-outline-dark {
   width: 40px;
   height: 40px;
-  transition: all 0.3s;
-  border: 1px solid #343a40;
-  border-radius: 50%;
-  background: transparent;
+  padding: 0!important;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #343a40;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.btn-outline-dark svg {
+  font-size: 18px;
 }
 
 .custom-dropdown {

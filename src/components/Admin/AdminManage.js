@@ -150,7 +150,7 @@ export default function AdminManage() {
             transition: 0.2s;
           }
           .nav-tabs .nav-link:hover {
-            background-color: #e7f1ff;
+            background-color: #f6c9d0ff;
             color: #000;
           }
           .nav-tabs .nav-link.active {

@@ -45,7 +45,7 @@ export default function NavBar() {
                   setOpenMenu(openMenu === "user" ? "none" : "user")
                 }
               >
-                <FontAwesomeIcon icon={faUser} size="lg" />
+                <FontAwesomeIcon icon={faUser} />
               </button>
 
               {openMenu === "user" && (
