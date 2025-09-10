@@ -56,13 +56,18 @@
       "address": "789 Trần Hưng Đạo, Q.1, TP.HCM",
       "price": 5500000,
       "status": "available",
-      "createdBy": "u2",
+      "createdBy": "admin",
       "image": "/asset/r3.png",
       "amenitiesList": [
         "Wifi",
         "TV",
+        "Điều hòa",
         "Máy giặt",
-        "Bàn làm việc"
+        "Tủ lạnh",
+        "Bàn làm việc",
+        "Bathtub",
+        "Luggage dropoff allowed",
+        "Security camera"
       ]
     },
     {
@@ -225,18 +230,6 @@
     {
       "id": "b0b5",
       "userId": "u2",
-      "propertyId": "r12",
-      "startDate": "2025-09-11",
-      "endDate": "2025-09-13",
-      "guests": 3,
-      "totalPrice": 800000,
-      "status": "pending",
-      "monthlyPayment": 4000000,
-      "paymentHistory": []
-    },
-    {
-      "id": "efd1",
-      "userId": null,
       "propertyId": "r12",
       "startDate": "2025-09-11",
       "endDate": "2025-09-13",

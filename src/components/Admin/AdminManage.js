@@ -16,12 +16,12 @@ export default function AdminManage() {
   const navigate = useNavigate();
 
   const propertyAmenitiesOptions = [
-    "Wifi", "TV", "Điều hòa", "Máy giặt", "Tủ lạnh", "Bàn làm việc", 
-    "Bathtub", "Luggage dropoff allowed", "Security camera", 
+    "Wifi", "TV", "Điều hòa", "Máy giặt", "Tủ lạnh", "Bàn làm việc",
+    "Bathtub", "Luggage dropoff allowed", "Security camera",
     "Paid dryer", "Washer", "Air conditioning"
   ];
   const propertyStatusOptions = ["available", "rented"];
-  const contractStatusOptions = ["pending","confirmed","canceled","paid","ended"];
+  const contractStatusOptions = ["pending", "confirmed", "canceled", "paid", "ended"];
 
   useEffect(() => {
     axios.get(USERS_URL).then(res => setUsers(res.data));
@@ -34,41 +34,37 @@ export default function AdminManage() {
     setFormData({});
     setModalOpen(true);
   };
-
   const closeModal = () => setModalOpen(false);
 
   const handleChange = (id, field, value, type) => {
     if (field === "amenitiesList" && typeof value === "string") {
       value = value.split(",").map(a => a.trim());
     }
-    if (type === "users") setUsers(prev => prev.map(u => u.id === id ? { ...u, [field]: value } : u));
-    if (type === "properties") setProperties(prev => prev.map(p => p.id === id ? { ...p, [field]: value } : p));
-    if (type === "contracts") setContracts(prev => prev.map(c => c.id === id ? { ...c, [field]: value } : c));
-    setEditing({ ...editing, [id]: true });
+    const updater = (prev) => prev.map(item => item.id === id ? { ...item, [field]: value } : item);
+    if (type === "users") setUsers(updater);
+    if (type === "properties") setProperties(updater);
+    if (type === "contracts") setContracts(updater);
+    setEditing(prev => ({ ...prev, [id]: true }));
   };
 
   const saveChange = async (item, type) => {
     const dataToSend = { ...item };
     if (type === "properties") dataToSend.createdBy = "admin";
 
-    if (type === "users") {
-      await axios.put(`${USERS_URL}/${item.id}`, dataToSend);
-      setEditing({ ...editing, [item.id]: false });
-    }
-    if (type === "properties") {
-      await axios.put(`${PROPERTIES_URL}/${item.id}`, dataToSend);
-      setEditing({ ...editing, [item.id]: false });
-    }
+    const url = type === "users" ? USERS_URL : type === "properties" ? PROPERTIES_URL : CONTRACTS_URL;
+    await axios.put(`${url}/${item.id}`, dataToSend);
+
     if (type === "contracts") {
-      await axios.put(`${CONTRACTS_URL}/${item.id}`, dataToSend);
+      // update property status
       const property = properties.find(p => p.id === item.propertyId);
-      if(property){
+      if (property) {
         const newStatus = dataToSend.status === "paid" ? "rented" : "available";
         await axios.put(`${PROPERTIES_URL}/${property.id}`, { ...property, status: newStatus });
         setProperties(prev => prev.map(p => p.id === property.id ? { ...p, status: newStatus } : p));
       }
-      setEditing({ ...editing, [item.id]: false });
     }
+
+    setEditing(prev => ({ ...prev, [item.id]: false }));
   };
 
   const deleteItem = async (id, type) => {
@@ -76,48 +72,35 @@ export default function AdminManage() {
 
     if (type === "users") {
       const userToDelete = users.find(u => u.id === id);
-      if (userToDelete.role === "admin") {
-        alert("Không thể xoá admin!");
-        return; 
-      }
-      await axios.delete(`${USERS_URL}/${id}`);
-      setUsers(users.filter(u => u.id !== id));
+      if (userToDelete.role === "admin") return alert("Không thể xoá admin!");
     }
 
-    if (type === "properties") {
-      await axios.delete(`${PROPERTIES_URL}/${id}`);
-      setProperties(properties.filter(p => p.id !== id));
-    }
+    const url = type === "users" ? USERS_URL : type === "properties" ? PROPERTIES_URL : CONTRACTS_URL;
+    await axios.delete(`${url}/${id}`);
 
-    if (type === "contracts") {
-      await axios.delete(`${CONTRACTS_URL}/${id}`);
-      setContracts(contracts.filter(c => c.id !== id));
-    }
+    if (type === "users") setUsers(prev => prev.filter(u => u.id !== id));
+    if (type === "properties") setProperties(prev => prev.filter(p => p.id !== id));
+    if (type === "contracts") setContracts(prev => prev.filter(c => c.id !== id));
   };
 
   const addNew = async () => {
     const dataToSend = { ...formData };
     if (modalType === "properties") dataToSend.createdBy = "admin";
 
-    Object.entries(dataToSend).forEach(([k,v]) => { if(v === "") dataToSend[k]=null });
+    Object.entries(dataToSend).forEach(([k, v]) => { if (v === "") dataToSend[k] = null });
 
-    if (modalType === "users") {
-      const res = await axios.post(USERS_URL, dataToSend);
-      setUsers([...users, res.data]);
-    }
-    if (modalType === "properties") {
-      const res = await axios.post(PROPERTIES_URL, dataToSend);
-      setProperties([...properties, res.data]);
-    }
+    const url = modalType === "users" ? USERS_URL : modalType === "properties" ? PROPERTIES_URL : CONTRACTS_URL;
+    const res = await axios.post(url, dataToSend);
+
+    if (modalType === "users") setUsers(prev => [...prev, res.data]);
+    if (modalType === "properties") setProperties(prev => [...prev, res.data]);
     if (modalType === "contracts") {
-      const res = await axios.post(CONTRACTS_URL, dataToSend);
-      setContracts([...contracts, res.data]);
-      // Update property status nếu paid
-      if(dataToSend.status === "paid"){
-        const property = properties.find(p=>p.id===dataToSend.propertyId);
-        if(property){
-          await axios.put(`${PROPERTIES_URL}/${property.id}`, {...property,status:"rented"});
-          setProperties(prev=>prev.map(p=>p.id===property.id?{...p,status:"rented"}:p));
+      setContracts(prev => [...prev, res.data]);
+      if (dataToSend.status === "paid") {
+        const property = properties.find(p => p.id === dataToSend.propertyId);
+        if (property) {
+          await axios.put(`${PROPERTIES_URL}/${property.id}`, { ...property, status: "rented" });
+          setProperties(prev => prev.map(p => p.id === property.id ? { ...p, status: "rented" } : p));
         }
       }
     }
@@ -125,9 +108,92 @@ export default function AdminManage() {
   };
 
   const viewDetail = (id, type) => {
-    if (type === "users") navigate(`/user-detail/${id}`);
-    if (type === "properties") navigate(`/property-detail/${id}`);
-    if (type === "contracts") navigate(`/contract-detail/${id}`);
+    const paths = {
+      users: "user-detail",
+      properties: "property-detail",
+      contracts: "contract-detail",
+    };
+    navigate(`/${paths[type]}/${id}`);
+  };
+
+  const renderCell = (item, k, v, type) => {
+    if (!editing[item.id]) return Array.isArray(v) ? v.join(", ") : v?.toString();
+
+    // mapping options for select inputs
+    if (type === "properties") {
+      if (k === "amenitiesList") {
+        return (
+          <select multiple className="form-select form-select-sm" value={Array.isArray(v) ? v : []}
+            onChange={e => handleChange(item.id, k, Array.from(e.target.selectedOptions).map(o => o.value), type)}>
+            {propertyAmenitiesOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          </select>
+        );
+      }
+      if (k === "status") {
+        return (
+          <select className="form-select form-select-sm" value={v || propertyStatusOptions[0]}
+            onChange={e => handleChange(item.id, k, e.target.value, type)}>
+            {propertyStatusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          </select>
+        );
+      }
+      if (k === "price") {
+        return (
+          <div className="input-group">
+            <input type="number" className="form-control form-control-sm" value={v || 0}
+              onChange={e => handleChange(item.id, k, parseInt(e.target.value), type)} />
+            <span className="input-group-text">đ</span>
+          </div>
+        );
+      }
+    }
+
+    if (type === "contracts") {
+      if (k === "userId") {
+        return (
+          <select className="form-select form-select-sm" value={v || ""}
+            onChange={e => handleChange(item.id, k, e.target.value, type)}>
+            <option value="">Chọn user</option>
+            {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
+          </select>
+        );
+      }
+      if (k === "propertyId") {
+        return (
+          <select className="form-select form-select-sm" value={v || ""}
+            onChange={e => handleChange(item.id, k, e.target.value, type)}>
+            <option value="">Chọn property</option>
+            {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+          </select>
+        );
+      }
+      if (k === "status") {
+        return (
+          <select className="form-select form-select-sm" value={v || "pending"}
+            onChange={e => handleChange(item.id, k, e.target.value, type)}>
+            {contractStatusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          </select>
+        );
+      }
+      if (["startDate", "endDate", "paidAt"].includes(k)) {
+        return <input type="date" className="form-control form-control-sm" value={v?.split("T")[0] || ""}
+          onChange={e => handleChange(item.id, k, e.target.value, type)} />;
+      }
+      if (["guests", "totalPrice", "monthlyPayment"].includes(k)) {
+        return <input type="number" className="form-control form-control-sm" value={v || 0}
+          onChange={e => handleChange(item.id, k, parseInt(e.target.value), type)} />;
+      }
+    }
+
+    if (type === "users") {
+      if (k === "avatar") {
+        return <input type="file" className="form-control form-control-sm"
+          onChange={e => setUsers(prev => prev.map(u => u.id === item.id ? { ...u, [k]: e.target.files[0] || null } : u))} />;
+      }
+    }
+
+    return <input type="text" className="form-control form-control-sm" value={v || ""}
+      onChange={e => handleChange(item.id, k, e.target.value, type)} />;
   };
 
   const renderTable = (items, type) => (
@@ -141,78 +207,104 @@ export default function AdminManage() {
       <tbody>
         {items.map(item => (
           <tr key={item.id}>
-            {Object.entries(item).map(([k,v]) => (
-              <td key={k}>
-                {editing[item.id] ? (
-                  type === "contracts" ? (
-                    k === "userId" ? (
-                      <select className="form-select form-select-sm" value={v||""} onChange={e=>handleChange(item.id,k,e.target.value,type)}>
-                        <option value="">Chọn user</option>
-                        {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
-                      </select>
-                    ) : k === "propertyId" ? (
-                      <select className="form-select form-select-sm" value={v||""} onChange={e=>handleChange(item.id,k,e.target.value,type)}>
-                        <option value="">Chọn property</option>
-                        {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-                      </select>
-                    ) : k === "status" ? (
-                      <select className="form-select form-select-sm" value={v||"pending"} onChange={e=>handleChange(item.id,k,e.target.value,type)}>
-                        {contractStatusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                      </select>
-                    ) : k==="startDate"||k==="endDate"||k==="paidAt" ? (
-                      <input type="date" className="form-control form-control-sm" value={v?.split("T")[0]||""} onChange={e=>handleChange(item.id,k,e.target.value,type)} />
-                    ) : ["guests","totalPrice","monthlyPayment"].includes(k) ? (
-                      <input type="number" className="form-control form-control-sm" value={v||0} onChange={e=>handleChange(item.id,k,parseInt(e.target.value),type)} />
-                    ) : (
-                      <input type="text" className="form-control form-control-sm" value={v||""} onChange={e=>handleChange(item.id,k,e.target.value,type)} />
-                    )
-                  ) : type==="users" ? (
-                    <input type={k==="avatar"?"file":"text"} className="form-control form-control-sm" value={k==="avatar"?undefined:v||""} onChange={e=>{
-                      if(k==="avatar") setUsers(prev=>prev.map(u=>u.id===item.id?{...u,[k]:e.target.files[0]||null}:u))
-                      else handleChange(item.id,k,e.target.value,type)
-                    }} />
-                  ) : type==="properties" ? (
-                    k==="amenitiesList" ? (
-                      <select multiple className="form-select form-select-sm" value={v||[]} onChange={e=>{
-                        const selected = Array.from(e.target.selectedOptions).map(o=>o.value);
-                        handleChange(item.id,k,selected,type);
-                      }}>
-                        {propertyAmenitiesOptions.map(opt=><option key={opt} value={opt}>{opt}</option>)}
-                      </select>
-                    ) : k==="status" ? (
-                      <select className="form-select form-select-sm" value={v||propertyStatusOptions[0]} onChange={e=>handleChange(item.id,k,e.target.value,type)}>
-                        {propertyStatusOptions.map(opt=><option key={opt} value={opt}>{opt}</option>)}
-                      </select>
-                    ) : k==="price" ? (
-                      <div className="input-group">
-                        <input type="number" className="form-control form-control-sm" value={v||0} onChange={e=>handleChange(item.id,k,parseInt(e.target.value),type)} />
-                        <span className="input-group-text">đ</span>
-                      </div>
-                    ) : (
-                      <input type="text" className="form-control form-control-sm" value={v||""} onChange={e=>handleChange(item.id,k,e.target.value,type)} />
-                    )
-                  ) : (
-                    Array.isArray(v)?v.join(", "):v?.toString()
-                  )
-                ) : (
-                  Array.isArray(v)?v.join(", "):v?.toString()
-                )}
-              </td>
-            ))}
+            {Object.entries(item).map(([k, v]) => <td key={k}>{renderCell(item, k, v, type)}</td>)}
             <td className="text-nowrap">
-              <button onClick={()=>viewDetail(item.id,type)} className="btn btn-outline-secondary btn-sm me-2">Xem</button>
+              <button onClick={() => viewDetail(item.id, type)} className="btn btn-outline-secondary btn-sm me-2">Xem</button>
               {editing[item.id] ? (
-                <button onClick={()=>saveChange(item,type)} className="btn btn-success btn-sm me-2">Lưu</button>
+                <button onClick={() => saveChange(item, type)} className="btn btn-success btn-sm me-2">Lưu</button>
               ) : (
-                <button onClick={()=>setEditing({...editing,[item.id]:true})} className="btn btn-outline-primary btn-sm me-2">Sửa</button>
+                <button onClick={() => setEditing(prev => ({ ...prev, [item.id]: true }))} className="btn btn-outline-primary btn-sm me-2">Sửa</button>
               )}
-              <button onClick={()=>deleteItem(item.id,type)} className="btn btn-outline-danger btn-sm">Xoá</button>
+              <button onClick={() => deleteItem(item.id, type)} className="btn btn-outline-danger btn-sm">Xoá</button>
             </td>
           </tr>
         ))}
       </tbody>
     </table>
   );
+
+  const renderModalFields = () => {
+    let fields = [];
+    if (modalType === "users") fields = ["name", "username", "password", "role", "avatar"];
+    if (modalType === "properties") fields = ["name", "description", "address", "price", "status", "image", "amenitiesList"];
+    if (modalType === "contracts") fields = ["userId", "propertyId", "startDate", "endDate", "guests", "totalPrice", "monthlyPayment", "paidAt", "status"];
+
+    return fields.map(key => {
+      const value = formData[key] || (key === "amenitiesList" ? [] : "");
+      const onChange = (val) => setFormData(prev => ({ ...prev, [key]: val }));
+
+      if (modalType === "users" && key === "avatar") {
+        return <div className="mb-2" key={key}><input type="file" className="form-control" onChange={e => onChange(e.target.files[0] || null)} /></div>;
+      }
+
+      if (modalType === "properties" && key === "amenitiesList") {
+        return <div className="mb-2" key={key}>
+          <select multiple className="form-select" value={value} onChange={e => onChange(Array.from(e.target.selectedOptions).map(o => o.value))}>
+            {propertyAmenitiesOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          </select>
+        </div>;
+      }
+
+      if (modalType === "properties" && key === "status") {
+        return <div className="mb-2" key={key}>
+          <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
+            {propertyStatusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          </select>
+        </div>;
+      }
+
+      if (modalType === "properties" && key === "price") {
+        return <div className="mb-2 input-group" key={key}>
+          <input type="number" className="form-control" value={value} onChange={e => onChange(parseInt(e.target.value))} />
+          <span className="input-group-text">đ</span>
+        </div>;
+      }
+
+      if (modalType === "contracts") {
+        if (key === "userId") {
+          return <div className="mb-2" key={key}>
+            <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
+              <option value="">Chọn user</option>
+              {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
+            </select>
+          </div>;
+        }
+        if (key === "propertyId") {
+          return <div className="mb-2" key={key}>
+            <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
+              <option value="">Chọn property</option>
+              {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+            </select>
+          </div>;
+        }
+        if (key === "status") {
+          return <div className="mb-2" key={key}>
+            <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
+              {contractStatusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </select>
+          </div>;
+        }
+        if (["startDate", "endDate", "paidAt"].includes(key)) {
+          return <div className="mb-2" key={key}>
+            <input type="date" className="form-control" value={value} onChange={e => onChange(e.target.value)} />
+          </div>;
+        }
+        if (["guests", "totalPrice", "monthlyPayment"].includes(key)) {
+          return <div className="mb-2" key={key}>
+            <input type="number" className="form-control" value={value} onChange={e => onChange(parseInt(e.target.value))} />
+          </div>;
+        }
+      }
+
+      if (modalType === "properties" && key === "image") {
+        return <div className="mb-2" key={key}><input type="file" className="form-control" onChange={e => onChange(e.target.files[0] || null)} /></div>;
+      }
+
+      return <div className="mb-2" key={key}>
+        <input type="text" className="form-control" placeholder={key} value={value} onChange={e => onChange(e.target.value)} />
+      </div>;
+    });
+  };
 
   return (
     <div className="container py-4">
@@ -223,21 +315,15 @@ export default function AdminManage() {
       `}</style>
 
       <ul className="nav nav-tabs mb-3">
-        <li className="nav-item">
-          <button className={`nav-link ${tab==="users"?"active":""}`} onClick={()=>setTab("users")}>Users</button>
-        </li>
-        <li className="nav-item">
-          <button className={`nav-link ${tab==="properties"?"active":""}`} onClick={()=>setTab("properties")}>Properties</button>
-        </li>
-        <li className="nav-item">
-          <button className={`nav-link ${tab==="contracts"?"active":""}`} onClick={()=>setTab("contracts")}>Contracts</button>
-        </li>
+        {["users","properties","contracts"].map(t => (
+          <li className="nav-item" key={t}>
+            <button className={`nav-link ${tab===t?"active":""}`} onClick={()=>setTab(t)}>{t.charAt(0).toUpperCase()+t.slice(1)}</button>
+          </li>
+        ))}
       </ul>
 
       <div className="mb-3">
-        {(tab==="users"||tab==="properties"||tab==="contracts") &&
-          <button onClick={()=>openModal(tab)} className="btn btn-outline-success">+ Thêm mới</button>
-        }
+        <button onClick={()=>openModal(tab)} className="btn btn-outline-success">+ Thêm mới</button>
       </div>
 
       {tab==="users" && renderTable(users,"users")}
@@ -245,58 +331,7 @@ export default function AdminManage() {
       {tab==="contracts" && renderTable(contracts,"contracts")}
 
       <ModalWrapper show={modalOpen} handleClose={closeModal} title={`Thêm ${modalType}`}>
-        {(() => {
-          let fields = [];
-          if(modalType==="users") fields = ["name","username","password","role","avatar"];
-          if(modalType==="properties") fields = ["name","description","address","price","status","image","amenitiesList"];
-          if(modalType==="contracts") fields = ["userId","propertyId","startDate","endDate","guests","totalPrice","monthlyPayment","paidAt","status"];
-
-          return fields.map(key => (
-            <div className="mb-2" key={key}>
-              {modalType==="users" && key==="avatar" ? (
-                <input type="file" className="form-control" onChange={e=>setFormData({...formData,[key]:e.target.files[0]||null})} />
-              ) : modalType==="properties" && key==="amenitiesList" ? (
-                <select multiple className="form-select" value={formData[key]||[]} onChange={e=>{
-                  const selected = Array.from(e.target.selectedOptions).map(o=>o.value);
-                  setFormData({...formData,[key]:selected});
-                }}>
-                  {propertyAmenitiesOptions.map(opt=><option key={opt} value={opt}>{opt}</option>)}
-                </select>
-              ) : modalType==="properties" && key==="status" ? (
-                <select className="form-select" value={formData[key]||propertyStatusOptions[0]} onChange={e=>setFormData({...formData,[key]:e.target.value})}>
-                  {propertyStatusOptions.map(opt=><option key={opt} value={opt}>{opt}</option>)}
-                </select>
-              ) : modalType==="properties" && key==="price" ? (
-                <div className="input-group">
-                  <input type="number" className="form-control" value={formData[key]||0} onChange={e=>setFormData({...formData,[key]:parseInt(e.target.value)})} />
-                  <span className="input-group-text">đ</span>
-                </div>
-              ) : modalType==="contracts" && key==="userId" ? (
-                <select className="form-select" value={formData[key]||""} onChange={e=>setFormData({...formData,[key]:e.target.value})}>
-                  <option value="">Chọn user</option>
-                  {users.map(u=><option key={u.id} value={u.id}>{u.name}</option>)}
-                </select>
-              ) : modalType==="contracts" && key==="propertyId" ? (
-                <select className="form-select" value={formData[key]||""} onChange={e=>setFormData({...formData,[key]:e.target.value})}>
-                  <option value="">Chọn property</option>
-                  {properties.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}
-                </select>
-              ) : modalType==="contracts" && (key==="startDate"||key==="endDate"||key==="paidAt") ? (
-                <input type="date" className="form-control" value={formData[key]||""} onChange={e=>setFormData({...formData,[key]:e.target.value})} />
-              ) : modalType==="contracts" && ["guests","totalPrice","monthlyPayment"].includes(key) ? (
-                <input type="number" className="form-control" value={formData[key]||0} onChange={e=>setFormData({...formData,[key]:parseInt(e.target.value)})} />
-              ) : modalType==="contracts" && key==="status" ? (
-                <select className="form-select" value={formData[key]||"pending"} onChange={e=>setFormData({...formData,[key]:e.target.value})}>
-                  {contractStatusOptions.map(opt=><option key={opt} value={opt}>{opt}</option>)}
-                </select>
-              ) : modalType==="properties" && key==="image" ? (
-                <input type="file" className="form-control" onChange={e=>setFormData({...formData,[key]:e.target.files[0]||null})} />
-              ) : (
-                <input type="text" className="form-control" placeholder={key} value={formData[key]||""} onChange={e=>setFormData({...formData,[key]:e.target.value})} />
-              )}
-            </div>
-          ));
-        })()}
+        {renderModalFields()}
         <button onClick={addNew} className="btn btn-primary">Lưu</button>
       </ModalWrapper>
     </div>
