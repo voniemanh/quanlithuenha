@@ -15,6 +15,13 @@
       "password": "123",
       "role": "user",
       "avatar": "/asset/u2.jpg"
+    },
+    {
+      "id": "b0a9",
+      "name": "tui",
+      "username": "u3",
+      "password": "123",
+      "role": "user"
     }
   ],
   "properties": [
@@ -24,7 +31,7 @@
       "description": "Phòng 25m2, có nội thất, gần trung tâm",
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
       "price": 5000000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "amenitiesList": [
@@ -41,7 +48,7 @@
       "address": "456 Nguyễn Trãi, Q.5, TP.HCM",
       "price": 6000000,
       "status": "rented",
-      "createdBy": "u1",
+      "createdBy": "admin",
       "image": "/asset/r2.png",
       "amenitiesList": [
         "Wifi",
@@ -76,12 +83,13 @@
       "description": "Phòng 22m2, giá rẻ, tiện đi lại",
       "address": "202 Phan Xích Long, Q.Phú Nhuận, TP.HCM",
       "price": 4500000,
-      "status": "rented",
-      "createdBy": "u3",
+      "status": "available",
+      "createdBy": "admin",
       "image": "/asset/r5.png",
       "amenitiesList": [
-        "Wifi",
-        "Điều hòa"
+        "Security camera",
+        "Paid dryer",
+        "Air conditioning"
       ]
     },
     {

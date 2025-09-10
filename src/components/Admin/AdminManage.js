@@ -23,6 +23,42 @@ export default function AdminManage() {
   const propertyStatusOptions = ["available", "rented"];
   const contractStatusOptions = ["pending", "confirmed", "canceled", "paid", "ended"];
 
+  const fieldLabels = {
+    name: "Tên",
+    username: "Tên đăng nhập",
+    password: "Mật khẩu",
+    role: "Vai trò",
+    avatar: "Ảnh đại diện",
+    description: "Mô tả",
+    address: "Địa chỉ",
+    price: "Giá",
+    status: "Trạng thái",
+    image: "Hình ảnh",
+    amenitiesList: "Tiện nghi",
+    userId: "Người thuê",
+    propertyId: "Bất động sản",
+    startDate: "Ngày bắt đầu",
+    endDate: "Ngày kết thúc",
+    guests: "Số khách",
+    totalPrice: "Tổng giá",
+    monthlyPayment: "Thanh toán hàng tháng",
+    paidAt: "Ngày thanh toán",
+  };
+
+  const tabLabels = {
+    users: "Người dùng",
+    properties: "Bất động sản",
+    contracts: "Hợp đồng",
+  };
+
+  const buttonLabels = {
+    view: "Xem",
+    edit: "Sửa",
+    save: "Lưu",
+    delete: "Xoá",
+    add: "+ Thêm mới",
+  };
+
   useEffect(() => {
     axios.get(USERS_URL).then(res => setUsers(res.data));
     axios.get(PROPERTIES_URL).then(res => setProperties(res.data));
@@ -55,7 +91,6 @@ export default function AdminManage() {
     await axios.put(`${url}/${item.id}`, dataToSend);
 
     if (type === "contracts") {
-      // update property status
       const property = properties.find(p => p.id === item.propertyId);
       if (property) {
         const newStatus = dataToSend.status === "paid" ? "rented" : "available";
@@ -119,7 +154,6 @@ export default function AdminManage() {
   const renderCell = (item, k, v, type) => {
     if (!editing[item.id]) return Array.isArray(v) ? v.join(", ") : v?.toString();
 
-    // mapping options for select inputs
     if (type === "properties") {
       if (k === "amenitiesList") {
         return (
@@ -153,7 +187,7 @@ export default function AdminManage() {
         return (
           <select className="form-select form-select-sm" value={v || ""}
             onChange={e => handleChange(item.id, k, e.target.value, type)}>
-            <option value="">Chọn user</option>
+            <option value="">Chọn người thuê</option>
             {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
           </select>
         );
@@ -162,7 +196,7 @@ export default function AdminManage() {
         return (
           <select className="form-select form-select-sm" value={v || ""}
             onChange={e => handleChange(item.id, k, e.target.value, type)}>
-            <option value="">Chọn property</option>
+            <option value="">Chọn bất động sản</option>
             {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
           </select>
         );
@@ -200,8 +234,8 @@ export default function AdminManage() {
     <table className="table table-bordered table-hover">
       <thead className="table-light">
         <tr>
-          {Object.keys(items[0] || {}).map(k => <th key={k}>{k}</th>)}
-          <th>Action</th>
+          {Object.keys(items[0] || {}).map(k => <th key={k}>{fieldLabels[k] || k}</th>)}
+          <th>Hành động</th>
         </tr>
       </thead>
       <tbody>
@@ -209,13 +243,13 @@ export default function AdminManage() {
           <tr key={item.id}>
             {Object.entries(item).map(([k, v]) => <td key={k}>{renderCell(item, k, v, type)}</td>)}
             <td className="text-nowrap">
-              <button onClick={() => viewDetail(item.id, type)} className="btn btn-outline-secondary btn-sm me-2">Xem</button>
+              <button onClick={() => viewDetail(item.id, type)} className="btn btn-outline-secondary btn-sm me-2">{buttonLabels.view}</button>
               {editing[item.id] ? (
-                <button onClick={() => saveChange(item, type)} className="btn btn-success btn-sm me-2">Lưu</button>
+                <button onClick={() => saveChange(item, type)} className="btn btn-success btn-sm me-2">{buttonLabels.save}</button>
               ) : (
-                <button onClick={() => setEditing(prev => ({ ...prev, [item.id]: true }))} className="btn btn-outline-primary btn-sm me-2">Sửa</button>
+                <button onClick={() => setEditing(prev => ({ ...prev, [item.id]: true }))} className="btn btn-outline-primary btn-sm me-2">{buttonLabels.edit}</button>
               )}
-              <button onClick={() => deleteItem(item.id, type)} className="btn btn-outline-danger btn-sm">Xoá</button>
+              <button onClick={() => deleteItem(item.id, type)} className="btn btn-outline-danger btn-sm">{buttonLabels.delete}</button>
             </td>
           </tr>
         ))}
@@ -232,77 +266,89 @@ export default function AdminManage() {
     return fields.map(key => {
       const value = formData[key] || (key === "amenitiesList" ? [] : "");
       const onChange = (val) => setFormData(prev => ({ ...prev, [key]: val }));
+      const label = fieldLabels[key] || key;
 
-      if (modalType === "users" && key === "avatar") {
-        return <div className="mb-2" key={key}><input type="file" className="form-control" onChange={e => onChange(e.target.files[0] || null)} /></div>;
+      if ((modalType === "users" && key === "avatar") || (modalType === "properties" && key === "image")) {
+        return (
+          <div className="mb-2" key={key}>
+            <label className="form-label">{label}</label>
+            <input type="file" className="form-control" onChange={e => onChange(e.target.files[0] || null)} />
+          </div>
+        );
       }
 
       if (modalType === "properties" && key === "amenitiesList") {
-        return <div className="mb-2" key={key}>
-          <select multiple className="form-select" value={value} onChange={e => onChange(Array.from(e.target.selectedOptions).map(o => o.value))}>
-            {propertyAmenitiesOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </select>
-        </div>;
+        return (
+          <div className="mb-2" key={key}>
+            <label className="form-label">{label}</label>
+            <select multiple className="form-select" value={value} onChange={e => onChange(Array.from(e.target.selectedOptions).map(o => o.value))}>
+              {propertyAmenitiesOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </select>
+          </div>
+        );
       }
 
-      if (modalType === "properties" && key === "status") {
-        return <div className="mb-2" key={key}>
-          <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
-            {propertyStatusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </select>
-        </div>;
+      if ((modalType === "properties" && key === "status") || (modalType === "contracts" && key === "status")) {
+        return (
+          <div className="mb-2" key={key}>
+            <label className="form-label">{label}</label>
+            <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
+              {(modalType === "properties" ? propertyStatusOptions : contractStatusOptions).map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </select>
+          </div>
+        );
       }
 
       if (modalType === "properties" && key === "price") {
-        return <div className="mb-2 input-group" key={key}>
-          <input type="number" className="form-control" value={value} onChange={e => onChange(parseInt(e.target.value))} />
-          <span className="input-group-text">đ</span>
-        </div>;
+        return (
+          <div className="mb-2" key={key}>
+            <label className="form-label">{label}</label>
+            <div className="input-group">
+              <input type="number" className="form-control" value={value} onChange={e => onChange(parseInt(e.target.value))} />
+              <span className="input-group-text">đ</span>
+            </div>
+          </div>
+        );
       }
 
       if (modalType === "contracts") {
-        if (key === "userId") {
-          return <div className="mb-2" key={key}>
-            <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
-              <option value="">Chọn user</option>
-              {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
-            </select>
-          </div>;
-        }
-        if (key === "propertyId") {
-          return <div className="mb-2" key={key}>
-            <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
-              <option value="">Chọn property</option>
-              {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-            </select>
-          </div>;
-        }
-        if (key === "status") {
-          return <div className="mb-2" key={key}>
-            <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
-              {contractStatusOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-            </select>
-          </div>;
+        if (key === "userId" || key === "propertyId") {
+          const options = key === "userId" ? users : properties;
+          const placeholder = key === "userId" ? "Chọn người thuê" : "Chọn bất động sản";
+          return (
+            <div className="mb-2" key={key}>
+              <label className="form-label">{label}</label>
+              <select className="form-select" value={value} onChange={e => onChange(e.target.value)}>
+                <option value="">{placeholder}</option>
+                {options.map(o => <option key={o.id} value={o.id}>{o.name}</option>)}
+              </select>
+            </div>
+          );
         }
         if (["startDate", "endDate", "paidAt"].includes(key)) {
-          return <div className="mb-2" key={key}>
-            <input type="date" className="form-control" value={value} onChange={e => onChange(e.target.value)} />
-          </div>;
+          return (
+            <div className="mb-2" key={key}>
+              <label className="form-label">{label}</label>
+              <input type="date" className="form-control" value={value} onChange={e => onChange(e.target.value)} />
+            </div>
+          );
         }
         if (["guests", "totalPrice", "monthlyPayment"].includes(key)) {
-          return <div className="mb-2" key={key}>
-            <input type="number" className="form-control" value={value} onChange={e => onChange(parseInt(e.target.value))} />
-          </div>;
+          return (
+            <div className="mb-2" key={key}>
+              <label className="form-label">{label}</label>
+              <input type="number" className="form-control" value={value} onChange={e => onChange(parseInt(e.target.value))} />
+            </div>
+          );
         }
       }
 
-      if (modalType === "properties" && key === "image") {
-        return <div className="mb-2" key={key}><input type="file" className="form-control" onChange={e => onChange(e.target.files[0] || null)} /></div>;
-      }
-
-      return <div className="mb-2" key={key}>
-        <input type="text" className="form-control" placeholder={key} value={value} onChange={e => onChange(e.target.value)} />
-      </div>;
+      return (
+        <div className="mb-2" key={key}>
+          <label className="form-label">{label}</label>
+          <input type="text" className="form-control" placeholder={label} value={value} onChange={e => onChange(e.target.value)} />
+        </div>
+      );
     });
   };
 
@@ -317,22 +363,22 @@ export default function AdminManage() {
       <ul className="nav nav-tabs mb-3">
         {["users","properties","contracts"].map(t => (
           <li className="nav-item" key={t}>
-            <button className={`nav-link ${tab===t?"active":""}`} onClick={()=>setTab(t)}>{t.charAt(0).toUpperCase()+t.slice(1)}</button>
+            <button className={`nav-link ${tab===t?"active":""}`} onClick={()=>setTab(t)}>{tabLabels[t]}</button>
           </li>
         ))}
       </ul>
 
       <div className="mb-3">
-        <button onClick={()=>openModal(tab)} className="btn btn-outline-success">+ Thêm mới</button>
+        <button onClick={()=>openModal(tab)} className="btn btn-outline-success">{buttonLabels.add}</button>
       </div>
 
       {tab==="users" && renderTable(users,"users")}
       {tab==="properties" && renderTable(properties,"properties")}
       {tab==="contracts" && renderTable(contracts,"contracts")}
 
-      <ModalWrapper show={modalOpen} handleClose={closeModal} title={`Thêm ${modalType}`}>
+      <ModalWrapper show={modalOpen} handleClose={closeModal} title={`Thêm ${tabLabels[modalType]}`}>
         {renderModalFields()}
-        <button onClick={addNew} className="btn btn-primary">Lưu</button>
+        <button onClick={addNew} className="btn btn-primary mt-2">{buttonLabels.save}</button>
       </ModalWrapper>
     </div>
   );
