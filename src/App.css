@@ -40,3 +40,20 @@ nav {
 p {
   margin: 0!important;
 }
+.btn-pink{
+  background-color:#FF385C ;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+.btn-pink:hover{
+  background-color: #e0314b;
+  color: white;
+  text-decoration: none;
+}
+.ms-ameni {
+  position: relative;
+  left: 10vw;
+}

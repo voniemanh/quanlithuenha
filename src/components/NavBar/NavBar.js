@@ -7,11 +7,12 @@ import {
   faSignOutAlt,
   faSignInAlt,
   faUserPlus,
-  faPlus
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
+import "./NavBar.css";
 
 export default function NavBar() {
   const { currentUser, setCurrentUser } = useUser();
@@ -31,11 +32,7 @@ export default function NavBar() {
       <nav className="navbar navbar-expand-lg border-bottom fixed-top px-3">
         {/* Logo */}
         <Link to="/" className="navbar-brand img-fluid">
-          <img
-            src={"/asset/logo.png"}
-            alt="Logo"
-            style={{ maxHeight: "50px", width: "auto" }}
-          />
+          <img src={"/asset/logo.png"} alt="Logo" className="navbar-logo" />
         </Link>
 
         <div className="ms-auto d-flex align-items-center">
@@ -43,8 +40,7 @@ export default function NavBar() {
           {currentUser && (
             <div className="dropdown me-3 position-relative">
               <button
-                className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
-                style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
+                className="btn-icon"
                 onClick={() =>
                   setOpenMenu(openMenu === "user" ? "none" : "user")
                 }
@@ -53,17 +49,8 @@ export default function NavBar() {
               </button>
 
               {openMenu === "user" && (
-                <ul
-                  className="dropdown-menu show"
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    right: 0,
-                    marginTop: "0.5rem",
-                    minWidth: "200px",
-                  }}
-                >
-                  <span className="dropdown-header text-dark px-3" style={{fontSize: "1rem"}}>
+                <ul className="dropdown-menu show custom-dropdown">
+                  <span className="dropdown-header text-dark px-3 user-greeting">
                     Hi, {currentUser.username}!
                   </span>
                   <li>
@@ -96,8 +83,7 @@ export default function NavBar() {
           {currentUser?.role === "admin" && (
             <button
               onClick={() => navigate("/property-manage")}
-              className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center me-2"
-              style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
+              className="btn-icon me-2"
             >
               <FontAwesomeIcon icon={faPlus} />
             </button>
@@ -106,8 +92,7 @@ export default function NavBar() {
           {/* Hamburger Dropdown */}
           <div className="dropdown ms-2 position-relative">
             <button
-              className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
-              style={{ width: "40px", height: "40px", transition: "all 0.3s" }}
+              className="btn-icon"
               onClick={() =>
                 setOpenMenu(openMenu === "hamburger" ? "none" : "hamburger")
               }
@@ -116,17 +101,7 @@ export default function NavBar() {
             </button>
 
             {openMenu === "hamburger" && (
-              <ul
-                className="dropdown-menu show"
-                style={{
-                  position: "absolute",
-                  top: "100%",
-                  right: 0,
-                  marginTop: "0.5rem",
-                  minWidth: "200px",
-                }}
-              >
-                {/* Nếu chưa đăng nhập */}
+              <ul className="dropdown-menu show custom-dropdown">
                 {!currentUser ? (
                   <>
                     <li>
@@ -155,22 +130,19 @@ export default function NavBar() {
                     </li>
                   </>
                 ) : (
-                  <>
-                    <li>
-                      <button
-                        className="dropdown-item"
-                        onClick={() => {
-                          navigate("/");
-                          setOpenMenu("none");
-                        }}
-                      >
-                        Trang chủ
-                      </button>
-                    </li>
-                  </>
+                  <li>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => {
+                        navigate("/");
+                        setOpenMenu("none");
+                      }}
+                    >
+                      Trang chủ
+                    </button>
+                  </li>
                 )}
 
-                {/* Các mục cố định */}
                 <li>
                   <Link
                     to="/news"

@@ -18,10 +18,18 @@
     },
     {
       "id": "8c25",
-      "nickname": "alice",
+      "username": "alice",
       "email": "alice@example.com",
       "password": "123",
       "avatar": "/asset/u3.jpg"
+    },
+    {
+      "id": "43f6",
+      "username": "tuanpm",
+      "email": "test@example.com",
+      "password": "123",
+      "role": "user",
+      "avatar": null
     }
   ],
   "properties": [

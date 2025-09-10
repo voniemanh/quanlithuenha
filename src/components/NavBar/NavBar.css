@@ -1,0 +1,32 @@
+.navbar-logo {
+  max-height: 50px;
+  width: auto;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s;
+  border: 1px solid #343a40;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background: #f8f9fa;
+}
+
+.custom-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  min-width: 200px;
+}
+
+.user-greeting {
+  font-size: 1rem;
+}
