@@ -61,19 +61,28 @@ export default function AdminManage() {
 
   const deleteItem = async (id, type) => {
     if (!window.confirm("Bạn có chắc muốn xoá không?")) return;
+
     if (type === "users") {
+      const userToDelete = users.find(u => u.id === id);
+      if (userToDelete.role === "admin") {
+        alert("Không thể xoá admin!");
+        return; 
+      }
       await axios.delete(`${USERS_URL}/${id}`);
       setUsers(users.filter(u => u.id !== id));
     }
+
     if (type === "properties") {
       await axios.delete(`${PROPERTIES_URL}/${id}`);
       setProperties(properties.filter(p => p.id !== id));
     }
+
     if (type === "contracts") {
       await axios.delete(`${CONTRACTS_URL}/${id}`);
       setContracts(contracts.filter(c => c.id !== id));
     }
   };
+
 
   const addNew = async () => {
     const dataToSend = {};

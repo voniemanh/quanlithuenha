@@ -1,13 +1,13 @@
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBars,
   faUser,
   faSignOutAlt,
   faSignInAlt,
   faUserPlus,
   faDatabase,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
 import Login from "../Auth/Login";
@@ -16,21 +16,40 @@ import "./NavBar.css";
 
 export default function NavBar() {
   const { currentUser, setCurrentUser } = useUser();
-  const [openMenu, setOpenMenu] = useState("none");
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const navigate = useNavigate();
+
+  const userRef = useRef();
+  const hamburgerRef = useRef();
 
   const handleLogout = () => {
     setCurrentUser(null);
-    setOpenMenu("none");
     navigate("/");
+    setOpenDropdown(null);
   };
+
+  const toggleDropdown = (menu) => {
+    setOpenDropdown(openDropdown === menu ? null : menu);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        (userRef.current && !userRef.current.contains(event.target)) &&
+        (hamburgerRef.current && !hamburgerRef.current.contains(event.target))
+      ) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <>
       <nav className="navbar navbar-expand-lg border-bottom fixed-top px-3">
-        {/* Logo */}
         <Link to="/" className="navbar-brand img-fluid">
           <img src={"/asset/logo.png"} alt="Logo" className="navbar-logo" />
         </Link>
@@ -38,19 +57,16 @@ export default function NavBar() {
         <div className="ms-auto d-flex align-items-center">
           {/* User Dropdown */}
           {currentUser && (
-            <div className="dropdown me-3 position-relative">
+            <div className="dropdown me-3 position-relative" ref={userRef}>
               <button
                 className="btn btn-outline-dark rounded-circle"
-                onClick={() =>
-                  setOpenMenu(openMenu === "user" ? "none" : "user")
-                }
+                onClick={() => toggleDropdown("user")}
               >
                 <FontAwesomeIcon icon={faUser} />
               </button>
-
-              {openMenu === "user" && (
+              {openDropdown === "user" && (
                 <ul className="dropdown-menu show custom-dropdown">
-                  <span className="dropdown-header text-dark px-3 user-greeting">
+                  <span className="dropdown-header text-dark px-3">
                     Hi, {currentUser.username}!
                   </span>
                   <li>
@@ -61,7 +77,7 @@ export default function NavBar() {
                       className="dropdown-item"
                       onClick={() => {
                         navigate(`/user-detail/${currentUser.id}`);
-                        setOpenMenu("none");
+                        setOpenDropdown(null);
                       }}
                     >
                       <FontAwesomeIcon icon={faUser} className="me-2" />
@@ -69,7 +85,10 @@ export default function NavBar() {
                     </button>
                   </li>
                   <li>
-                    <button className="dropdown-item" onClick={handleLogout}>
+                    <button
+                      className="dropdown-item"
+                      onClick={handleLogout}
+                    >
                       <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />
                       Logout
                     </button>
@@ -79,7 +98,7 @@ export default function NavBar() {
             </div>
           )}
 
-          {/* Button Đăng tin (Admin only) */}
+          {/* Admin Button */}
           {currentUser?.role === "admin" && (
             <button
               onClick={() => navigate("/admin-manage")}
@@ -89,18 +108,15 @@ export default function NavBar() {
             </button>
           )}
 
-          {/* Hamburger Dropdown */}
-          <div className="dropdown ms-2 position-relative">
+          {/* Hamburger Menu */}
+          <div className="dropdown ms-2 position-relative" ref={hamburgerRef}>
             <button
               className="btn btn-outline-dark rounded-circle"
-              onClick={() =>
-                setOpenMenu(openMenu === "hamburger" ? "none" : "hamburger")
-              }
+              onClick={() => toggleDropdown("hamburger")}
             >
               <FontAwesomeIcon icon={faBars} />
             </button>
-
-            {openMenu === "hamburger" && (
+            {openDropdown === "hamburger" && (
               <ul className="dropdown-menu show custom-dropdown">
                 {!currentUser ? (
                   <>
@@ -109,7 +125,7 @@ export default function NavBar() {
                         className="dropdown-item"
                         onClick={() => {
                           setShowLogin(true);
-                          setOpenMenu("none");
+                          setOpenDropdown(null);
                         }}
                       >
                         <FontAwesomeIcon icon={faSignInAlt} className="me-2" />
@@ -121,7 +137,7 @@ export default function NavBar() {
                         className="dropdown-item"
                         onClick={() => {
                           setShowRegister(true);
-                          setOpenMenu("none");
+                          setOpenDropdown(null);
                         }}
                       >
                         <FontAwesomeIcon icon={faUserPlus} className="me-2" />
@@ -135,19 +151,18 @@ export default function NavBar() {
                       className="dropdown-item"
                       onClick={() => {
                         navigate("/");
-                        setOpenMenu("none");
+                        setOpenDropdown(null);
                       }}
                     >
                       Trang chủ
                     </button>
                   </li>
                 )}
-
                 <li>
                   <Link
                     to="/news"
                     className="dropdown-item"
-                    onClick={() => setOpenMenu("none")}
+                    onClick={() => setOpenDropdown(null)}
                   >
                     Newsletter
                   </Link>
@@ -156,7 +171,7 @@ export default function NavBar() {
                   <Link
                     to="/about"
                     className="dropdown-item"
-                    onClick={() => setOpenMenu("none")}
+                    onClick={() => setOpenDropdown(null)}
                   >
                     About Us
                   </Link>
@@ -165,7 +180,7 @@ export default function NavBar() {
                   <Link
                     to="/contact"
                     className="dropdown-item"
-                    onClick={() => setOpenMenu("none")}
+                    onClick={() => setOpenDropdown(null)}
                   >
                     Contact
                   </Link>
@@ -176,7 +191,6 @@ export default function NavBar() {
         </div>
       </nav>
 
-      {/* Modals */}
       <Login show={showLogin} handleClose={() => setShowLogin(false)} />
       <Register show={showRegister} handleClose={() => setShowRegister(false)} />
     </>
