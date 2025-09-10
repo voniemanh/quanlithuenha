@@ -40,7 +40,7 @@ export default function NavBar() {
           {currentUser && (
             <div className="dropdown me-3 position-relative">
               <button
-                className="btn-icon"
+                className="btn btn-outline-dark rounded-circle"
                 onClick={() =>
                   setOpenMenu(openMenu === "user" ? "none" : "user")
                 }
@@ -83,7 +83,7 @@ export default function NavBar() {
           {currentUser?.role === "admin" && (
             <button
               onClick={() => navigate("/admin-manage")}
-              className="btn-icon me-2"
+              className="btn btn-outline-dark rounded-circle me-2"
             >
               <FontAwesomeIcon icon={faDatabase} />
             </button>
@@ -92,7 +92,7 @@ export default function NavBar() {
           {/* Hamburger Dropdown */}
           <div className="dropdown ms-2 position-relative">
             <button
-              className="btn-icon"
+              className="btn btn-outline-dark rounded-circle"
               onClick={() =>
                 setOpenMenu(openMenu === "hamburger" ? "none" : "hamburger")
               }
