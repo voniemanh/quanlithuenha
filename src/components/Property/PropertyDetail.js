@@ -4,37 +4,36 @@ import axios from "axios";
 import { PROPERTIES_URL } from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
-  faWifi, 
-  faTv, 
-  faBuilding, 
-  faSoap, 
-  faFan, 
-  faSnowflake, 
-  faBath, 
-  faSuitcaseRolling, 
-  faVideo 
+  faWifi, faTv, faBuilding, faSoap, faFan, faSnowflake, 
+  faBath, faSuitcaseRolling, faVideo 
 } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../Context/UserContext";
 
-const amenitiesList = [
-  { name: "Wifi", icon: faWifi },
-  { name: "TV", icon: faTv },
-  { name: "Elevator", icon: faBuilding },
-  { name: "Washer", icon: faSoap },
-  { name: "Paid dryer", icon: faFan },
-  { name: "Air conditioning", icon: faSnowflake },
-  { name: "Bathtub", icon: faBath },
-  { name: "Luggage dropoff allowed", icon: faSuitcaseRolling },
-  { name: "Security camera", icon: faVideo }
-];
+const amenityIcons = {
+  "Wifi": faWifi,
+  "TV": faTv,
+  "Điều hòa": faSnowflake,
+  "Máy giặt": faSoap,
+  "Tủ lạnh": faBuilding,
+  "Bàn làm việc": faSuitcaseRolling,
+  "Bathtub": faBath,
+  "Luggage dropoff allowed": faSuitcaseRolling,
+  "Security camera": faVideo,
+  "Paid dryer": faFan,
+  "Washer": faSoap,
+  "Air conditioning": faSnowflake
+};
 
 export default function PropertyDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { currentUser } = useUser();
 
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
+  const [guests, setGuests] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -56,9 +55,54 @@ export default function PropertyDetail() {
       const start = new Date(checkIn);
       const end = new Date(checkOut);
       const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-      setTotalPrice(diffDays > 0 ? Math.round((diffDays / 30) * property.price) : 0);
+      setTotalPrice(diffDays > 0 ? Math.round((diffDays / 30) * property.price * guests) : 0);
     }
-  }, [checkIn, checkOut, property]);
+  }, [checkIn, checkOut, property, guests]);
+
+  const handleGuestChange = (delta) => {
+    setGuests(prev => Math.min(3, Math.max(1, prev + delta)));
+  };
+
+  const handleRent = async () => {
+    if (!currentUser) {
+      alert("Vui lòng đăng nhập để thuê phòng!");
+      return;
+    }
+    if (!checkIn || !checkOut) {
+      alert("Vui lòng chọn ngày check-in và check-out!");
+      return;
+    }
+    const start = new Date(checkIn);
+    const end = new Date(checkOut);
+    const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    if (diffDays <= 0) {
+      alert("Ngày check-out phải sau ngày check-in!");
+      return;
+    }
+    const newContract = {
+      userId: currentUser.id,
+      propertyId: property.id,
+      startDate: checkIn,
+      endDate: checkOut,
+      guests,
+      totalPrice: Math.round((diffDays / 30) * property.price * guests),
+      status: "pending",
+      monthlyPayment: property.price,
+      paymentHistory: []
+    };
+    try {
+      const res = await axios.post(
+        `${PROPERTIES_URL.replace("/properties", "")}/contracts`,
+        newContract
+      );
+      const newContractId = res.data.id;
+      alert("Thuê phòng thành công!");
+      navigate(`/contract-detail/${newContractId}`);
+    } catch (err) {
+      console.error(err);
+      alert("Có lỗi xảy ra, vui lòng thử lại.");
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (!property) return <p>Property not found!</p>;
@@ -66,61 +110,46 @@ export default function PropertyDetail() {
   return (
     <div className="container my-4">
       <h2 className="mb-4">{property.name}</h2>
-
-      {/* hình ảnh + thông tin */}
       <div className="row mb-4">
         <div className="col-md-6 mb-3 mb-md-0">
           <img src={property.image} alt={property.name} className="img-fluid rounded" />
         </div>
-
         <div className="col-md-6">
-          <h4 className="mt-3">Thông tin chi tiết</h4>
+          <h4>Thông tin chi tiết</h4>
           <p className="mt-4"><strong>Địa chỉ:</strong> {property.address}</p>
           <p><strong>Mô tả:</strong> {property.description}</p>
-
           <div className="mb-2 mt-3">
             <label className="form-label">Ngày check-in:</label>
-            <input
-              type="date"
-              value={checkIn}
-              onChange={(e) => setCheckIn(e.target.value)}
-              className="form-control"
-            />
+            <input type="date" value={checkIn} onChange={e => setCheckIn(e.target.value)} className="form-control"/>
           </div>
           <div className="mb-2">
             <label className="form-label">Ngày check-out:</label>
-            <input
-              type="date"
-              value={checkOut}
-              onChange={(e) => setCheckOut(e.target.value)}
-              className="form-control"
-            />
+            <input type="date" value={checkOut} onChange={e => setCheckOut(e.target.value)} className="form-control"/>
+          </div>
+          <div className="mb-2 d-flex align-items-center">
+            <label className="form-label me-3">Số khách:</label>
+            <button className="btn btn-outline-secondary me-2" onClick={() => handleGuestChange(-1)}>-</button>
+            <span>{guests}</span>
+            <button className="btn btn-outline-secondary ms-2" onClick={() => handleGuestChange(1)}>+</button>
           </div>
           <p className="my-2 mt-3"><strong>Giá tiền:</strong> {totalPrice.toLocaleString()} VND</p>
-          <button
-            onClick={() => navigate(`/contract-detail/${property.id}`)}
-            className="btn-pink"
-          >
-            Thuê phòng
-          </button>
+          <button onClick={handleRent} className="btn-pink">Thuê phòng</button>
         </div>
       </div>
-
-      {/* amenities + map */}
       <div className="d-flex flex-column align-items-center">
-        {/* Amenities */}
         <div className="w-100" style={{ maxWidth: "900px" }}>
           <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center mt-3">
-            {amenitiesList.map((item) => (
-              <div key={item.name} className="col d-flex flex-column align-items-center">
-                <FontAwesomeIcon icon={item.icon} size="2x" className="mb-2" />
-                <span className="text-center">{item.name}</span>
-              </div>
-            ))}
+            {property.amenitiesList.map((amenity) => {
+              const icon = amenityIcons[amenity] || faVideo; 
+              return (
+                <div key={amenity} className="col d-flex flex-column align-items-center">
+                  <FontAwesomeIcon icon={icon} size="2x" className="mb-2" />
+                  <span className="text-center">{amenity}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
-
-        {/* Map */}
         <div className="rounded overflow-hidden mt-5 mb-5 w-100" style={{ width: "100%", height: "400px" }}>
           <iframe
             title="property-map"

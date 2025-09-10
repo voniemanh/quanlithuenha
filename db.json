@@ -41,7 +41,13 @@
       "price": 5000000,
       "status": "available",
       "createdBy": "u1",
-      "image": "/asset/r1.png"
+      "image": "/asset/r1.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Tủ lạnh"
+      ]
     },
     {
       "id": "r2",
@@ -51,7 +57,12 @@
       "price": 6000000,
       "status": "rented",
       "createdBy": "u1",
-      "image": "/asset/r2.png"
+      "image": "/asset/r2.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa"
+      ]
     },
     {
       "id": "r3",
@@ -61,7 +72,13 @@
       "price": 5500000,
       "status": "available",
       "createdBy": "u2",
-      "image": "/asset/r3.png"
+      "image": "/asset/r3.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Máy giặt",
+        "Bàn làm việc"
+      ]
     },
     {
       "id": "r5",
@@ -71,7 +88,11 @@
       "price": 4500000,
       "status": "rented",
       "createdBy": "u3",
-      "image": "/asset/r5.png"
+      "image": "/asset/r5.png",
+      "amenitiesList": [
+        "Wifi",
+        "Điều hòa"
+      ]
     },
     {
       "id": "r6",
@@ -81,7 +102,14 @@
       "price": 8000000,
       "status": "available",
       "createdBy": "u3",
-      "image": "/asset/r6.png"
+      "image": "/asset/r6.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Tủ lạnh",
+        "Máy giặt"
+      ]
     },
     {
       "id": "r8",
@@ -91,7 +119,11 @@
       "price": 5200000,
       "status": "rented",
       "createdBy": "u2",
-      "image": "/asset/r8.png"
+      "image": "/asset/r8.png",
+      "amenitiesList": [
+        "TV",
+        "Điều hòa"
+      ]
     },
     {
       "id": "r9",
@@ -101,7 +133,14 @@
       "price": 7500000,
       "status": "available",
       "createdBy": "u3",
-      "image": "/asset/r9.png"
+      "image": "/asset/r9.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Tủ lạnh",
+        "Bàn làm việc"
+      ]
     },
     {
       "id": "r10",
@@ -111,7 +150,42 @@
       "price": 4800000,
       "status": "available",
       "createdBy": "u1",
-      "image": "/asset/r10.png"
+      "image": "/asset/r10.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa"
+      ]
+    },
+    {
+      "id": "r11",
+      "name": "Phòng 1111 - Chung cư K",
+      "description": "Phòng 35m2, view đẹp, gần công viên",
+      "address": "808 Nguyễn Văn Trỗi, Q.Phú Nhuận, TP.HCM",
+      "price": 7000000,
+      "status": "available",
+      "createdBy": "u2",
+      "image": "/asset/r4.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Tủ lạnh"
+      ]
+    },
+    {
+      "id": "r12",
+      "name": "Phòng 1212 - Chung cư L",
+      "description": "Phòng 20m2, nhỏ xinh, giá rẻ",
+      "address": "909 Trường Chinh, Q.Tân Bình, TP.HCM",
+      "price": 4000000,
+      "status": "available",
+      "createdBy": "u3",
+      "image": "/asset/r7.png",
+      "amenitiesList": [
+        "Wifi",
+        "Điều hòa"
+      ]
     }
   ],
   "contracts": [
@@ -129,6 +203,42 @@
           "paidAt": "2024-08-01"
         }
       ]
+    },
+    {
+      "id": "1dee",
+      "userId": "u2",
+      "propertyId": "r5",
+      "startDate": "2025-09-14",
+      "endDate": "2025-09-28",
+      "guests": 2,
+      "totalPrice": 4200000,
+      "status": "pending",
+      "monthlyPayment": 4500000,
+      "paymentHistory": []
+    },
+    {
+      "id": "edef",
+      "userId": "u2",
+      "propertyId": "r5",
+      "startDate": "2025-09-11",
+      "endDate": "2025-09-21",
+      "guests": 1,
+      "totalPrice": 1500000,
+      "status": "canceled",
+      "monthlyPayment": 4500000,
+      "paymentHistory": []
+    },
+    {
+      "id": "2f2d",
+      "userId": "u2",
+      "propertyId": "r3",
+      "startDate": "2025-09-10",
+      "endDate": "2025-09-28",
+      "guests": 1,
+      "totalPrice": 3300000,
+      "status": "pending",
+      "monthlyPayment": 5500000,
+      "paymentHistory": []
     }
   ]
 }
