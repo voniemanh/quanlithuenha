@@ -61,9 +61,15 @@ export default function ContractDetail() {
     if (!contract || contract.status !== "pending") return;
     setUpdating(true);
     try {
-      const updated = { ...contract, status: "canceled" };
-      await axios.put(`${CONTRACTS_URL}/${contract.id}`, updated);
-      setContract(updated);
+      const updatedContract = { ...contract, status: "canceled" };
+      await axios.put(`${CONTRACTS_URL}/${contract.id}`, updatedContract);
+      setContract(updatedContract);
+      if (property) {
+        const updatedProperty = { ...property, status: "available" };
+        await axios.put(`${PROPERTIES_URL}/${property.id}`, updatedProperty);
+        setProperty(updatedProperty);
+      }
+      alert("Hủy hợp đồng thành công!");
     } catch (err) {
       console.error(err);
       alert("Hủy hợp đồng thất bại!");
@@ -77,9 +83,16 @@ export default function ContractDetail() {
     setUpdating(true);
     try {
       const today = new Date().toISOString().split("T")[0];
-      const updated = { ...contract, status: "paid", paidAt: today };
-      await axios.put(`${CONTRACTS_URL}/${contract.id}`, updated);
-      setContract(updated);
+      const updatedContract = { ...contract, status: "paid", paidAt: today };
+      await axios.put(`${CONTRACTS_URL}/${contract.id}`, updatedContract);
+      setContract(updatedContract);
+
+      if (property) {
+        const updatedProperty = { ...property, status: "rented" };
+        await axios.put(`${PROPERTIES_URL}/${property.id}`, updatedProperty);
+        setProperty(updatedProperty);
+      }
+      alert("Thanh toán thành công!");
     } catch (err) {
       console.error(err);
       alert("Thanh toán thất bại!");
@@ -98,6 +111,7 @@ export default function ContractDetail() {
   return (
     <div className="container my-4">
       <h2>Chi tiết hợp đồng</h2>
+
       <div className="card p-3 mb-4">
         <h4>Thông tin người thuê</h4>
         <p><strong>Họ tên:</strong> {user.name || user.username}</p>
@@ -109,6 +123,14 @@ export default function ContractDetail() {
         <p><strong>Tên phòng:</strong> {property.name}</p>
         <p><strong>Địa chỉ:</strong> {property.address}</p>
         <p><strong>Giá thuê 1 tháng:</strong> {property.price.toLocaleString()} VND</p>
+        {property.image && (
+          <img
+            src={property.image}
+            alt={property.name}
+            className="img-fluid my-2 rounded"
+            style={{ maxWidth: "200px" }}
+          />
+        )}
       </div>
 
       <div className="card p-3 mb-4">
@@ -147,6 +169,8 @@ export default function ContractDetail() {
           </div>
         )}
       </div>
+
+      <button className="btn btn-secondary" onClick={() => navigate(-1)}>Quay lại</button>
     </div>
   );
 }
