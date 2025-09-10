@@ -82,7 +82,7 @@ export default function NavBar() {
           {/* Button Đăng tin (Admin only) */}
           {currentUser?.role === "admin" && (
             <button
-              onClick={() => navigate("/property-manage")}
+              onClick={() => navigate("/admin-manage")}
               className="btn-icon me-2"
             >
               <FontAwesomeIcon icon={faPlus} />

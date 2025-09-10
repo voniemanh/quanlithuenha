@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./components/HomePage/HomePage";
 import BookingManage from "./components/Booking/BookingManage";
-import PropertyManage from "./components/Admin/PropertyManage";
+import AdminManage from "./components/Admin/AdminManage";
 import UserManage from "./components/Admin/UserManage";
 import UserDetail from "./components/User/UserDetail"; 
 import PropertyDetail from "./components/Property/PropertyDetail";
@@ -25,7 +25,7 @@ export default function App() {
             <Route path="/user-detail/:id" element={<UserDetail />} />
             <Route path="/property-detail/:id" element={<PropertyDetail />} />
             <Route path="/contract-detail/:id" element={<ContractDetail />} />
-            <Route path="/property-manage" element={<PropertyManage />} />
+            <Route path="/admin-manage" element={<AdminManage />} />
             <Route path="/booking-manage" element={<BookingManage />} />
             <Route path="/users-manage" element={<UserManage />} />
             <Route path="/about" element={<About />} />

@@ -76,7 +76,8 @@ export default function ContractDetail() {
     if (!contract || contract.status !== "confirmed" || currentUser.id !== contract.userId) return;
     setUpdating(true);
     try {
-      const updated = { ...contract, status: "paid" };
+      const today = new Date().toISOString().split("T")[0];
+      const updated = { ...contract, status: "paid", paidAt: today };
       await axios.put(`${CONTRACTS_URL}/${contract.id}`, updated);
       setContract(updated);
     } catch (err) {
@@ -116,20 +117,12 @@ export default function ContractDetail() {
         <p><strong>Ngày kết thúc:</strong> {contract.endDate || "Chưa có"}</p>
         <p><strong>Số khách:</strong> {contract.guests || 1}</p>
         <p><strong>Tổng tiền:</strong> {contract.totalPrice?.toLocaleString() || property.price.toLocaleString()} VND</p>
-        <p><strong>Trạng thái:</strong> {contract.status}</p>
-
-        <h5 className="mt-3">Lịch sử thanh toán</h5>
-        {contract.paymentHistory && contract.paymentHistory.length > 0 ? (
-          <ul>
-            {contract.paymentHistory.map((pay, idx) => (
-              <li key={idx}>
-                Tháng: {pay.month} - {pay.paid ? "Đã thanh toán" : "Chưa thanh toán"} {pay.paidAt ? `(Ngày thanh toán: ${pay.paidAt})` : ""}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Chưa có thanh toán nào</p>
-        )}
+        <p>
+          <strong>Trạng thái:</strong>{" "}
+          {contract.status === "paid"
+            ? `Đã thanh toán (ngày ${contract.paidAt || "không rõ"})`
+            : contract.status}
+        </p>
 
         {!isAdmin && isOwner && (
           <div className="mt-3">

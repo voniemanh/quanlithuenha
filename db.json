@@ -17,19 +17,11 @@
       "avatar": "/asset/u2.jpg"
     },
     {
-      "id": "8c25",
-      "username": "alice",
-      "email": "alice@example.com",
+      "id": "2446",
+      "name": "Nguyễn Thị Thuê",
+      "username": "user3",
       "password": "123",
-      "avatar": "/asset/u3.jpg"
-    },
-    {
-      "id": "43f6",
-      "username": "tuanpm",
-      "email": "test@example.com",
-      "password": "123",
-      "role": "user",
-      "avatar": null
+      "role": "user"
     }
   ],
   "properties": [
@@ -194,15 +186,12 @@
       "userId": "u2",
       "propertyId": "r1",
       "startDate": "2024-07-10",
-      "status": "pending",
+      "endDate": "2024-12-10",
+      "guests": 1,
+      "totalPrice": 25000000,
+      "status": "paid",
       "monthlyPayment": 5000000,
-      "paymentHistory": [
-        {
-          "month": "2024-08",
-          "paid": true,
-          "paidAt": "2024-08-01"
-        }
-      ]
+      "paidAt": "2024-07-15"
     },
     {
       "id": "1dee",
@@ -236,7 +225,7 @@
       "endDate": "2025-09-28",
       "guests": 1,
       "totalPrice": 3300000,
-      "status": "pending",
+      "status": "confirmed",
       "monthlyPayment": 5500000,
       "paymentHistory": []
     }
