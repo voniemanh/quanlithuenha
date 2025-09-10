@@ -103,7 +103,7 @@ export default function AdminManage() {
   };
 
   const renderTable = (items, type) => (
-    <table className="table table-bordered">
+    <table className="table table-bordered table-hover">
       <thead className="table-light">
         <tr>
           {Object.keys(items[0] || {}).map(k => <th key={k}>{k}</th>)}
@@ -127,13 +127,13 @@ export default function AdminManage() {
               </td>
             ))}
             <td className="text-nowrap">
-              <button onClick={() => viewDetail(item.id, type)} className="btn btn-info btn-sm me-2">Xem</button>
+              <button onClick={() => viewDetail(item.id, type)} className="btn btn-outline-secondary btn-sm me-2">Xem</button>
               {editing[item.id] ? (
                 <button onClick={() => saveChange(item, type)} className="btn btn-success btn-sm me-2">Lưu</button>
               ) : (
-                <button onClick={() => setEditing({ ...editing, [item.id]: true })} className="btn btn-primary btn-sm me-2">Sửa</button>
+                <button onClick={() => setEditing({ ...editing, [item.id]: true })} className="btn btn-outline-primary btn-sm me-2">Sửa</button>
               )}
-              <button onClick={() => deleteItem(item.id, type)} className="btn btn-danger btn-sm">Xoá</button>
+              <button onClick={() => deleteItem(item.id, type)} className="btn btn-outline-danger btn-sm">Xoá</button>
             </td>
           </tr>
         ))}
@@ -143,6 +143,24 @@ export default function AdminManage() {
 
   return (
     <div className="container py-4">
+      <style>
+        {`
+          .nav-tabs .nav-link {
+            color: #555;
+            transition: 0.2s;
+          }
+          .nav-tabs .nav-link:hover {
+            background-color: #e7f1ff;
+            color: #000;
+          }
+          .nav-tabs .nav-link.active {
+            background-color: #ff385c;
+            color: #fff;
+            border-color: #ff385c #ff385c #fff;
+          }
+        `}
+      </style>
+
       <ul className="nav nav-tabs mb-3">
         <li className="nav-item">
           <button className={`nav-link ${tab === "users" ? "active" : ""}`} onClick={() => setTab("users")}>Users</button>
@@ -156,7 +174,7 @@ export default function AdminManage() {
       </ul>
 
       <div className="mb-3">
-        <button onClick={() => openModal(tab)} className="btn btn-success">+ Thêm mới</button>
+        <button onClick={() => openModal(tab)} className="btn btn-outline-success">+ Thêm mới</button>
       </div>
 
       {tab === "users" && renderTable(users, "users")}
