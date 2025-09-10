@@ -133,7 +133,15 @@ export default function PropertyDetail() {
             <button className="btn btn-outline-secondary ms-2" onClick={() => handleGuestChange(1)}>+</button>
           </div>
           <p className="my-2 mt-3"><strong>Giá tiền:</strong> {totalPrice.toLocaleString()} VND</p>
-          <button onClick={handleRent} className="btn-pink">Thuê phòng</button>
+          {property.status === "rented" ? (
+            <button className="btn btn-secondary" disabled>
+              Phòng đã được thuê
+            </button>
+          ) : (
+            <button onClick={handleRent} className="btn-pink">
+              Thuê phòng
+            </button>
+          )}
         </div>
       </div>
       <div className="d-flex flex-column align-items-center">
