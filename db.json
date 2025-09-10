@@ -15,13 +15,6 @@
       "password": "123",
       "role": "user",
       "avatar": "/asset/u2.jpg"
-    },
-    {
-      "id": "2446",
-      "name": "Nguyễn Thị Thuê",
-      "username": "user3",
-      "password": "123",
-      "role": "user"
     }
   ],
   "properties": [
@@ -113,6 +106,7 @@
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "amenitiesList": [
+        "Wifi",
         "TV",
         "Điều hòa"
       ]
@@ -203,7 +197,7 @@
       "totalPrice": 4200000,
       "status": "pending",
       "monthlyPayment": 4500000,
-      "paymentHistory": []
+      "paidAt": null
     },
     {
       "id": "edef",
@@ -215,7 +209,7 @@
       "totalPrice": 1500000,
       "status": "canceled",
       "monthlyPayment": 4500000,
-      "paymentHistory": []
+      "paidAt": null
     },
     {
       "id": "2f2d",
@@ -227,7 +221,7 @@
       "totalPrice": 3300000,
       "status": "confirmed",
       "monthlyPayment": 5500000,
-      "paymentHistory": []
+      "paidAt": null
     }
   ]
 }

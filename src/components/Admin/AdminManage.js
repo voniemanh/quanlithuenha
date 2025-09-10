@@ -30,6 +30,9 @@ export default function AdminManage() {
   const closeModal = () => setModalOpen(false);
 
   const handleChange = (id, field, value, type) => {
+    if (field === "amenitiesList" && typeof value === "string") {
+      value = value.split(",").map(a => a.trim());
+    }
     if (type === "users") setUsers(prev => prev.map(u => u.id === id ? { ...u, [field]: value } : u));
     if (type === "properties") setProperties(prev => prev.map(p => p.id === id ? { ...p, [field]: value } : p));
     if (type === "contracts") setContracts(prev => prev.map(c => c.id === id ? { ...c, [field]: value } : c));
@@ -114,7 +117,7 @@ export default function AdminManage() {
               <td key={k}>
                 {editing[item.id] ? (
                   <input
-                    value={v || ""}
+                    value={Array.isArray(v) ? v.join(", ") : v || ""}
                     onChange={e => handleChange(item.id, k, e.target.value, type)}
                     className="form-control form-control-sm"
                   />
@@ -173,7 +176,13 @@ export default function AdminManage() {
                 className="form-control"
                 placeholder={key}
                 value={formData[key] || ""}
-                onChange={e => setFormData({ ...formData, [key]: e.target.value })}
+                onChange={e => {
+                  let value = e.target.value;
+                  if (key === "amenitiesList") {
+                    value = value.split(",").map(a => a.trim());
+                  }
+                  setFormData({ ...formData, [key]: value });
+                }}
               />
             </div>
           ));

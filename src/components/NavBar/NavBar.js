@@ -7,7 +7,7 @@ import {
   faSignOutAlt,
   faSignInAlt,
   faUserPlus,
-  faPlus,
+  faDatabase,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
 import Login from "../Auth/Login";
@@ -85,7 +85,7 @@ export default function NavBar() {
               onClick={() => navigate("/admin-manage")}
               className="btn-icon me-2"
             >
-              <FontAwesomeIcon icon={faPlus} />
+              <FontAwesomeIcon icon={faDatabase} />
             </button>
           )}
 
