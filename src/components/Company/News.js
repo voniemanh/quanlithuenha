@@ -7,7 +7,7 @@ export default function News() {
 
   return (
     <div className="container my-4">
-      <h3 className="mb-3">Thông báo</h3>
+      <h1 className="mb-3">Thông báo</h1>
       <div className="list-group">
         {newsList.map((news) => (
           <div key={news.id} className="list-group-item">
