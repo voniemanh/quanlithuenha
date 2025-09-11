@@ -204,9 +204,9 @@
       "startDate": "2024-08-10",
       "endDate": "2024-12-10",
       "guests": 1,
-      "totalPrice": "20333333.33",
+      "totalPrice": 203333333,
       "status": "paid",
-      "monthlyPayment": 5000000,
+      "monthlyPayment": "50000000",
       "paidAt": "2024-07-15"
     },
     {

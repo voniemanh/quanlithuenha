@@ -1,10 +1,10 @@
-// AdminManage.js
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import UserManage from "./UserManage";
 import PropertyManage from "./PropertyManage";
 import ContractManage from "./ContractManage";
 import { useUser } from "../Context/UserContext"; 
+import "./Manage.css";
 
 export default function AdminManage() {
   const { currentUser } = useUser(); 
@@ -19,7 +19,7 @@ export default function AdminManage() {
       <ul className="nav nav-tabs mb-3">
         <li className="nav-item">
           <button
-            className={`nav-link ${tab === "users" ? "active" : ""}`}
+            className={`nav-link text-dark ${tab === "users" ? "active" : ""}`}
             onClick={() => setTab("users")}
           >
             Users
@@ -27,7 +27,7 @@ export default function AdminManage() {
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${tab === "properties" ? "active" : ""}`}
+            className={`nav-link text-dark ${tab === "properties" ? "active" : ""}`}
             onClick={() => setTab("properties")}
           >
             Properties
@@ -35,7 +35,7 @@ export default function AdminManage() {
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${tab === "contracts" ? "active" : ""}`}
+            className={`nav-link text-dark ${tab === "contracts" ? "active" : ""}`}
             onClick={() => setTab("contracts")}
           >
             Contracts
