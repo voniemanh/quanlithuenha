@@ -35,7 +35,8 @@ export default function PropertyManage() {
       address: "",
       price: 0,
       status: "available",
-      image: ""
+      image: "",
+      amenitiesList: []
     }
   });
 
@@ -283,7 +284,7 @@ export default function PropertyManage() {
           </div>
           <div className="mb-2">
             <label className="form-label">Mô tả</label>
-            <textarea className="form-control" {...register("description")}></textarea>
+            <textarea className="form-control" {...register("description", { required: true })}></textarea>
           </div>
           <div className="mb-2">
             <label className="form-label">Giá</label>
@@ -291,7 +292,7 @@ export default function PropertyManage() {
               type="number"
               className="form-control"
               min="0"
-              {...register("price", { valueAsNumber: true, min: 0 })}
+              {...register("price", { valueAsNumber: true, min: 0 }, { required: true })}
             />
           </div>
           <div className="mb-2">
@@ -306,7 +307,7 @@ export default function PropertyManage() {
             <input
               type="text"
               className="form-control"
-              {...register("image")}
+              {...register("image", { required: true })}
               onChange={e => setImagePreview(e.target.value)}
             />
             {imagePreview && (

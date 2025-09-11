@@ -6,13 +6,36 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { PROPERTIES_URL } from "../../config";
 import { useUser } from "../Context/UserContext";
+import ModalWrapper from "../Modal/ModalWrapper";
+import { useForm } from "react-hook-form";
 import "./HomePage.css";
 
 export default function HomePage() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const { currentUser } = useUser(); 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const navigate = useNavigate();
+
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: "",
+      description: "",
+      address: "",
+      price: 0,
+      status: "available",
+      image: "",
+      amenitiesList: []
+    }
+  });
+
+  const amenities = [
+    "Wifi", "TV", "Điều hòa", "Máy giặt", "Tủ lạnh", "Bàn làm việc",
+    "Bathtub", "Luggage dropoff allowed", "Security camera", "Paid dryer",
+    "Washer", "Air conditioning"
+  ];
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -35,8 +58,12 @@ export default function HomePage() {
     alert(`Added Room ${id} to favourites!`);
   };
 
-  const handleEdit = () => {
-    navigate(`/admin-manage`);
+  const handleEdit = (e, property) => {
+    e.stopPropagation();
+    setEditingId(property.id);
+    reset(property); 
+    setImagePreview(property.image || "");
+    setModalOpen(true);
   };
 
   const handleDelete = async (e, id) => {
@@ -50,6 +77,33 @@ export default function HomePage() {
         console.error(err);
         alert("Xoá thất bại!");
       }
+    }
+  };
+
+  const validateProperty = (data) => {
+    if (!data.name || !data.address) {
+      alert("Tên và địa chỉ là bắt buộc!");
+      return false;
+    }
+    if (data.price < 0) {
+      alert("Giá phải lớn hơn hoặc bằng 0!");
+      return false;
+    }
+    return true;
+  };
+
+  const onSubmit = async (data) => {
+    if (!validateProperty(data)) return;
+    try {
+      await axios.put(`${PROPERTIES_URL}/${editingId}`, data);
+      setProperties(properties.map(p => (p.id === editingId ? { ...data, id: editingId } : p)));
+      setModalOpen(false);
+      setEditingId(null);
+      reset();
+      setImagePreview("");
+      alert("Cập nhật thành công!");
+    } catch {
+      alert("Lỗi khi lưu bất động sản!");
     }
   };
 
@@ -107,7 +161,7 @@ export default function HomePage() {
 
                   {currentUser?.role === "admin" && (
                     <div className="admin-links">
-                      <span className="edit" onClick={(e) => handleEdit()}>Sửa |</span>
+                      <span className="edit" onClick={(e) => handleEdit(e, property)}>Sửa |</span>
                       <span className="delete" onClick={(e) => handleDelete(e, property.id)}>Xoá</span>
                     </div>
                   )}
@@ -117,6 +171,65 @@ export default function HomePage() {
           </Col>
         ))}
       </Row>
+
+      {/* Modal Edit */}
+      <ModalWrapper
+        show={modalOpen}
+        handleClose={() => setModalOpen(false)}
+        title="Chỉnh sửa bất động sản"
+      >
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-2">
+            <label className="form-label">Tên</label>
+            <input type="text" className="form-control" {...register("name", { required: true })} />
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Địa chỉ</label>
+            <input type="text" className="form-control" {...register("address", { required: true })} />
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Mô tả</label>
+            <textarea className="form-control" {...register("description")}></textarea>
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Giá</label>
+            <input type="number" className="form-control" min="0" {...register("price", { valueAsNumber: true, min: 0 })} />
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Trạng thái</label>
+            <select className="form-select" {...register("status")}>
+              <option value="available">Available</option>
+              <option value="rented">Rented</option>
+            </select>
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Hình ảnh URL</label>
+            <input
+              type="text"
+              className="form-control"
+              {...register("image")}
+              onChange={e => setImagePreview(e.target.value)}
+            />
+            {imagePreview && (
+              <img src={imagePreview} alt="Preview" className="rounded-circle mt-2" width="50" height="50" />
+            )}
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Tiện ích</label>
+            <select multiple className="form-control" {...register("amenitiesList")}>
+              {amenities.map((amenity) => (
+                <option key={amenity} value={amenity}>
+                  {amenity}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="d-flex justify-content-end mt-3">
+            <button type="button" className="btn btn-outline-secondary me-2" onClick={() => setModalOpen(false)}>Hủy</button>
+            <button type="submit" className="btn btn-outline-primary">Lưu</button>
+          </div>
+        </form>
+      </ModalWrapper>
     </div>
   );
 }
