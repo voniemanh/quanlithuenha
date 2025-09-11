@@ -69,10 +69,10 @@ export default function Login({ show, handleClose }) {
         />
 
         <div className="d-flex gap-2 mt-2">
-          <button className="btn-pink btn-sm" onClick={handleLogin}>
+          <button className="btn-black btn-sm" onClick={handleLogin}>
             Login
           </button>
-          <button className="btn-outline-pink btn-sm" onClick={handleClose}>
+          <button className="btn-outline-black btn-sm" onClick={handleClose}>
             Cancel
           </button>
         </div>

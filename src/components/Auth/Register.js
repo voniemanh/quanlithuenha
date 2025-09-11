@@ -94,10 +94,10 @@ export default function Register({ show, handleClose }) {
           {preview && <img src={preview} alt="avatar preview" className="mt-2 rounded-circle" width={80} height={80} />}
         </div>
         <div className="button-row">
-          <button onClick={handleRegister} className="btn-pink md me-2">
+          <button onClick={handleRegister} className="btn-black md me-2">
             Register
           </button>
-          <button className="btn-outline-pink md" onClick={handleClose}>
+          <button className="btn-outline-black md" onClick={handleClose}>
             Cancel
           </button>
         </div>

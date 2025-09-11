@@ -221,6 +221,17 @@
       "status": "paid",
       "payAt": null,
       "paidAt": "2025-09-11"
+    },
+    {
+      "id": "b260",
+      "userId": "u2",
+      "propertyId": "r2",
+      "startDate": "2025-09-12",
+      "endDate": "2025-09-20",
+      "guests": "2",
+      "monthlyPayment": 3200000,
+      "status": "pending",
+      "paidAt": ""
     }
   ]
 }

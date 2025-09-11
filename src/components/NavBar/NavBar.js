@@ -49,7 +49,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg border-bottom fixed-top px-3">
+      <nav className="navbar navbar-expand-lg border-bottom fixed-top px-4">
         <Link to="/" className="navbar-brand img-fluid">
           <img src={"/asset/logo.png"} alt="Logo" className="navbar-logo" />
         </Link>

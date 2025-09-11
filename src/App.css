@@ -72,3 +72,31 @@ p {
 .custom-dropdown {
   margin-top: 8px!important; 
 }
+.btn-black{
+  background-color:#222222 ;
+  color: white;
+  border: 1px solid #222222 ;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+.btn-black:hover{
+  background-color: #fff;
+  color: #222222 ;
+  text-decoration: none;
+  border: 1px solid #222222 ;
+}
+.btn-outline-black{
+  background-color: white;
+  color: #222222 ;
+  border: 1px solid #222222 ;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+.btn-outline-black:hover{
+  background-color: #222222 ;
+  color: white;
+  border: 1px solid #222222 ; 
+  text-decoration: none;
+}
