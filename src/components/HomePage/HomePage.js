@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Col, Spinner } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import axios from "axios";
 import { PROPERTIES_URL } from "../../config";
 import { useUser } from "../Context/UserContext";
@@ -17,6 +18,7 @@ export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
+  const [favourites, setFavourites] = useState([]);
   const navigate = useNavigate();
 
   const { register, handleSubmit, reset } = useForm({
@@ -55,7 +57,11 @@ export default function HomePage() {
 
   const handleFavourite = (e, id) => {
     e.stopPropagation();
-    alert(`Added Room ${id} to favourites!`);
+    setFavourites((prev) =>
+      prev.includes(id)
+        ? prev.filter((fid) => fid !== id) 
+        : [...prev, id] 
+    );
   };
 
   const handleEdit = (e, property) => {
@@ -134,11 +140,15 @@ export default function HomePage() {
             >
               <Card.Img variant="top" src={property.image} />
 
+              {/* Heart giống Airbnb */}
               <div
-                className="heart-icon"
+                className={`heart-icon ${favourites.includes(property.id) ? "active" : ""}`}
                 onClick={(e) => handleFavourite(e, property.id)}
               >
-                <FontAwesomeIcon icon={faHeart} />
+                <FontAwesomeIcon 
+                  icon={favourites.includes(property.id) ? solidHeart : regularHeart} 
+                  className="heart" 
+                />
               </div>
 
               <Card.Body className="card-body d-flex flex-column">
