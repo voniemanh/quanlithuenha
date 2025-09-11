@@ -138,7 +138,7 @@ export default function ContractDetail() {
         <p><strong>Ngày bắt đầu:</strong> {contract.startDate}</p>
         <p><strong>Ngày kết thúc:</strong> {contract.endDate || "Chưa có"}</p>
         <p><strong>Số khách:</strong> {contract.guests || 1}</p>
-        <p><strong>Tổng tiền:</strong> {contract.totalPrice?.toLocaleString() || property.price.toLocaleString()} VND</p>
+        <p><strong>Tổng tiền:</strong> {contract.monthlyPayment.toLocaleString()} VND</p>
         <p>
           <strong>Trạng thái:</strong>{" "}
           {contract.status === "paid"

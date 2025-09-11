@@ -31,15 +31,18 @@
       "name": "Phòng 101 - Chung cư A",
       "description": "Phòng 25m2, có nội thất, gần trung tâm",
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
-      "price": 5000000,
+      "price": 8000000,
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "amenitiesList": [
-        "Wifi",
-        "TV",
         "Điều hòa",
+        "Máy giặt",
         "Tủ lạnh"
+      ],
+      "amenities": [
+        "TV",
+        "Điều hòa"
       ]
     },
     {
@@ -67,15 +70,9 @@
       "createdBy": "admin",
       "image": "/asset/r3.png",
       "amenitiesList": [
-        "Wifi",
-        "TV",
-        "Điều hòa",
-        "Máy giặt",
-        "Tủ lạnh",
-        "Bàn làm việc",
-        "Bathtub",
-        "Luggage dropoff allowed",
-        "Security camera"
+        "Paid dryer",
+        "Washer",
+        "Air conditioning"
       ]
     },
     {
@@ -185,53 +182,30 @@
       "amenitiesList": [
         "Washer"
       ]
-    },
-    {
-      "id": "853a",
-      "name": "phòng tt",
-      "description": "đẹp vip",
-      "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
-      "price": 40000000,
-      "status": "available",
-      "image": "/asset/r3.png"
     }
   ],
   "contracts": [
     {
-      "id": "c1",
+      "id": "ed75",
       "userId": "u2",
       "propertyId": "r1",
-      "startDate": "2024-08-10",
-      "endDate": "2024-12-10",
-      "guests": 1,
-      "totalPrice": 203333333,
-      "status": "paid",
-      "monthlyPayment": "50000000",
-      "paidAt": "2024-07-15"
-    },
-    {
-      "id": "1dee",
-      "userId": "u2",
-      "propertyId": "r5",
-      "startDate": "2025-09-14",
-      "endDate": "2025-09-28",
-      "guests": 2,
-      "totalPrice": 4200000,
-      "status": "pending",
-      "monthlyPayment": 4500000,
-      "paidAt": null
-    },
-    {
-      "id": "aae1",
-      "userId": "c0d2",
-      "propertyId": "r1",
-      "startDate": "2025-09-11",
-      "endDate": "2025-09-21",
+      "startDate": "2025-09-17",
+      "endDate": "2025-09-27",
       "guests": "2",
-      "monthlyPayment": "10000000",
-      "totalPrice": 6666667,
-      "status": "pending",
+      "monthlyPayment": 5333333,
+      "status": "canceled",
       "paidAt": ""
+    },
+    {
+      "id": "cd5b",
+      "userId": "c0d2",
+      "propertyId": "r2",
+      "startDate": "2025-09-19",
+      "endDate": "2025-09-29",
+      "guests": 1,
+      "monthlyPayment": 2000000,
+      "status": "paid",
+      "paidAt": "2025-09-12"
     }
   ]
 }

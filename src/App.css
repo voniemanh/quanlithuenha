@@ -43,15 +43,16 @@ p {
 .btn-pink{
   background-color:#FF385C ;
   color: white;
-  border: none;
+  border: 1px solid #FF385C ;
   padding: 10px 20px;
   text-align: center;
   border-radius: 8px;
 }
 .btn-pink:hover{
-  background-color: #e0314b;
-  color: white;
+  background-color: #fff;
+  color: #FF385C ;
   text-decoration: none;
+  border: 1px solid #FF385C ;
 }
 .custom-dropdown {
   margin-top: 8px!important; 

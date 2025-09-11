@@ -147,7 +147,7 @@ export default function UserDetail() {
                   <td>{contract.startDate}</td>
                   <td>{contract.endDate}</td>
                   <td>{contract.status}</td>
-                  <td>{contract.totalPrice.toLocaleString()} VND</td>
+                  <td>{contract.monthlyPayment.toLocaleString()} VND</td>
                 </tr>
               ))}
             </tbody>

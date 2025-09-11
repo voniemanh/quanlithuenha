@@ -10,9 +10,10 @@ export default function ContractManage() {
   const [properties, setProperties] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+
   const navigate = useNavigate();
 
-  const { register, handleSubmit, reset, setValue, control } = useForm({
+  const { register, handleSubmit, reset, setValue, control, formState: { errors } } = useForm({
     defaultValues: {
       userId: "",
       propertyId: "",
@@ -20,7 +21,6 @@ export default function ContractManage() {
       endDate: "",
       guests: 1,
       monthlyPayment: 0,
-      totalPrice: 0,
       status: "pending",
       paidAt: ""
     }
@@ -29,11 +29,13 @@ export default function ContractManage() {
   const startDate = useWatch({ control, name: "startDate" });
   const endDate = useWatch({ control, name: "endDate" });
   const guests = useWatch({ control, name: "guests" });
-  const monthlyPayment = useWatch({ control, name: "monthlyPayment" });
   const status = useWatch({ control, name: "status" });
+  const selectedPropertyId = useWatch({ control, name: "propertyId" });
+  const monthlyPayment = useWatch({ control, name: "monthlyPayment" });
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const price = properties.find(p => p.id === selectedPropertyId)?.price || 0;
+
+  const fetchData = async () => {
       try {
         const [resContracts, resUsers, resProperties] = await Promise.all([
           axios.get(CONTRACTS_URL),
@@ -47,31 +49,26 @@ export default function ContractManage() {
         alert("Lỗi khi tải dữ liệu!");
       }
     };
+  useEffect(() => { 
     fetchData();
   }, []);
 
-useEffect(() => {
-  if (startDate && endDate && monthlyPayment >= 0 && guests >= 1) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    if (end <= start) {
-      setValue("totalPrice", 0);
-      return;
+ useEffect(() => {
+    if (selectedPropertyId) {
+      const p = properties.find(p => p.id === selectedPropertyId);
+      const price = p?.price || 0;
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      if (start && end && end > start) {
+        const days = Math.ceil((end - start) / (1000*60*60*24));
+        setValue("monthlyPayment", Math.round((price/30) * guests * days));
+      } else {
+        setValue("monthlyPayment", 0);
+      }
     }
-
-    const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-    const totalPrice = Math.round((monthlyPayment / 30) * guests * days);
-
-    setValue("totalPrice", totalPrice);
-  } else {
-    setValue("totalPrice", 0);
-  }
-}, [startDate, endDate, guests, monthlyPayment, setValue]);
- 
+  }, [selectedPropertyId, startDate, endDate, guests, setValue, properties]);
 
   const validateContract = (data) => {
-    const now = new Date();
     const start = new Date(data.startDate);
     const end = new Date(data.endDate);
 
@@ -83,20 +80,12 @@ useEffect(() => {
       alert("Bất động sản không tồn tại!");
       return false;
     }
-    if (start > end) {
-      alert("Ngày kết thúc phải sau ngày bắt đầu!");
-      return false;
-    }
     if (data.guests < 1 || data.guests > 3) {
       alert("Số khách phải từ 1 đến 3 người!");
       return false;
     }
-    if (data.monthlyPayment < 0) {
-      alert("Tiền thuê/tháng không được âm!");
-      return false;
-    }
     if (data.status === "paid" && !data.paidAt) {
-      alert("Vui lòng chọn ngày thanh toán khi đã thanh toán!");
+      alert("Vui lòng chọn ngày thanh toán khi trạng thái là Paid!");
       return false;
     }
     return true;
@@ -129,7 +118,6 @@ useEffect(() => {
     }
     setEditingId(contract.id);
     reset(contract);
-    setModalOpen(true);
   };
 
   const handleDelete = async (id) => {
@@ -159,7 +147,7 @@ useEffect(() => {
       </button>
 
       <table className="table table-bordered table-hover">
-        <thead className="table-secondary text-center">
+        <thead className="table-secondary text-center align-top">
           <tr>
             <th>ID</th>
             <th>Người thuê</th>
@@ -167,30 +155,146 @@ useEffect(() => {
             <th>Ngày bắt đầu</th>
             <th>Ngày kết thúc</th>
             <th>Khách</th>
-            <th>Tổng giá</th>
+            <th>Giá phòng gốc</th>
+            <th>Số tiền phải trả</th>
             <th>Trạng thái</th>
+            <th>Ngày thanh toán</th>
             <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
-          {contracts.map(c => {
-            const user = users.find(u => u.id === c.userId);
-            const property = properties.find(p => p.id === c.propertyId);
-            const isInvalid = !user || !property;
+          {contracts.map((c) => {
+            const user = users.find((u) => u.id === c.userId);
+            const property = properties.find((p) => p.id === c.propertyId);
+            const isEditing = editingId === c.id;
+
             return (
               <tr key={c.id} className="text-center align-middle">
                 <td>{c.id}</td>
-                <td>{user?.name || "Người thuê bị xóa"}</td>
-                <td>{property?.name || "BĐS bị xóa"}</td>
-                <td>{c.startDate}</td>
-                <td>{c.endDate}</td>
-                <td>{c.guests}</td>
-                <td>{c.totalPrice}</td>
-                <td>{c.status}</td>
+
                 <td>
-                  <button className="btn btn-outline-success btn-sm me-1" onClick={() => viewDetail(c.id)}>Xem</button>
-                  <button className="btn btn-outline-warning btn-sm me-1" onClick={() => handleEdit(c)} disabled={isInvalid}>Sửa</button>
-                  <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(c.id)} disabled={isInvalid}>Xóa</button>
+                  {isEditing ? (
+                    <>
+                      <select
+                        className="form-select"
+                        {...register("userId", { required: "Vui lòng chọn người thuê" })}
+                      >
+                        <option value="">Chọn người thuê</option>
+                        {users.map((u) => (
+                          <option key={u.id} value={u.id}>
+                            {u.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.userId && <div className="text-danger small">{errors.userId.message}</div>}
+                    </>
+                  ) : (
+                    user?.name || "Người thuê bị xóa"
+                  )}
+                </td>
+
+                <td>
+                  {isEditing ? (
+                    <>
+                      <select
+                        className="form-select"
+                        {...register("propertyId", { required: "Vui lòng chọn bất động sản" })}
+                      >
+                        <option value="">Chọn BĐS</option>
+                        {properties.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.propertyId && <div className="text-danger small">{errors.propertyId.message}</div>}
+                    </>
+                  ) : (
+                    property?.name || "BĐS bị xóa"
+                  )}
+                </td>
+
+                <td>
+                  {isEditing ? (
+                    <input
+                      type="date"
+                      className="form-control"
+                      {...register("startDate", { required: "Chọn ngày bắt đầu" })}
+                    />
+                  ) : (
+                    c.startDate
+                  )}
+                </td>
+
+                <td>
+                  {isEditing ? (
+                    <input
+                      type="date"
+                      className="form-control"
+                      {...register("endDate", { required: "Chọn ngày kết thúc" })}
+                    />
+                  ) : (
+                    c.endDate
+                  )}
+                </td>
+
+                <td>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      className="form-control"
+                      {...register("guests", {
+                        min: { value: 1, message: "Tối thiểu 1 khách" },
+                        max: { value: 3, message: "Tối đa 3 khách" },
+                      })}
+                      min={1}
+                      max={3}
+                    />
+                  ) : (
+                    c.guests
+                  )}
+                </td>
+
+                <td>{property?.price}</td>
+                <td>{c.monthlyPayment}</td>
+
+                <td>
+                  {isEditing ? (
+                    <select className="form-select" {...register("status")}>
+                      <option value="pending">Pending</option>
+                      <option value="confirmed">Confirmed</option>
+                      <option value="paid">Paid</option>
+                      <option value="canceled">Canceled</option>
+                    </select>
+                  ) : (
+                    c.status
+                  )}
+                </td>
+                <td>{c.paidAt? c.paidAt : "Chưa thanh toán"}</td>
+
+                <td>
+                  {isEditing ? (
+                    <>
+                      <button className="btn btn-outline-success btn-sm me-1" onClick={handleSubmit(onSubmit)}>
+                        Lưu
+                      </button>
+                      <button className="btn btn-outline-secondary btn-sm" onClick={() => setEditingId(null)}>
+                        Hủy
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="btn btn-outline-success btn-sm me-1" onClick={() => viewDetail(c.id)}>
+                        Xem
+                      </button>
+                      <button className="btn btn-outline-warning btn-sm me-1" onClick={() => handleEdit(c)}>
+                        Sửa
+                      </button>
+                      <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(c.id)}>
+                        Xóa
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             );
@@ -200,7 +304,7 @@ useEffect(() => {
 
       {modalOpen && (
         <div className="modal show d-block" tabIndex="-1" onClick={() => setModalOpen(false)}>
-          <div className="modal-dialog" onClick={e => e.stopPropagation()}>
+          <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">{editingId ? "Sửa hợp đồng" : "Thêm hợp đồng"}</h5>
@@ -212,14 +316,22 @@ useEffect(() => {
                     <label className="form-label">Người thuê</label>
                     <select className="form-select" {...register("userId", { required: true })}>
                       <option value="">Chọn người thuê</option>
-                      {users.map(u => <option key={u.id} value={u.id}>{u.name}</option>)}
+                      {users.map((u) => (
+                        <option key={u.id} value={u.id}>
+                          {u.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className="mb-2">
                     <label className="form-label">Bất động sản</label>
                     <select className="form-select" {...register("propertyId", { required: true })}>
                       <option value="">Chọn bất động sản</option>
-                      {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                      {properties.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className="mb-2">
@@ -241,20 +353,21 @@ useEffect(() => {
                     />
                   </div>
                   <div className="mb-2">
-                    <label className="form-label">Tiền thuê/tháng</label>
+                    <label className="form-label">Giá tiền phòng cơ bản</label>
                     <input
                       type="number"
                       className="form-control"
-                      {...register("monthlyPayment", { min: 0 })}
+                      value={price}
                       min={0}
+                      readOnly
                     />
                   </div>
                   <div className="mb-2">
-                    <label className="form-label">Tổng giá</label>
+                    <label className="form-label">Số tiền phải trả</label>
                     <input
                       type="number"
                       className="form-control"
-                      value={parseFloat(control._formValues.totalPrice || 0)}
+                      value={monthlyPayment}
                       readOnly
                     />
                   </div>
@@ -276,8 +389,12 @@ useEffect(() => {
                 </form>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setModalOpen(false)}>Hủy</button>
-                <button type="submit" form="contractForm" className="btn btn-primary">Lưu</button>
+                <button type="button" className="btn btn-outline-secondary" onClick={() => setModalOpen(false)}>
+                  Hủy
+                </button>
+                <button type="submit" form="contractForm" className="btn btn-outline-primary">
+                  Lưu
+                </button>
               </div>
             </div>
           </div>

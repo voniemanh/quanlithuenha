@@ -13,6 +13,21 @@ export default function PropertyManage() {
   const [imagePreview, setImagePreview] = useState("");
   const navigate = useNavigate();
 
+  const amenities = [
+    "Wifi",
+    "TV",
+    "Điều hòa",
+    "Máy giặt",
+    "Tủ lạnh",
+    "Bàn làm việc",
+    "Bathtub",
+    "Luggage dropoff allowed",
+    "Security camera",
+    "Paid dryer",
+    "Washer",
+    "Air conditioning"
+  ];
+
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       name: "",
@@ -95,7 +110,7 @@ export default function PropertyManage() {
       </button>
 
       <table className="table table-bordered table-hover">
-        <thead className="table-secondary text-center">
+        <thead className="table-secondary text-center align-top">
           <tr>
             <th>ID</th>
             <th>Tên</th>
@@ -103,6 +118,7 @@ export default function PropertyManage() {
             <th>Giá</th>
             <th>Trạng thái</th>
             <th>Hình ảnh</th>
+            <th>Tiện ích</th>
             <th>Hành động</th>
           </tr>
         </thead>
@@ -176,6 +192,27 @@ export default function PropertyManage() {
                     />
                   ) : (
                     <img src={p.image} alt={p.name} width="50" height="50" className="rounded-circle" />
+                  )}
+                </td>
+                <td>
+                  {isEditing ? (
+                    <select
+                      multiple
+                      className="form-control"
+                      value={editData.amenitiesList || []}
+                      onChange={e => {
+                        const selected = Array.from(e.target.selectedOptions, option => option.value);
+                        setEditData({ ...editData, amenitiesList: selected });
+                      }}
+                    >
+                      {amenities.map((amenity) => (
+                        <option key={amenity} value={amenity}>
+                          {amenity}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    Array.isArray(p.amenitiesList) ? p.amenitiesList.join(', ') : ''
                   )}
                 </td>
                 <td>
@@ -275,6 +312,16 @@ export default function PropertyManage() {
             {imagePreview && (
               <img src={imagePreview} alt="Preview" className="rounded-circle mt-2" width="50" height="50" />
             )}
+          </div>
+          <div className="mb-2">
+            <label className="form-label">Tiện ích (giữ Ctrl để chọn nhiều)</label>
+            <select multiple className="form-control" {...register("amenitiesList")}>
+              {amenities.map((amenity) => (
+                <option key={amenity} value={amenity}>
+                  {amenity}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="d-flex justify-content-end mt-3">
             <button type="button" className="btn btn-outline-secondary me-2" onClick={() => setModalOpen(false)}>
