@@ -17,11 +17,12 @@
       "avatar": "/asset/u2.jpg"
     },
     {
-      "id": "b0a9",
-      "name": "tui",
-      "username": "u3",
+      "id": "c0d2",
+      "name": "Nguyễn Văn A",
+      "username": "papa",
       "password": "123",
-      "role": "user"
+      "role": "user",
+      "avatar": "/asset/u1.jpg"
     }
   ],
   "properties": [
@@ -31,7 +32,7 @@
       "description": "Phòng 25m2, có nội thất, gần trung tâm",
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
       "price": 5000000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "amenitiesList": [
@@ -184,6 +185,15 @@
       "amenitiesList": [
         "Washer"
       ]
+    },
+    {
+      "id": "853a",
+      "name": "phòng tt",
+      "description": "đẹp vip",
+      "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
+      "price": 40000000,
+      "status": "available",
+      "image": "/asset/r3.png"
     }
   ],
   "contracts": [
@@ -191,10 +201,10 @@
       "id": "c1",
       "userId": "u2",
       "propertyId": "r1",
-      "startDate": "2024-07-10",
+      "startDate": "2024-08-10",
       "endDate": "2024-12-10",
       "guests": 1,
-      "totalPrice": 25000000,
+      "totalPrice": "20333333.33",
       "status": "paid",
       "monthlyPayment": 5000000,
       "paidAt": "2024-07-15"
@@ -212,40 +222,16 @@
       "paidAt": null
     },
     {
-      "id": "edef",
-      "userId": "u2",
-      "propertyId": "r5",
+      "id": "aae1",
+      "userId": "c0d2",
+      "propertyId": "r1",
       "startDate": "2025-09-11",
       "endDate": "2025-09-21",
-      "guests": 1,
-      "totalPrice": 1500000,
-      "status": "canceled",
-      "monthlyPayment": 4500000,
-      "paidAt": null
-    },
-    {
-      "id": "2f2d",
-      "userId": "u2",
-      "propertyId": "r3",
-      "startDate": "2025-09-10",
-      "endDate": "2025-09-28",
-      "guests": 1,
-      "totalPrice": 3300000,
-      "status": "confirmed",
-      "monthlyPayment": 5500000,
-      "paidAt": null
-    },
-    {
-      "id": "b0b5",
-      "userId": "u2",
-      "propertyId": "r12",
-      "startDate": "2025-09-11",
-      "endDate": "2025-09-13",
-      "guests": 3,
-      "totalPrice": 800000,
+      "guests": "2",
+      "monthlyPayment": "10000000",
+      "totalPrice": 6666667,
       "status": "pending",
-      "monthlyPayment": 4000000,
-      "paymentHistory": []
+      "paidAt": ""
     }
   ]
 }
