@@ -9,6 +9,7 @@ import About from "./components/Company/About";
 import Contact from "./components/Company/Contact";
 import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./components/Context/UserContext";
+import News from "./components/Company/News";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/admin-manage" element={<AdminManage />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/news" element={<News />} />
           </Routes>
         </main>
         <Footer />

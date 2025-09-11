@@ -164,7 +164,7 @@ export default function NavBar() {
                     className="dropdown-item"
                     onClick={() => setOpenDropdown(null)}
                   >
-                    Newsletter
+                    News
                   </Link>
                 </li>
                 <li>

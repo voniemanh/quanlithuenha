@@ -115,7 +115,7 @@ export default function PropertyDetail() {
           <img src={property.image} alt={property.name} className="img-fluid rounded" />
         </div>
         <div className="col-md-6">
-          <h4>Thông tin chi tiết</h4>
+          <h2>Thông tin chi tiết</h2>
           <p className="mt-4"><strong>Địa chỉ:</strong> {property.address}</p>
           <p><strong>Mô tả:</strong> {property.description}</p>
           <div className="mb-2 mt-3">
@@ -146,6 +146,7 @@ export default function PropertyDetail() {
       </div>
       <div className="d-flex flex-column align-items-center">
         <div className="w-100" style={{ maxWidth: "900px" }}>
+          <h2 className="row mb-4 justify-content-center">Tiện ích</h2>
           <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center mt-3">
             {property.amenitiesList.map((amenity) => {
               const icon = amenityIcons[amenity] || faVideo; 
