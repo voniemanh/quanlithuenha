@@ -95,6 +95,7 @@ export default function Register({ show, handleClose }) {
         </div>
         <div className="button-row">
           <button onClick={handleRegister} className="btn-pink md me-2">
+            Register
           </button>
           <button className="btn-outline-pink md" onClick={handleClose}>
             Cancel
