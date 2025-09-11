@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useUser } from "../Context/UserContext";
 import axios from "axios";
@@ -68,9 +68,14 @@ export default function Login({ show, handleClose }) {
           className="form-control"
         />
 
-        <Button variant="primary" onClick={handleLogin} className="w-100">
-          Login
-        </Button>
+        <div className="d-flex gap-2 mt-2">
+          <button className="btn-pink btn-sm" onClick={handleLogin}>
+            Login
+          </button>
+          <button className="btn-outline-pink btn-sm" onClick={handleClose}>
+            Cancel
+          </button>
+        </div>
       </div>
     </ModalWrapper>
   );

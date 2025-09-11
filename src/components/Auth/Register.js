@@ -93,10 +93,13 @@ export default function Register({ show, handleClose }) {
           <input type="file" name="avatar" accept="image/*" onChange={handleChange} className="form-control" />
           {preview && <img src={preview} alt="avatar preview" className="mt-2 rounded-circle" width={80} height={80} />}
         </div>
-
-        <button onClick={handleRegister} className="btn btn-primary w-100">
-          Register
-        </button>
+        <div className="button-row">
+          <button onClick={handleRegister} className="btn-pink md me-2">
+          </button>
+          <button className="btn-outline-pink md" onClick={handleClose}>
+            Cancel
+          </button>
+        </div>
       </div>
     </ModalWrapper>
   );

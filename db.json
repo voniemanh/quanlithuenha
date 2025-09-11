@@ -15,14 +15,6 @@
       "password": "123",
       "role": "user",
       "avatar": "/asset/u2.jpg"
-    },
-    {
-      "id": "c0d2",
-      "name": "Nguyễn Văn A",
-      "username": "papa",
-      "password": "123",
-      "role": "user",
-      "avatar": "/asset/u1.jpg"
     }
   ],
   "properties": [
@@ -113,7 +105,7 @@
       "description": "Phòng 26m2, gần trường học, yên tĩnh",
       "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
       "price": 5200000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "amenitiesList": [
@@ -198,7 +190,7 @@
     },
     {
       "id": "cd5b",
-      "userId": "c0d2",
+      "userId": null,
       "propertyId": "r2",
       "startDate": "2025-09-19",
       "endDate": "2025-09-29",
