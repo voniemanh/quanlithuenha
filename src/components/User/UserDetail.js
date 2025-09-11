@@ -21,7 +21,7 @@ export default function UserDetail() {
 
   useEffect(() => {
     if (!currentUser) {
-      navigate("/login");
+      navigate("/");
       return;
     }
 

@@ -117,6 +117,8 @@ export default function PropertyDetail() {
           <h2>Thông tin chi tiết</h2>
           <p className="mt-4"><strong>Địa chỉ:</strong> {property.address}</p>
           <p><strong>Mô tả:</strong> {property.description}</p>
+          <p><strong>Giá theo tháng/1 người:</strong> {property.price.toLocaleString()} VND</p>
+          <p><strong>Tiện ích:</strong> {property.amenitiesList.join(", ")}</p>
           <div className="mb-2 mt-3">
             <label className="form-label">Ngày check-in:</label>
             <input type="date" value={checkIn} onChange={e => setCheckIn(e.target.value)} className="form-control"/>
@@ -131,7 +133,7 @@ export default function PropertyDetail() {
             <span>{guests}</span>
             <button className="btn btn-outline-secondary ms-2" onClick={() => handleGuestChange(1)}>+</button>
           </div>
-          <p className="my-2 mt-3"><strong>Giá tiền:</strong> {monthlyPayment.toLocaleString()} VND</p>
+          <p className="my-2 mt-3"><strong>Tổng:</strong> {monthlyPayment.toLocaleString()} VND</p>
           {property.status === "rented" ? (
             <button className="btn btn-secondary" disabled>
               Phòng đã được thuê
@@ -145,7 +147,7 @@ export default function PropertyDetail() {
       </div>
       <div className="d-flex flex-column align-items-center">
         <div className="w-100" style={{ maxWidth: "900px" }}>
-          <h2 className="row mb-4 justify-content-center">Tiện ích</h2>
+          {/* <h2 className="row mb-4 justify-content-center">Tiện ích</h2> */}
           <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center mt-3">
             {property.amenitiesList.map((amenity) => {
               const icon = amenityIcons[amenity] || faVideo; 

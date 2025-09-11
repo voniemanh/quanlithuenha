@@ -9,12 +9,12 @@
       "avatar": "/asset/u1.jpg"
     },
     {
-      "id": "u2",
       "name": "Trần Thị Thuê",
       "username": "user1",
       "password": "123",
+      "avatar": "/asset/u2.jpg",
       "role": "user",
-      "avatar": "/asset/u2.jpg"
+      "id": "u2"
     }
   ],
   "properties": [
@@ -120,7 +120,7 @@
       "description": "Phòng 38m2, thiết kế sang trọng, ban công lớn",
       "address": "606 Hoàng Văn Thụ, Q.Tân Bình, TP.HCM",
       "price": 7500000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "u3",
       "image": "/asset/r9.png",
       "amenitiesList": [
@@ -209,6 +209,18 @@
       "monthlyPayment": 11000000,
       "status": "pending",
       "paidAt": null
+    },
+    {
+      "id": "105e",
+      "userId": "u2",
+      "propertyId": "r9",
+      "startDate": "2025-09-01",
+      "endDate": "2025-09-03",
+      "guests": 3,
+      "monthlyPayment": 1500000,
+      "status": "paid",
+      "payAt": null,
+      "paidAt": "2025-09-11"
     }
   ]
 }
