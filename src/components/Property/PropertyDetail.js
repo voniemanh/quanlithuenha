@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { PROPERTIES_URL } from "../../config";
+import { PROPERTIES_URL} from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faWifi, faTv, faBuilding, faSoap, faFan, faSnowflake, 
@@ -34,7 +34,7 @@ export default function PropertyDetail() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [monthlyPayment, setMonthlyPayment] = useState(0);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -55,7 +55,7 @@ export default function PropertyDetail() {
       const start = new Date(checkIn);
       const end = new Date(checkOut);
       const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-      setTotalPrice(diffDays > 0 ? Math.round((diffDays / 30) * property.price * guests) : 0);
+      setMonthlyPayment(diffDays > 0 ? Math.round((diffDays / 30) * property.price * guests) : 0);
     }
   }, [checkIn, checkOut, property, guests]);
 
@@ -85,10 +85,9 @@ export default function PropertyDetail() {
       startDate: checkIn,
       endDate: checkOut,
       guests,
-      totalPrice: Math.round((diffDays / 30) * property.price * guests),
+      monthlyPayment: Math.round((property.price / 30) * diffDays * guests),
       status: "pending",
-      monthlyPayment: property.price,
-      paymentHistory: []
+      payAt: null
     };
     try {
       const res = await axios.post(
@@ -132,7 +131,7 @@ export default function PropertyDetail() {
             <span>{guests}</span>
             <button className="btn btn-outline-secondary ms-2" onClick={() => handleGuestChange(1)}>+</button>
           </div>
-          <p className="my-2 mt-3"><strong>Giá tiền:</strong> {totalPrice.toLocaleString()} VND</p>
+          <p className="my-2 mt-3"><strong>Giá tiền:</strong> {monthlyPayment.toLocaleString()} VND</p>
           {property.status === "rented" ? (
             <button className="btn btn-secondary" disabled>
               Phòng đã được thuê
