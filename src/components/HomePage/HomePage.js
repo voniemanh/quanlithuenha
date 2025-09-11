@@ -35,9 +35,8 @@ export default function HomePage() {
     alert(`Added Room ${id} to favourites!`);
   };
 
-  const handleEdit = (e, id) => {
-    e.stopPropagation();
-    navigate(`/edit-property/${id}`);
+  const handleEdit = () => {
+    navigate(`/admin-manage`);
   };
 
   const handleDelete = async (e, id) => {
@@ -108,7 +107,7 @@ export default function HomePage() {
 
                   {currentUser?.role === "admin" && (
                     <div className="admin-links">
-                      <span className="edit" onClick={(e) => handleEdit(e, property.id)}>Sửa |</span>
+                      <span className="edit" onClick={(e) => handleEdit()}>Sửa |</span>
                       <span className="delete" onClick={(e) => handleDelete(e, property.id)}>Xoá</span>
                     </div>
                   )}

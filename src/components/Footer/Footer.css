@@ -3,7 +3,7 @@
   color: black;
   padding: 20px 40px;
   box-sizing: border-box;
-  border-top: 1px solid #d5d4d4;
+  border-top: 1px solid #e1dfdf;
 }
 
 .footer a {
@@ -35,13 +35,13 @@
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
+  width: 80%;
 }
 
 .footer-form input {
   padding: 10px 15px;
   border-radius: 4px;
-  border: 1px solid #bfbfbf;
+  border: 1px solid #e1dfdf;
   width: 50%; 
   min-width: 150px; 
 }
@@ -68,8 +68,7 @@
 }
 
 .footer-divider {
-  border: none;
-  border-top: 1px solid #bfbfbf;
+  border-top: 1px solid #a6a5a5;;
   margin: 20px 0;
 }
 
@@ -79,10 +78,12 @@
   align-items: center; 
   flex-wrap: wrap;
   gap: 15px;
+  font-size: 0.85rem;
 }
 
 .footer-copy {
   margin: 0;
+
 }
 
 .footer-right {
