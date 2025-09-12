@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { PROPERTIES_URL } from "../../config";
+import { PROPERTIES_URL, CONTRACTS_URL } from "../../config";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useNavigate } from "react-router-dom";
 
@@ -65,6 +65,39 @@ export default function PropertyManage() {
     return true;
   };
 
+  const handleSave = async (property) => {
+    if (!validateProperty(editData)) return;
+
+    try {
+      if (editData.status === "available" && property.status === "rented") {
+        const res = await axios.get(`${CONTRACTS_URL}?propertyId=${property.id}`);
+        const contracts = res.data;
+        const today = new Date();
+
+        const hasActiveContract = contracts.some((c) => {
+          const start = new Date(c.startDate);
+          const end = new Date(c.endDate);
+          return (
+            c.status === "paid" &&
+            today >= start &&
+            today <= end
+          );
+        });
+
+        if (hasActiveContract) {
+          alert("Không thể đổi thành Available vì hợp đồng vẫn đang hiệu lực!");
+          return;
+        }
+      }
+
+      await axios.put(`${PROPERTIES_URL}/${property.id}`, editData);
+      setEditingId(null);
+      fetchProperties();
+    } catch {
+      alert("Lỗi khi lưu!");
+    }
+  };
+
   const onSubmit = async (data) => {
     if (!validateProperty(data)) return;
     try {
@@ -124,7 +157,7 @@ export default function PropertyManage() {
           </tr>
         </thead>
         <tbody>
-          {properties.map(p => {
+          {properties.map((p) => {
             const isEditing = p.id === editingId;
             return (
               <tr key={p.id} className="text-center align-middle">
@@ -135,7 +168,7 @@ export default function PropertyManage() {
                       type="text"
                       className="form-control"
                       value={editData.name}
-                      onChange={e => setEditData({ ...editData, name: e.target.value })}
+                      onChange={(e) => setEditData({ ...editData, name: e.target.value })}
                     />
                   ) : (
                     p.name
@@ -147,7 +180,7 @@ export default function PropertyManage() {
                       type="text"
                       className="form-control"
                       value={editData.address}
-                      onChange={e => setEditData({ ...editData, address: e.target.value })}
+                      onChange={(e) => setEditData({ ...editData, address: e.target.value })}
                     />
                   ) : (
                     p.address
@@ -160,7 +193,7 @@ export default function PropertyManage() {
                       className="form-control"
                       min="0"
                       value={editData.price}
-                      onChange={e => {
+                      onChange={(e) => {
                         const value = Number(e.target.value);
                         setEditData({ ...editData, price: value < 0 ? 0 : value });
                       }}
@@ -174,7 +207,7 @@ export default function PropertyManage() {
                     <select
                       className="form-select"
                       value={editData.status}
-                      onChange={e => setEditData({ ...editData, status: e.target.value })}
+                      onChange={(e) => setEditData({ ...editData, status: e.target.value })}
                     >
                       <option value="available">Available</option>
                       <option value="rented">Rented</option>
@@ -189,10 +222,16 @@ export default function PropertyManage() {
                       type="text"
                       className="form-control"
                       value={editData.image}
-                      onChange={e => setEditData({ ...editData, image: e.target.value })}
+                      onChange={(e) => setEditData({ ...editData, image: e.target.value })}
                     />
                   ) : (
-                    <img src={p.image} alt={p.name} width="50" height="50" className="rounded-circle" />
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      width="50"
+                      height="50"
+                      className="rounded-circle"
+                    />
                   )}
                 </td>
                 <td>
@@ -201,8 +240,11 @@ export default function PropertyManage() {
                       multiple
                       className="form-control"
                       value={editData.amenitiesList || []}
-                      onChange={e => {
-                        const selected = Array.from(e.target.selectedOptions, option => option.value);
+                      onChange={(e) => {
+                        const selected = Array.from(
+                          e.target.selectedOptions,
+                          (option) => option.value
+                        );
                         setEditData({ ...editData, amenitiesList: selected });
                       }}
                     >
@@ -212,8 +254,10 @@ export default function PropertyManage() {
                         </option>
                       ))}
                     </select>
+                  ) : Array.isArray(p.amenitiesList) ? (
+                    p.amenitiesList.join(", ")
                   ) : (
-                    Array.isArray(p.amenitiesList) ? p.amenitiesList.join(', ') : ''
+                    ""
                   )}
                 </td>
                 <td>
@@ -221,16 +265,7 @@ export default function PropertyManage() {
                     <>
                       <button
                         className="btn btn-outline-primary btn-sm me-1"
-                        onClick={async () => {
-                          if (!validateProperty(editData)) return;
-                          try {
-                            await axios.put(`${PROPERTIES_URL}/${p.id}`, editData);
-                            setEditingId(null);
-                            fetchProperties();
-                          } catch {
-                            alert("Lỗi khi lưu!");
-                          }
-                        }}
+                        onClick={() => handleSave(p)}
                       >
                         Lưu
                       </button>
@@ -243,7 +278,12 @@ export default function PropertyManage() {
                     </>
                   ) : (
                     <>
-                      <button className="btn btn-outline-success btn-sm me-1" onClick={() => viewDetail(p.id)}>Xem</button>
+                      <button
+                        className="btn btn-outline-success btn-sm me-1"
+                        onClick={() => viewDetail(p.id)}
+                      >
+                        Xem
+                      </button>
                       <button
                         className="btn btn-outline-warning btn-sm me-1"
                         onClick={() => {
@@ -308,10 +348,16 @@ export default function PropertyManage() {
               type="text"
               className="form-control"
               {...register("image", { required: true })}
-              onChange={e => setImagePreview(e.target.value)}
+              onChange={(e) => setImagePreview(e.target.value)}
             />
             {imagePreview && (
-              <img src={imagePreview} alt="Preview" className="rounded-circle mt-2" width="50" height="50" />
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="rounded-circle mt-2"
+                width="50"
+                height="50"
+              />
             )}
           </div>
           <div className="mb-2">
@@ -325,10 +371,16 @@ export default function PropertyManage() {
             </select>
           </div>
           <div className="d-flex justify-content-end mt-3">
-            <button type="button" className="btn btn-outline-secondary me-2" onClick={() => setModalOpen(false)}>
+            <button
+              type="button"
+              className="btn btn-outline-secondary me-2"
+              onClick={() => setModalOpen(false)}
+            >
               Hủy
             </button>
-            <button type="submit" className="btn btn-outline-primary">Lưu</button>
+            <button type="submit" className="btn btn-outline-primary">
+              Lưu
+            </button>
           </div>
         </form>
       </ModalWrapper>

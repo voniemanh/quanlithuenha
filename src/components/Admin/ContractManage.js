@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm, useWatch } from "react-hook-form";
 import { CONTRACTS_URL, USERS_URL, PROPERTIES_URL } from "../../config";
+import { checkAvailable } from "../util/CheckAvailable";
 
 export default function ContractManage() {
   const [contracts, setContracts] = useState([]);
@@ -13,7 +14,7 @@ export default function ContractManage() {
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, reset, setValue, control, formState: { errors } } = useForm({
+  const { register, handleSubmit, reset, setValue, control, watch, formState: { errors } } = useForm({
     defaultValues: {
       userId: "",
       propertyId: "",
@@ -53,7 +54,7 @@ export default function ContractManage() {
     fetchData();
   }, []);
 
- useEffect(() => {
+  useEffect(() => {
     if (selectedPropertyId) {
       const p = properties.find(p => p.id === selectedPropertyId);
       const price = p?.price || 0;
@@ -76,6 +77,10 @@ export default function ContractManage() {
       alert("Người thuê không tồn tại!");
       return false;
     }
+    if (data.startDate > data.endDate) {
+      alert("Ngày bắt đầu phải trước ngày kết thúc!");
+      return false;
+    }
     if (!properties.find(p => p.id === data.propertyId)) {
       alert("Bất động sản không tồn tại!");
       return false;
@@ -85,8 +90,29 @@ export default function ContractManage() {
       return false;
     }
     if (data.status === "paid" && !data.paidAt) {
-      alert("Vui lòng chọn ngày thanh toán khi trạng thái là Paid!");
+      alert("Vui lòng chọn ngày thanh toán khi đã thanh toán!");
       return false;
+    }
+    if (data.startDate < new Date().toISOString().split("T")[0]) {
+      alert("Ngày bắt đầu phải sau ngày hiện tại!");
+      return false;
+    }
+    if (data.status === "paid") {
+      const conflict = contracts.some(c => {
+        if (c.id === editingId) return false;
+        if (c.propertyId !== data.propertyId) return false;
+        if (c.status !== "paid") return false;
+
+        const cStart = new Date(c.startDate);
+        const cEnd = new Date(c.endDate);
+
+        return start < cEnd && end > cStart;
+      });
+
+      if (conflict) {
+        alert("Phòng đã được thuê trong khoảng thời gian này!");
+        return false;
+      }
     }
     return true;
   };
@@ -94,17 +120,39 @@ export default function ContractManage() {
   const onSubmit = async (data) => {
     if (!validateContract(data)) return;
     try {
+      let savedContractId = editingId;
+
       if (editingId) {
         await axios.put(`${CONTRACTS_URL}/${editingId}`, data);
-        setEditingId(null);
       } else {
-        await axios.post(CONTRACTS_URL, data);
+        const res = await axios.post(CONTRACTS_URL, data);
+        savedContractId = res.data.id;
       }
+      const savedContract = { ...data, id: savedContractId };
+
+      const property = properties.find(p => p.id === savedContract.propertyId);
+      if (property) {
+        const newStatus = checkAvailable(savedContract);
+        if (property.status !== newStatus) {
+          await axios.put(`${PROPERTIES_URL}/${property.id}`, {
+            ...property,
+            status: newStatus
+          });
+        }
+      }
+
+      setEditingId(null);
       setModalOpen(false);
       reset();
-      const resContracts = await axios.get(CONTRACTS_URL);
+      const [resContracts, resProperties] = await Promise.all([
+        axios.get(CONTRACTS_URL),
+        axios.get(PROPERTIES_URL)
+      ]);
       setContracts(resContracts.data);
-    } catch {
+      setProperties(resProperties.data);
+
+    } catch (err) {
+      console.error(err);
       alert("Lỗi khi lưu hợp đồng!");
     }
   };
@@ -265,13 +313,27 @@ export default function ContractManage() {
                       <option value="confirmed">Confirmed</option>
                       <option value="paid">Paid</option>
                       <option value="canceled">Canceled</option>
+                      <option value="completed">Completed</option>
                     </select>
                   ) : (
                     c.status
                   )}
                 </td>
-                <td>{c.paidAt? c.paidAt : "Chưa thanh toán"}</td>
-
+                <td>
+                  {isEditing ? (
+                    watch("status") === "paid" || watch("status") === "completed" ? (
+                      <input
+                        type="date"
+                        className="form-control"
+                        {...register("paidAt", { required: "Vui lòng chọn ngày thanh toán" })}
+                      />
+                    ) : (
+                      "Chưa thanh toán"
+                    )
+                  ) : (
+                    c.paidAt ? c.paidAt : "Chưa thanh toán"
+                  )}
+                </td>
                 <td>
                   {isEditing ? (
                     <>

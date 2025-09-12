@@ -154,6 +154,7 @@ export default function UserDetail() {
           </table>
         </>
       )}
+      <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Quay lại</button>
     </div>
   );
 }

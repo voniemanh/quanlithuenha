@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import axios from "axios";
-import { PROPERTIES_URL } from "../../config";
+import { CONTRACTS_URL, PROPERTIES_URL } from "../../config";
+import { checkAvailable } from "../util/CheckAvailable";
 import { useUser } from "../Context/UserContext";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useForm } from "react-hook-form";
@@ -40,18 +41,45 @@ export default function HomePage() {
   ];
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const res = await axios.get(PROPERTIES_URL);
-        setProperties(res.data);
-      } catch (error) {
-        console.error("Error fetching properties:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProperties();
-  }, []);
+  const fetchData = async () => {
+    try {
+      const [propertiesRes, contractsRes] = await Promise.all([
+        axios.get(PROPERTIES_URL),
+        axios.get(CONTRACTS_URL)
+      ]);
+
+      const propertiesData = propertiesRes.data;
+      const contractsData = contractsRes.data;
+
+      const updatedProperties = await Promise.all(
+        propertiesData.map(async (property) => {
+          const contract = contractsData.find(
+            (c) => c.propertyId === property.id
+          );
+
+          const newStatus = checkAvailable(contract);
+
+          if (property.status !== newStatus) {
+            const updatedProperty = { ...property, status: newStatus };
+            await axios.put(`${PROPERTIES_URL}/${property.id}`, updatedProperty);
+            return updatedProperty;
+          }
+
+          return property;
+        })
+      );
+
+      setProperties(updatedProperties);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+
 
   const handleCardClick = (id) => navigate(`/property-detail/${id}`);
 

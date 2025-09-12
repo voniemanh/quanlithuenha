@@ -1,20 +1,20 @@
 {
   "users": [
     {
-      "id": "u1",
       "name": "Nguyễn Văn Chủ",
       "username": "admin",
       "password": "123",
+      "avatar": "/asset/u1.jpg",
       "role": "admin",
-      "avatar": "/asset/u1.jpg"
+      "id": "u1"
     },
     {
-      "name": "Trần Thị Thuê",
-      "username": "user1",
+      "name": "Trần Thị Khách",
+      "username": "user3",
       "password": "123",
       "avatar": "/asset/u2.jpg",
       "role": "user",
-      "id": "u2"
+      "id": "c1e3"
     }
   ],
   "properties": [
@@ -28,9 +28,18 @@
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "amenitiesList": [
+        "Wifi",
+        "TV",
         "Điều hòa",
         "Máy giặt",
-        "Tủ lạnh"
+        "Tủ lạnh",
+        "Bàn làm việc",
+        "Bathtub",
+        "Luggage dropoff allowed",
+        "Security camera",
+        "Paid dryer",
+        "Washer",
+        "Air conditioning"
       ],
       "amenities": [
         "TV",
@@ -43,7 +52,7 @@
       "description": "Phòng 30m2, view đẹp, yên tĩnh",
       "address": "456 Nguyễn Trãi, Q.5, TP.HCM",
       "price": 6000000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "admin",
       "image": "/asset/r2.png",
       "amenitiesList": [
@@ -57,7 +66,7 @@
       "name": "Phòng 303 - Chung cư C",
       "description": "Phòng 28m2, đầy đủ tiện nghi, gần siêu thị",
       "address": "789 Trần Hưng Đạo, Q.1, TP.HCM",
-      "price": 5500000,
+      "price": 5000000,
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r3.png",
@@ -105,7 +114,7 @@
       "description": "Phòng 26m2, gần trường học, yên tĩnh",
       "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
       "price": 5200000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "amenitiesList": [
@@ -120,7 +129,7 @@
       "description": "Phòng 38m2, thiết kế sang trọng, ban công lớn",
       "address": "606 Hoàng Văn Thụ, Q.Tân Bình, TP.HCM",
       "price": 7500000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "u3",
       "image": "/asset/r9.png",
       "amenitiesList": [
@@ -161,77 +170,30 @@
         "Điều hòa",
         "Tủ lạnh"
       ]
-    },
-    {
-      "id": "r12",
-      "name": "Phòng 1212 - Chung cư L",
-      "description": "Phòng 20m2, nhỏ xinh, giá rẻ",
-      "address": "909 Trường Chinh, Q.Tân Bình, TP.HCM",
-      "price": 4000000,
-      "status": "available",
-      "createdBy": "admin",
-      "image": "/asset/r7.png",
-      "amenitiesList": [
-        "Washer"
-      ]
     }
   ],
   "contracts": [
     {
-      "id": "ed75",
-      "userId": "u2",
-      "propertyId": "r1",
-      "startDate": "2025-09-17",
-      "endDate": "2025-09-27",
+      "id": "5509",
+      "userId": "c1e3",
+      "propertyId": "r8",
+      "startDate": "2025-09-11",
+      "endDate": "2025-11-29",
       "guests": "2",
-      "monthlyPayment": 5333333,
-      "status": "canceled",
-      "paidAt": null
-    },
-    {
-      "id": "cd5b",
-      "userId": null,
-      "propertyId": "r2",
-      "startDate": "2025-09-19",
-      "endDate": "2025-09-29",
-      "guests": 1,
-      "monthlyPayment": 2000000,
+      "monthlyPayment": 27386667,
       "status": "paid",
       "paidAt": "2025-09-12"
     },
     {
-      "id": "c77f",
-      "userId": "u2",
-      "propertyId": "r3",
-      "startDate": "2025-09-11",
-      "endDate": "2025-10-11",
-      "guests": 2,
-      "monthlyPayment": 11000000,
-      "status": "pending",
-      "paidAt": null
-    },
-    {
-      "id": "105e",
-      "userId": "u2",
-      "propertyId": "r9",
-      "startDate": "2025-09-01",
-      "endDate": "2025-09-03",
-      "guests": 3,
-      "monthlyPayment": 1500000,
+      "id": "f000",
+      "userId": "u1",
+      "propertyId": "r6",
+      "startDate": "2025-09-16",
+      "endDate": "2025-11-30",
+      "guests": "1",
+      "monthlyPayment": 20000000,
       "status": "paid",
-      "payAt": null,
-      "paidAt": "2025-09-11"
-    },
-    {
-      "id": "b260",
-      "userId": "u2",
-      "propertyId": "r2",
-      "startDate": "2025-09-12",
-      "endDate": "2025-09-20",
-      "guests": "2",
-      "monthlyPayment": 3200000,
-      "status": "pending",
-      "paidAt": ""
+      "paidAt": "2025-09-12"
     }
   ]
 }

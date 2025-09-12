@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CONTRACTS_URL, PROPERTIES_URL, USERS_URL } from "../../config";
 import { useUser } from "../Context/UserContext";
+import { checkAvailable } from "../util/CheckAvailable";
 
 export default function ContractDetail() {
   const { id } = useParams();
@@ -88,7 +89,8 @@ export default function ContractDetail() {
       setContract(updatedContract);
 
       if (property) {
-        const updatedProperty = { ...property, status: "rented" };
+        const newStatus = checkAvailable(updatedContract);
+        const updatedProperty = { ...property, status: newStatus };
         await axios.put(`${PROPERTIES_URL}/${property.id}`, updatedProperty);
         setProperty(updatedProperty);
       }
