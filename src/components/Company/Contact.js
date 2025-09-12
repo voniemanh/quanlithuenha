@@ -45,7 +45,7 @@ export default function Contact() {
               <label htmlFor="message" className="form-label">Nội dung</label>
               <textarea className="form-control" id="message" rows="5" placeholder="Nhập nội dung..."></textarea>
             </div>
-            <button type="submit" className="btn-pink">Gửi</button>
+            <button type="submit" className="btn-black">Gửi</button>
           </form>
         </div>
       </div>

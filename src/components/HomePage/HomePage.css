@@ -100,3 +100,7 @@
   font-size: 0.75rem!important;
   margin-bottom: 3px;
 }
+
+.bg-pink {
+    background-color: #FF385C !important;
+  }

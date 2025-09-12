@@ -87,7 +87,7 @@ export default function UserManage() {
   return (
     <div className="container mt-4">
       <button
-        className="btn-pink mb-3"
+        className="btn-outline-black mb-3"
         onClick={() => {
           reset({ name: "", username: "", password: "", role: "user", avatar: "" });
           setAvatarPreview("");

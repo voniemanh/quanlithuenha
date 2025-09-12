@@ -4,7 +4,6 @@ import UserManage from "./UserManage";
 import PropertyManage from "./PropertyManage";
 import ContractManage from "./ContractManage";
 import { useUser } from "../Context/UserContext"; 
-import "./Manage.css";
 
 export default function AdminManage() {
   const { currentUser } = useUser(); 
@@ -19,7 +18,7 @@ export default function AdminManage() {
       <ul className="nav nav-tabs mb-3">
         <li className="nav-item">
           <button
-            className={`nav-link text-dark ${tab === "users" ? "active" : ""}`}
+            className={`nav-link ${tab === "users" ? "active bg-pink text-white" : "bg-light text-dark"}`}
             onClick={() => setTab("users")}
           >
             Users
@@ -27,7 +26,7 @@ export default function AdminManage() {
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link text-dark ${tab === "properties" ? "active" : ""}`}
+            className={`nav-link ${tab === "properties" ? "active bg-pink text-white" : "bg-light text-dark"}`}
             onClick={() => setTab("properties")}
           >
             Properties
@@ -35,7 +34,7 @@ export default function AdminManage() {
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link text-dark ${tab === "contracts" ? "active" : ""}`}
+            className={`nav-link ${tab === "contracts" ? "active bg-pink text-white" : "bg-light text-dark"}`}
             onClick={() => setTab("contracts")}
           >
             Contracts

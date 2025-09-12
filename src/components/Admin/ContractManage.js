@@ -136,7 +136,7 @@ export default function ContractManage() {
   return (
     <div className="container mt-4">
       <button
-        className="btn-pink mb-3"
+        className="btn-outline-black mb-3"
         onClick={() => {
           reset();
           setEditingId(null);
