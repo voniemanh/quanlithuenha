@@ -59,11 +59,24 @@ export default function NavBar() {
           {currentUser && (
             <div className="dropdown me-3 position-relative" ref={userRef}>
               <button
-                className="btn btn-outline-dark rounded-circle"
+                className="btn btn-outline-dark rounded-circle" 
                 onClick={() => toggleDropdown("user")}
+                style={{ width: "40px", height: "40px"}} 
               >
-                <FontAwesomeIcon icon={faUser} />
+                <img
+                  src={currentUser.avatar}
+                  alt="User Avatar"
+                  className="rounded-circle"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    border: "1px solid white",
+                    boxSizing: "border-box"
+                  }}
+                />
               </button>
+
               {openDropdown === "user" && (
                 <ul className="dropdown-menu show custom-dropdown">
                   <span className="dropdown-header text-dark px-3">

@@ -229,8 +229,8 @@ export default function PropertyManage() {
                       src={p.image}
                       alt={p.name}
                       width="50"
-                      height="50"
-                      className="rounded-circle"
+                      height="auto"
+                      style={{ borderRadius: "2px" }}
                     />
                   )}
                 </td>
