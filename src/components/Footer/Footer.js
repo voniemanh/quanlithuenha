@@ -40,7 +40,7 @@ export default function Footer() {
 
       {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p className="footer-copy">© 2025 Holiday Rentals, Inc.</p>
+        <p className="footer-copy">© 2025 Holiday Rentals Inc.</p>
         <div className="footer-right">
           <div className="footer-links">
             <Link to="/news">News</Link>
