@@ -8,6 +8,7 @@ import {
   faBath, faSuitcaseRolling, faVideo, faHeart  
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
+import { checkConflict } from "../util/CheckConflict";
 
 const amenityIcons = {
   "Wifi": faWifi,
@@ -85,17 +86,26 @@ export default function PropertyDetail() {
       alert("Ngày check-out phải sau ngày check-in!");
       return;
     }
-    const newContract = {
-      userId: currentUser.id,
-      propertyId: property.id,
-      startDate: checkIn,
-      endDate: checkOut,
-      guests,
-      monthlyPayment: Math.round((property.price / 30) * diffDays * guests),
-      status: "pending",
-      payAt: null
-    };
+
     try {
+      const { data: contracts } = await axios.get(`${PROPERTIES_URL.replace("/properties", "")}/contracts`);
+
+      if (checkConflict(contracts, property.id, checkIn, checkOut)) {
+        alert("Phòng đã được thuê trong khoảng thời gian này!");
+        return;
+      }
+
+      const newContract = {
+        userId: currentUser.id,
+        propertyId: property.id,
+        startDate: checkIn,
+        endDate: checkOut,
+        guests,
+        monthlyPayment: Math.round((property.price / 30) * diffDays * guests),
+        status: "pending",
+        payAt: null
+      };
+
       const res = await axios.post(
         `${PROPERTIES_URL.replace("/properties", "")}/contracts`,
         newContract
@@ -159,7 +169,6 @@ export default function PropertyDetail() {
       </div>
       <div className="d-flex flex-column align-items-center">
         <div className="w-100" style={{ maxWidth: "900px" }}>
-          {/* <h2 className="row mb-4 justify-content-center">Tiện ích</h2> */}
           <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center mt-3">
             {property.amenitiesList.map((amenity) => {
               const icon = amenityIcons[amenity] || faVideo; 

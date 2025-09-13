@@ -226,6 +226,18 @@
       "monthlyPayment": 21066667,
       "status": "paid",
       "paidAt": "2025-09-12"
+    },
+    {
+      "id": "c5be",
+      "userId": "u1",
+      "propertyId": "r3",
+      "startDate": "2025-09-20",
+      "endDate": "2025-09-27",
+      "guests": 2,
+      "monthlyPayment": 2333333,
+      "status": "paid",
+      "payAt": null,
+      "paidAt": "2025-09-13"
     }
   ],
   "news": [
