@@ -4,6 +4,7 @@ import axios from "axios";
 import { useForm, useWatch } from "react-hook-form";
 import { CONTRACTS_URL, USERS_URL, PROPERTIES_URL } from "../../config";
 import { checkAvailable } from "../util/CheckAvailable";
+import { checkConflict } from "../util/CheckConflict";
 
 export default function ContractManage() {
   const [contracts, setContracts] = useState([]);
@@ -77,7 +78,7 @@ export default function ContractManage() {
       alert("Người thuê không tồn tại!");
       return false;
     }
-    if (data.startDate > data.endDate) {
+    if (start > end) {
       alert("Ngày bắt đầu phải trước ngày kết thúc!");
       return false;
     }
@@ -98,18 +99,7 @@ export default function ContractManage() {
       return false;
     }
     if (data.status === "paid") {
-      const conflict = contracts.some(c => {
-        if (c.id === editingId) return false;
-        if (c.propertyId !== data.propertyId) return false;
-        if (c.status !== "paid") return false;
-
-        const cStart = new Date(c.startDate);
-        const cEnd = new Date(c.endDate);
-
-        return start < cEnd && end > cStart;
-      });
-
-      if (conflict) {
+      if (checkConflict(contracts, data.propertyId, data.startDate, data.endDate, editingId)) {
         alert("Phòng đã được thuê trong khoảng thời gian này!");
         return false;
       }
