@@ -10,7 +10,7 @@ import Contact from "./components/Company/Contact";
 import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./components/Context/UserContext";
 import News from "./components/Company/News";
-// import Particles from "./components/Particles";
+// import Particles from "./components/Particles";  
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

@@ -9,7 +9,14 @@
       "id": "u1",
       "likeProperties": [
         "r5",
-        "r2"
+        "r3",
+        "r6",
+        "r11",
+        "r10",
+        "r9",
+        "r1",
+        "r2",
+        "r8"
       ]
     },
     {
@@ -19,7 +26,9 @@
       "avatar": "/asset/u2.jpg",
       "role": "user",
       "id": "c1e3",
-      "likeProperties": []
+      "likeProperties": [
+        "r1"
+      ]
     }
   ],
   "properties": [
@@ -32,8 +41,11 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r1.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1",
+        "c1e3"
+      ],
+      "likeCount": 2,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -86,8 +98,10 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r3.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
@@ -122,8 +136,10 @@
       "status": "rented",
       "createdBy": "u3",
       "image": "/asset/r6.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -141,8 +157,10 @@
       "status": "rented",
       "createdBy": "u2",
       "image": "/asset/r8.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -158,8 +176,10 @@
       "status": "available",
       "createdBy": "u3",
       "image": "/asset/r9.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -177,8 +197,10 @@
       "status": "available",
       "createdBy": "u1",
       "image": "/asset/r10.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -194,8 +216,10 @@
       "status": "available",
       "createdBy": "u2",
       "image": "/asset/r4.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -238,6 +262,17 @@
       "status": "paid",
       "payAt": null,
       "paidAt": "2025-09-13"
+    },
+    {
+      "id": "78fd",
+      "userId": "u1",
+      "propertyId": "r1",
+      "startDate": "2025-09-13",
+      "endDate": "2025-09-24",
+      "guests": 2,
+      "monthlyPayment": 5866667,
+      "status": "pending",
+      "payAt": null
     }
   ],
   "news": [
