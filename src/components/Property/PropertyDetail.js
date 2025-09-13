@@ -5,7 +5,7 @@ import { PROPERTIES_URL} from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faWifi, faTv, faBuilding, faSoap, faFan, faSnowflake, 
-  faBath, faSuitcaseRolling, faVideo 
+  faBath, faSuitcaseRolling, faVideo, faHeart  
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
 
@@ -74,6 +74,12 @@ export default function PropertyDetail() {
     }
     const start = new Date(checkIn);
     const end = new Date(checkOut);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    if (start < today) {
+      alert("Ngày check-in phải từ hôm nay trở đi!");
+      return;
+    }
     const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
     if (diffDays <= 0) {
       alert("Ngày check-out phải sau ngày check-in!");
@@ -108,7 +114,13 @@ export default function PropertyDetail() {
 
   return (
     <div className="container my-4">
-      <h2 className="mb-4">{property.name}</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        {property.name}
+        <span className="ms-3 d-flex align-items-center fs-4 fw-normal">
+          <FontAwesomeIcon icon={faHeart} className="text-danger me-1" />
+          {property.likeCount || 0}
+        </span>
+      </h2>
       <div className="row mb-4">
         <div className="col-md-6 mb-3 mb-md-0">
           <img src={property.image} alt={property.name} className="img-fluid rounded" />

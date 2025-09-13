@@ -7,7 +7,10 @@
       "avatar": "/asset/u1.jpg",
       "role": "admin",
       "id": "u1",
-      "likeProperties": []
+      "likeProperties": [
+        "r5",
+        "r2"
+      ]
     },
     {
       "name": "Trần Thị Khách",
@@ -55,12 +58,23 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r2.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
-        "Điều hòa"
+        "Điều hòa",
+        "Máy giặt",
+        "Tủ lạnh",
+        "Bàn làm việc",
+        "Bathtub",
+        "Luggage dropoff allowed",
+        "Security camera",
+        "Paid dryer",
+        "Washer",
+        "Air conditioning"
       ]
     },
     {
@@ -89,8 +103,10 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r5.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Security camera",
         "Paid dryer",
@@ -210,18 +226,6 @@
       "monthlyPayment": 21066667,
       "status": "paid",
       "paidAt": "2025-09-12"
-    },
-    {
-      "id": "97c2",
-      "userId": "c1e3",
-      "propertyId": "r1",
-      "startDate": "2025-09-27",
-      "endDate": "2026-03-28",
-      "guests": 3,
-      "monthlyPayment": 1456000000,
-      "status": "paid",
-      "payAt": null,
-      "paidAt": "2025-09-13"
     }
   ],
   "news": [

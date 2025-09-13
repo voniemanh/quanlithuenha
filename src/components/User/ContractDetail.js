@@ -199,7 +199,7 @@ export default function ContractDetail() {
                   </tr>
                   <tr>
                     <td className="fw-bold">Tiện nghi:</td>
-                    <td>{(property.amenities || []).join(", ") || "Không có"}</td>
+                    <td>{(property.amenitiesList || []).join(", ") || "Không có"}</td>
                   </tr>
                 </tbody>
               </table>
