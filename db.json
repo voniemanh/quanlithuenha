@@ -6,7 +6,8 @@
       "password": "123",
       "avatar": "/asset/u1.jpg",
       "role": "admin",
-      "id": "u1"
+      "id": "u1",
+      "likeProperties": []
     },
     {
       "name": "Trần Thị Khách",
@@ -14,7 +15,8 @@
       "password": "123",
       "avatar": "/asset/u2.jpg",
       "role": "user",
-      "id": "c1e3"
+      "id": "c1e3",
+      "likeProperties": []
     }
   ],
   "properties": [
@@ -27,6 +29,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r1.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -40,10 +44,6 @@
         "Paid dryer",
         "Washer",
         "Air conditioning"
-      ],
-      "amenities": [
-        "TV",
-        "Điều hòa"
       ]
     },
     {
@@ -55,6 +55,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r2.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -70,6 +72,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r3.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
@@ -85,6 +89,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r5.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Security camera",
         "Paid dryer",
@@ -100,6 +106,8 @@
       "status": "rented",
       "createdBy": "u3",
       "image": "/asset/r6.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -117,6 +125,8 @@
       "status": "rented",
       "createdBy": "u2",
       "image": "/asset/r8.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -132,6 +142,8 @@
       "status": "available",
       "createdBy": "u3",
       "image": "/asset/r9.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -149,6 +161,8 @@
       "status": "available",
       "createdBy": "u1",
       "image": "/asset/r10.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -164,6 +178,8 @@
       "status": "available",
       "createdBy": "u2",
       "image": "/asset/r4.png",
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
