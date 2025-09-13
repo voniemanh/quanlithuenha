@@ -24,7 +24,7 @@
       "description": "Phòng 25m2, có nội thất, gần trung tâm",
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
       "price": 80000000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "amenitiesList": [
@@ -199,10 +199,10 @@
       "id": "97c2",
       "userId": "c1e3",
       "propertyId": "r1",
-      "startDate": "2025-09-13",
+      "startDate": "2025-09-27",
       "endDate": "2026-03-28",
       "guests": 3,
-      "monthlyPayment": 1568000000,
+      "monthlyPayment": 1456000000,
       "status": "paid",
       "payAt": null,
       "paidAt": "2025-09-13"

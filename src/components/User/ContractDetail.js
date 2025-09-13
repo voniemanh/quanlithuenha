@@ -64,11 +64,6 @@ export default function ContractDetail() {
       const updatedContract = { ...contract, status: "canceled" };
       await axios.put(`${CONTRACTS_URL}/${contract.id}`, updatedContract);
       setContract(updatedContract);
-      if (property) {
-        const updatedProperty = { ...property, status: "available" };
-        await axios.put(`${PROPERTIES_URL}/${property.id}`, updatedProperty);
-        setProperty(updatedProperty);
-      }
       alert("Hủy hợp đồng thành công!");
     } catch (err) {
       console.error(err);
