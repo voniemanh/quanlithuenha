@@ -18,16 +18,15 @@ export default function ContractDetail() {
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const contractRes = await axios.get(`${CONTRACTS_URL}/${id}`);
         const contractData = contractRes.data;
-
-        if (!currentUser) {
-          setAccessDenied(true);
-          setLoading(false);
-          return;
-        }
 
         const isOwner = currentUser.id === contractData.userId;
         const isAdmin = currentUser.role === "admin";
@@ -56,7 +55,7 @@ export default function ContractDetail() {
     };
 
     fetchData();
-  }, [id, currentUser]);
+  }, [id, currentUser, navigate]);
 
   const handleCancel = async () => {
     if (!contract || contract.status !== "pending") return;
@@ -107,8 +106,8 @@ export default function ContractDetail() {
   if (accessDenied) return <p>Bạn không có quyền xem hợp đồng này!</p>;
   if (!contract || !property || !user) return <p>Không tìm thấy thông tin hợp đồng!</p>;
 
-  const isOwner = currentUser.id === contract.userId;
-  const isAdmin = currentUser.role === "admin";
+  const isOwner = currentUser?.id === contract.userId;
+  const isAdmin = currentUser?.role === "admin";
 
   return (
     <div className="container my-4">
