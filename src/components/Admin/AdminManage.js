@@ -15,10 +15,10 @@ export default function AdminManage() {
 
   return (
     <div className="container mt-4">
-      <ul className="nav nav-tabs mb-3">
+      <ul className="nav nav-tabs mb-3 gap-2">
         <li className="nav-item">
           <button
-            className={`nav-link ${tab === "users" ? "active bg-pink text-white" : "bg-light text-dark"}`}
+            className={`nav-link border ${tab === "users" ? "active bg-pink text-white" : "bg-light text-dark"}`}
             onClick={() => setTab("users")}
           >
             Users
@@ -26,7 +26,7 @@ export default function AdminManage() {
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${tab === "properties" ? "active bg-pink text-white" : "bg-light text-dark"}`}
+            className={`nav-link border  ${tab === "properties" ? "active bg-pink text-white" : "bg-light text-dark"}`}
             onClick={() => setTab("properties")}
           >
             Properties
@@ -34,7 +34,7 @@ export default function AdminManage() {
         </li>
         <li className="nav-item">
           <button
-            className={`nav-link ${tab === "contracts" ? "active bg-pink text-white" : "bg-light text-dark"}`}
+            className={`nav-link border  ${tab === "contracts" ? "active bg-pink text-white" : "bg-light text-dark"}`}
             onClick={() => setTab("contracts")}
           >
             Contracts
