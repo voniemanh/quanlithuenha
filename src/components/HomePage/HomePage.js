@@ -181,7 +181,7 @@ export default function HomePage() {
     <div className="container my-4">
       <Row className="g-3">
         {properties.map((property) => (
-          <Col key={property.id} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex justify-content-center">
+          <Col key={property.id} xs={6} sm={6} md={4} lg={3} xl={2} className="d-flex justify-content-center">
             <Card className="property-card" onClick={() => handleCardClick(property.id)}>
               <Card.Img variant="top" src={property.image} />
               <div className={`heart-icon ${favourites.includes(property.id) ? "active" : ""}`} onClick={(e) => handleFavourite(e, property)}>
