@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4">Contact Us</h1>
-      <p className="text-center mb-5">
+      <p className="text-center mb-4">
         Hãy liên hệ với chúng tôi qua form dưới đây hoặc đến trực tiếp văn phòng.
       </p>
 
