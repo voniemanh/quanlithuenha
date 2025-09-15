@@ -6,6 +6,9 @@ body, html, #root {
   padding: 0;
   font-family: 'Figtree', sans-serif;
 }
+body, html {
+  overflow-x: hidden;
+}
 
 * {
   box-sizing: border-box;
