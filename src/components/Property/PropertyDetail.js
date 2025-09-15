@@ -202,7 +202,7 @@ export default function PropertyDetail() {
       </div>
       <div className="d-flex flex-column align-items-center">
         <div className="w-100" style={{ maxWidth: "900px" }}>
-          <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center mt-3">
+          <div className="row row-cols-3 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center mt-3">
             {property.amenitiesList.map((amenity) => {
               const icon = amenityIcons[amenity] || faVideo; 
               return (
@@ -225,6 +225,26 @@ export default function PropertyDetail() {
           ></iframe>
         </div>
       </div>
+
+      {/* Extra CSS */}
+      <style>
+        {`
+          .thumb {
+            opacity: 0.6;
+            border: 2px solid transparent;
+            max-width: 100px; 
+          }
+          .thumb:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+          }
+          .active-thumb {
+            opacity: 1 !important;
+            border-color: #ccc !important;
+            transform: scale(1.1);
+          }
+        `}
+      </style>
     </div>
   );
 }
