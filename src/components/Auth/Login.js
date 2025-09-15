@@ -67,7 +67,6 @@ export default function Login({ show, handleClose }) {
           onChange={handleChange}
           className="form-control"
         />
-
         <div className="d-flex gap-2 mt-2">
           <button className="btn-black btn-sm" onClick={handleLogin}>
             Login

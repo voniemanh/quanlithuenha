@@ -105,8 +105,8 @@ export default function UserDetail() {
                 <input type="text" name="avatar" value={formData.avatar} onChange={handleChange} className="form-control"/>
               </div>
               <div className="col-12 mt-3">
-                <button className="btn btn-primary me-2" onClick={handleSave}>Lưu</button>
-                <button className="btn btn-secondary" onClick={() => setEditing(false)}>Huỷ</button>
+                <button className="btn btn-outline-primary me-2" onClick={handleSave}>Lưu</button>
+                <button className="btn btn-outline-secondary" onClick={() => setEditing(false)}>Huỷ</button>
               </div>
             </div>
           ) : (

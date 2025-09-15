@@ -7,17 +7,7 @@
       "avatar": "/asset/u1.jpg",
       "role": "admin",
       "id": "u1",
-      "likeProperties": [
-        "r5",
-        "r3",
-        "r6",
-        "r11",
-        "r10",
-        "r9",
-        "r1",
-        "r2",
-        "r8"
-      ]
+      "likeProperties": []
     },
     {
       "name": "Trần Thị Khách",
@@ -42,7 +32,6 @@
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "likes": [
-        "u1",
         "c1e3"
       ],
       "likeCount": 2,
@@ -70,10 +59,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r2.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -98,10 +85,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r3.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
@@ -117,10 +102,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r5.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Security camera",
         "Paid dryer",
@@ -133,13 +116,11 @@
       "description": "Phòng 40m2, nội thất hiện đại, an ninh tốt",
       "address": "303 Lê Văn Sỹ, Q.3, TP.HCM",
       "price": 8000000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "u3",
       "image": "/asset/r6.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -157,10 +138,8 @@
       "status": "rented",
       "createdBy": "u2",
       "image": "/asset/r8.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -176,10 +155,8 @@
       "status": "available",
       "createdBy": "u3",
       "image": "/asset/r9.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -197,10 +174,8 @@
       "status": "available",
       "createdBy": "u1",
       "image": "/asset/r10.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -216,10 +191,8 @@
       "status": "available",
       "createdBy": "u2",
       "image": "/asset/r4.png",
-      "likes": [
-        "u1"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -239,40 +212,6 @@
       "monthlyPayment": 27040000,
       "status": "paid",
       "paidAt": "2025-09-12"
-    },
-    {
-      "id": "f000",
-      "userId": "u1",
-      "propertyId": "r6",
-      "startDate": "2025-09-12",
-      "endDate": "2025-11-30",
-      "guests": "1",
-      "monthlyPayment": 21066667,
-      "status": "paid",
-      "paidAt": "2025-09-12"
-    },
-    {
-      "id": "c5be",
-      "userId": "u1",
-      "propertyId": "r3",
-      "startDate": "2025-09-20",
-      "endDate": "2025-09-27",
-      "guests": 2,
-      "monthlyPayment": 2333333,
-      "status": "paid",
-      "payAt": null,
-      "paidAt": "2025-09-13"
-    },
-    {
-      "id": "78fd",
-      "userId": "u1",
-      "propertyId": "r1",
-      "startDate": "2025-09-13",
-      "endDate": "2025-09-24",
-      "guests": 2,
-      "monthlyPayment": 5866667,
-      "status": "pending",
-      "payAt": null
     }
   ],
   "news": [
