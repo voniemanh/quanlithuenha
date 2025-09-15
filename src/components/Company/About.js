@@ -14,6 +14,9 @@ export default function About() {
     { src: "./asset/r1.png", alt: "Slide 1" },
     { src: "./asset/r2.png", alt: "Slide 2" },
     { src: "./asset/r3.png", alt: "Slide 3" },
+    { src: "./asset/r4.png", alt: "Slide 4" },
+    { src: "./asset/r5.png", alt: "Slide 5" },
+    { src: "./asset/r6.png", alt: "Slide 6" },
   ];
 
   return (
@@ -54,8 +57,7 @@ export default function About() {
               onClick={() => setIndex(i)}
               className={`img-thumbnail thumb ${index === i ? "active-thumb" : ""}`}
               style={{
-                width: "100px",
-                height: "80px",
+                height: "auto",
                 objectFit: "cover",
                 cursor: "pointer",
                 transition: "all 0.3s ease-in-out"
@@ -113,6 +115,7 @@ export default function About() {
           .thumb {
             opacity: 0.6;
             border: 2px solid transparent;
+            max-width: 100px; 
           }
           .thumb:hover {
             opacity: 0.9;
@@ -122,6 +125,18 @@ export default function About() {
             opacity: 1 !important;
             border-color: #ccc !important;
             transform: scale(1.1);
+          }
+
+          /* Responsive */
+          @media (max-width: 768px) {
+            .thumb {
+              max-width: 60px;
+            }
+          }
+          @media (max-width: 480px) {
+            .thumb {
+              max-width: 40px;
+            }
           }
         `}
       </style>
