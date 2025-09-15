@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Carousel, Card, Row, Col } from "react-bootstrap";
 
 export default function About() {
   const navigate = useNavigate(); 
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
+
+  const images = [
+    { src: "./asset/r1.png", alt: "Slide 1" },
+    { src: "./asset/r2.png", alt: "Slide 2" },
+    { src: "./asset/r3.png", alt: "Slide 3" },
+  ];
 
   return (
     <div className="container my-5">
@@ -15,29 +26,43 @@ export default function About() {
 
       {/* Carousel */}
       <div className="mb-5">
-        <Carousel className="rounded overflow-hidden">
-          <Carousel.Item>
-            <img
-              className="d-block w-100 img-fluid"
-              src="./asset/r1.png"
-              alt="Slide 1"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100 img-fluid"
-              src="./asset/r2.png"
-              alt="Slide 2"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100 img-fluid"
-              src="./asset/r3.png"
-              alt="Slide 3"
-            />
-          </Carousel.Item>
+        <Carousel
+          activeIndex={index}
+          onSelect={handleSelect}
+          indicators={false}
+          fade  
+          className="rounded overflow-hidden"
+        >
+          {images.map((img, i) => (
+            <Carousel.Item key={i}>
+              <img
+                className="d-block w-100 img-fluid"
+                src={img.src}
+                alt={img.alt}
+              />
+            </Carousel.Item>
+          ))}
         </Carousel>
+
+        {/* Thumbnail indicators */}
+        <div className="d-flex justify-content-center mt-3 gap-3">
+          {images.map((img, i) => (
+            <img
+              key={i}
+              src={img.src}
+              alt={img.alt}
+              onClick={() => setIndex(i)}
+              className={`img-thumbnail thumb ${index === i ? "active-thumb" : ""}`}
+              style={{
+                width: "100px",
+                height: "80px",
+                objectFit: "cover",
+                cursor: "pointer",
+                transition: "all 0.3s ease-in-out"
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Features */}
@@ -81,6 +106,25 @@ export default function About() {
           Xem nhà ngay
         </button>
       </div>
+
+      {/* Extra CSS */}
+      <style>
+        {`
+          .thumb {
+            opacity: 0.6;
+            border: 2px solid transparent;
+          }
+          .thumb:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+          }
+          .active-thumb {
+            opacity: 1 !important;
+            border-color: #ccc !important;
+            transform: scale(1.1);
+          }
+        `}
+      </style>
     </div>
   );
 }
