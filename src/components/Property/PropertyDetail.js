@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
 import { checkConflict } from "../util/CheckConflict";
+import { Carousel } from "react-bootstrap";
 
 const amenityIcons = {
   "Wifi": faWifi,
@@ -36,12 +37,15 @@ export default function PropertyDetail() {
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(1);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {
     const fetchProperty = async () => {
       try {
         const res = await axios.get(`${PROPERTIES_URL}/${id}`);
-        setProperty(res.data);
+        const data = res.data;
+        data.images = [data.image];
+        setProperty(data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -133,7 +137,36 @@ export default function PropertyDetail() {
       </h2>
       <div className="row mb-4">
         <div className="col-md-6 mb-3 mb-md-0">
-          <img src={property.image} alt={property.name} className="img-fluid rounded" />
+          <Carousel
+            activeIndex={carouselIndex}
+            onSelect={setCarouselIndex}
+            indicators={false}
+          >
+            {property.images.map((img, idx) => (
+              <Carousel.Item key={idx}>
+                <img
+                  src={img}
+                  alt={`${property.name} ${idx + 1}`}
+                  className="d-block w-100 rounded"
+                  style={{ maxHeight: "400px", objectFit: "cover" }}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
+
+          {/* Thumbnail indicators */}
+          <div className="d-flex justify-content-center mt-2">
+            {property.images.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`thumb-${i}`}
+                onClick={() => setCarouselIndex(i)}
+                className={`img-thumbnail thumb ${carouselIndex === i ? "active-thumb" : ""}`}
+                style={{ width: "100px", height: "60px", objectFit: "cover", cursor: "pointer" }}
+              />
+            ))}
+          </div>
         </div>
         <div className="col-md-6">
           <h2>Thông tin chi tiết</h2>
