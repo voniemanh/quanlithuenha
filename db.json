@@ -118,7 +118,7 @@
       "description": "Phòng 26m2, gần trường học, yên tĩnh",
       "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
       "price": 5200000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "likes": [],
@@ -193,7 +193,7 @@
       "endDate": "2025-11-29",
       "guests": "2",
       "monthlyPayment": 27040000,
-      "status": "completed",
+      "status": "paid",
       "paidAt": "2025-09-12"
     },
     {
@@ -207,6 +207,28 @@
       "status": "paid",
       "payAt": null,
       "paidAt": "2025-09-16"
+    },
+    {
+      "id": "f062",
+      "userId": "u1",
+      "propertyId": "r1",
+      "startDate": "2025-09-20",
+      "endDate": "2025-09-28",
+      "guests": 1,
+      "monthlyPayment": 2133333,
+      "status": "pending",
+      "payAt": null
+    },
+    {
+      "id": "282a",
+      "userId": "u1",
+      "propertyId": "r1",
+      "startDate": "2025-10-24",
+      "endDate": "2025-10-30",
+      "guests": 2,
+      "monthlyPayment": 3200000,
+      "status": "pending",
+      "payAt": null
     }
   ],
   "news": [
