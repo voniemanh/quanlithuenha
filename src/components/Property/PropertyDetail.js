@@ -163,7 +163,7 @@ export default function PropertyDetail() {
                 alt={`thumb-${i}`}
                 onClick={() => setCarouselIndex(i)}
                 className={`img-thumbnail thumb ${carouselIndex === i ? "active-thumb" : ""}`}
-                style={{ width: "100px", height: "60px", objectFit: "cover", cursor: "pointer" }}
+                style={{objectFit: "cover", cursor: "pointer" }}
               />
             ))}
           </div>
@@ -237,6 +237,7 @@ export default function PropertyDetail() {
           .thumb:hover {
             opacity: 0.9;
             transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
           }
           .active-thumb {
             opacity: 1 !important;

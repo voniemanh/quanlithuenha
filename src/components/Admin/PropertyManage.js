@@ -58,8 +58,8 @@ export default function PropertyManage() {
       alert("Tên và địa chỉ là bắt buộc!");
       return false;
     }
-    if (data.price < 0) {
-      alert("Giá phải lớn hơn hoặc bằng 0!");
+    if (data.price < 1000000) {
+      alert("Giá phải lớn hơn hoặc bằng 1 triệu!");
       return false;
     }
     return true;

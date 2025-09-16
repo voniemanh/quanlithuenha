@@ -94,10 +94,10 @@ export default function ContractManage() {
       alert("Vui lòng chọn ngày thanh toán khi đã thanh toán!");
       return false;
     }
-    if (data.startDate < new Date().toISOString().split("T")[0]) {
-      alert("Ngày bắt đầu phải sau ngày hiện tại!");
-      return false;
-    }
+    // if (data.startDate < new Date().toISOString().split("T")[0]) {
+    //   alert("Ngày bắt đầu phải sau ngày hiện tại!");
+    //   return false;
+    // }
     if (data.status === "paid") {
       if (checkConflict(contracts, data.propertyId, data.startDate, data.endDate, editingId)) {
         alert("Phòng đã được thuê trong khoảng thời gian này!");

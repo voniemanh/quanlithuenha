@@ -34,7 +34,7 @@ export default function About() {
           onSelect={handleSelect}
           indicators={false}
           fade  
-          className="rounded overflow-hidden"
+          className="overflow-hidden"
         >
           {images.map((img, i) => (
             <Carousel.Item key={i}>
@@ -48,22 +48,23 @@ export default function About() {
         </Carousel>
 
         {/* Thumbnail indicators */}
-        <div className="d-flex justify-content-center mt-3 gap-3">
-          {images.map((img, i) => (
-            <img
-              key={i}
-              src={img.src}
-              alt={img.alt}
-              onClick={() => setIndex(i)}
-              className={`img-thumbnail thumb ${index === i ? "active-thumb" : ""}`}
-              style={{
-                height: "auto",
-                objectFit: "cover",
-                cursor: "pointer",
-                transition: "all 0.3s ease-in-out"
-              }}
-            />
-          ))}
+        <div className="thumbnail-container">
+          {images.map((img, i) => {
+            const gap = 8; 
+            const totalGap = gap * (images.length -4);
+            const thumbWidth = `calc((100% - ${totalGap}px) / ${images.length})`;
+
+            return (
+              <img
+                key={i}
+                src={img.src}
+                alt={img.alt}
+                onClick={() => setIndex(i)}
+                className={`thumb ${index === i ? "active-thumb" : ""}`}
+                style={{ width: thumbWidth }}
+              />
+            );
+          })}
         </div>
       </div>
 
@@ -112,30 +113,46 @@ export default function About() {
       {/* Extra CSS */}
       <style>
         {`
+          .thumbnail-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 0 8px;
+          }
+
           .thumb {
+            height: auto;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
             opacity: 0.6;
             border: 2px solid transparent;
-            max-width: 100px; 
           }
+
           .thumb:hover {
             opacity: 0.9;
             transform: scale(1.05);
           }
+
           .active-thumb {
             opacity: 1 !important;
             border-color: #ccc !important;
-            transform: scale(1.1);
           }
 
-          /* Responsive */
           @media (max-width: 768px) {
-            .thumb {
-              max-width: 60px;
+            .thumbnail-container {
+              gap: 6px;
+              padding: 0 6px;
             }
           }
+
           @media (max-width: 480px) {
-            .thumb {
-              max-width: 40px;
+            .thumbnail-container {
+              gap: 4px;
+              padding: 0 4px;
             }
           }
         `}

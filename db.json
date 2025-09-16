@@ -28,7 +28,7 @@
       "description": "Phòng 25m2, có nội thất, gần trung tâm",
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
       "price": 8000000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "likes": [
@@ -38,16 +38,7 @@
       "amenitiesList": [
         "Wifi",
         "TV",
-        "Điều hòa",
-        "Máy giặt",
-        "Tủ lạnh",
-        "Bàn làm việc",
-        "Bathtub",
-        "Luggage dropoff allowed",
-        "Security camera",
-        "Paid dryer",
-        "Washer",
-        "Air conditioning"
+        "Điều hòa"
       ]
     },
     {
@@ -65,15 +56,7 @@
         "Wifi",
         "TV",
         "Điều hòa",
-        "Máy giặt",
-        "Tủ lạnh",
-        "Bàn làm việc",
-        "Bathtub",
-        "Luggage dropoff allowed",
-        "Security camera",
-        "Paid dryer",
-        "Washer",
-        "Air conditioning"
+        "Máy giặt"
       ]
     },
     {
@@ -135,7 +118,7 @@
       "description": "Phòng 26m2, gần trường học, yên tĩnh",
       "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
       "price": 5200000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "likes": [],
@@ -210,8 +193,20 @@
       "endDate": "2025-11-29",
       "guests": "2",
       "monthlyPayment": 27040000,
-      "status": "paid",
+      "status": "completed",
       "paidAt": "2025-09-12"
+    },
+    {
+      "id": "5e08",
+      "userId": "c1e3",
+      "propertyId": "r1",
+      "startDate": "2025-09-16",
+      "endDate": "2025-09-20",
+      "guests": 3,
+      "monthlyPayment": 3200000,
+      "status": "paid",
+      "payAt": null,
+      "paidAt": "2025-09-16"
     }
   ],
   "news": [
