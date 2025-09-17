@@ -23,6 +23,7 @@ export default function UserDetail() {
     try {
       const [propertiesRes, contractsRes] = await Promise.all([
         axios.get(PROPERTIES_URL),
+        axios.get(CONTRACTS_URL)
       ]);
       setProperties(propertiesRes.data);
       setContracts(contractsRes.data);
