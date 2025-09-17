@@ -50,7 +50,7 @@ export default function Login({ show, handleClose }) {
     <ModalWrapper show={show} handleClose={handleClose} title="Login">
       <div className="d-flex flex-column gap-3">
         {error && <Alert variant="danger">{error}</Alert>}
-
+        <label>Username</label>
         <input
           type="text"
           name="username"
@@ -59,6 +59,7 @@ export default function Login({ show, handleClose }) {
           onChange={handleChange}
           className="form-control"
         />
+        <label>Password</label>
         <input
           type="password"
           name="password"
