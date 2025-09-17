@@ -131,7 +131,7 @@ export default function ContractDetail() {
   };
 
   if (loading) return <p>Loading...</p>;
-  if (accessDenied) return <p>Bạn không có quyền xem hợp đồng này!</p>;
+  if (accessDenied) return <p className="ms-3">Bạn không thể xem hợp đồng này!</p>;
   if (!contract || !property || !user) return <p>Không tìm thấy thông tin hợp đồng!</p>;
 
   const isOwner = currentUser?.id === contract.userId;
@@ -248,7 +248,7 @@ export default function ContractDetail() {
             </button>
           )}
           <button
-            className="btn btn-primary"
+            className="btn-black"
             onClick={handlePrintPDF}
           >
             In hợp đồng (PDF)
@@ -256,7 +256,7 @@ export default function ContractDetail() {
         </div>
       )}
 
-      <button className="btn btn-secondary mt-4" onClick={() => navigate(-1)}>
+      <button className="btn btn-outline-secondary mt-4" onClick={() => navigate(-1)}>
         Quay lại
       </button>
     </div>

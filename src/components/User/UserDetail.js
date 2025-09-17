@@ -11,50 +11,39 @@ export default function UserDetail() {
   const [contracts, setContracts] = useState([]);
   const [properties, setProperties] = useState([]);
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    username: "",
-    password: "",
-    avatar: ""
-  });
+  const [editData, setEditData] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!currentUser) {
-      navigate("/");
-      return;
+ useEffect(() => {
+  if (!currentUser) {
+    navigate("/");
+    return;
+  }
+  const fetchData = async () => {
+    try {
+      const [propertiesRes, contractsRes] = await Promise.all([
+        axios.get(PROPERTIES_URL),
+      ]);
+      setProperties(propertiesRes.data);
+      setContracts(contractsRes.data);
+      if (currentUser.role === "admin" || currentUser.id === id) {
+        const userRes = await axios.get(`${USERS_URL}/${id}`);
+        setUser(userRes.data);
+        setEditData(userRes.data);
+      } else {
+        alert("Bạn không có quyền xem thông tin này");
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Error fetching data:", err);
     }
-
-    axios.get(PROPERTIES_URL).then(res => setProperties(res.data));
-    axios.get(CONTRACTS_URL).then(res => setContracts(res.data));
-
-    if (currentUser.role === "admin" || currentUser.id === id) {
-      axios.get(`${USERS_URL}/${id}`).then(res => {
-        setUser(res.data);
-        setFormData({
-          name: res.data.name,
-          username: res.data.username,
-          password: res.data.password,
-          avatar: res.data.avatar || ""
-        });
-      });
-    } else {
-      alert("Bạn không có quyền xem thông tin này");
-      navigate("/");
-    }
-  }, [currentUser, id, navigate]);
-
-  const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSave = () => {
-    const updatedData = {
-      ...formData,
-      role: user.role
-    };
+    fetchData();
+  }, [currentUser, id, navigate]);
 
-    axios.put(`${USERS_URL}/${user.id}`, updatedData)
+  const handleSave = () => {
+    axios.put(`${USERS_URL}/${user.id}`, { ...editData, role: user.role })
       .then(res => {
         if (currentUser.id === user.id) setCurrentUser(res.data);
         setUser(res.data);
@@ -84,47 +73,92 @@ export default function UserDetail() {
   return (
     <div className="container mt-4">
       <h2 className="mb-4">Thông tin cá nhân</h2>
-      <div className="card mb-4">
-        <div className="card-body">
-          {editing ? (
-            <div className="row g-3">
-              <div className="col-md-6">
-                <label className="form-label">Họ và tên</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} className="form-control"/>
-              </div>
-              <div className="col-md-6">
-                <label className="form-label">Username</label>
-                <input type="text" name="username" value={formData.username} onChange={handleChange} className="form-control"/>
-              </div>
-              <div className="col-md-6">
-                <label className="form-label">Mật khẩu</label>
-                <input type="password" name="password" value={formData.password} onChange={handleChange} className="form-control"/>
-              </div>
-              <div className="col-md-6">
-                <label className="form-label">Avatar URL</label>
-                <input type="text" name="avatar" value={formData.avatar} onChange={handleChange} className="form-control"/>
-              </div>
-              <div className="col-12 mt-3">
-                <button className="btn btn-outline-primary me-2" onClick={handleSave}>Lưu</button>
-                <button className="btn btn-outline-secondary" onClick={() => setEditing(false)}>Huỷ</button>
-              </div>
-            </div>
-          ) : (
-            <div className="row">
-              <div className="col-md-6 mb-2"><strong>Họ và tên:</strong> {user.name}</div>
-              <div className="col-md-6 mb-2"><strong>Username:</strong> {user.username}</div>
-              <div className="col-md-6 mb-2">
-                {user.avatar && <img src={user.avatar} alt="avatar" className="img-thumbnail ms-2" style={{ width: "100px", height: "100px", borderRadius: "50%" }}/>}
-              </div>
-              <div className="col-12 mt-3">
-                <button className="btn btn-outline-primary me-2" onClick={() => setEditing(true)}>Sửa thông tin</button>
-                {user.role !== "admin" && <button className="btn btn-outline-danger" onClick={handleDelete}>Xoá tài khoản</button>}
-              </div>
-            </div>
-          )}
-        </div>
+      <table className="table-custom">
+        <tbody>
+          <tr>
+            <th>Họ và tên:</th>
+            <td>
+              {editing ? (
+                <input
+                  type="text"
+                  className="form-control"
+                  value={editData.name}
+                  onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                />
+              ) : (
+                user.name
+              )}
+            </td>
+          </tr>
+          <tr>
+            <th>Username:</th>
+            <td>
+              {editing ? (
+                <input
+                  type="text"
+                  className="form-control"
+                  value={editData.username}
+                  onChange={(e) => setEditData({ ...editData, username: e.target.value })}
+                />
+              ) : (
+                user.username
+              )}
+            </td>
+          </tr>
+          <tr>
+            <th>Mật khẩu:</th>
+            <td>
+              {editing ? (
+                <input
+                  type="password"
+                  className="form-control"
+                  value={editData.password}
+                  onChange={(e) => setEditData({ ...editData, password: e.target.value })}
+                />
+              ) : (
+                "********"
+              )}
+            </td>
+          </tr>
+          <tr>
+            <th>Avatar</th>
+            <td>
+              {editing ? (
+                <input
+                  type="text"
+                  className="form-control"
+                  value={editData.avatar}
+                  onChange={(e) => setEditData({ ...editData, avatar: e.target.value })}
+                />
+              ) : (
+                user.avatar && (
+                  <img
+                    src={user.avatar}
+                    alt="avatar"
+                    className="img-thumbnail"
+                    style={{ width: 100, height: 100, borderRadius: "50%" }}
+                  />
+                )
+              )}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div className="mb-4">
+        {editing ? (
+          <>
+            <button className="btn btn-outline-primary me-2" onClick={handleSave}>Lưu</button>
+            <button className="btn btn-outline-secondary" onClick={() => { setEditing(false); setEditData(user); }}>Huỷ</button>
+          </>
+        ) : (
+          <>
+            <button className="btn btn-outline-primary me-2" onClick={() => setEditing(true)}>Sửa thông tin</button>
+            {user.role !== "admin" && (
+              <button className="btn btn-outline-danger" onClick={handleDelete}>Xoá tài khoản</button>
+            )}
+          </>
+        )}
       </div>
-
       {user.role !== "admin" && (
         <>
           <h2 className="mb-3">Danh sách hợp đồng</h2>
@@ -140,14 +174,18 @@ export default function UserDetail() {
               </tr>
             </thead>
             <tbody>
-              {userContracts.map(contract => (
-                <tr key={contract.id} style={{ cursor: "pointer" }} onClick={() => navigate(`/contract-detail/${contract.id}`)}>
-                  <td>{contract.id}</td>
-                  <td>{getPropertyName(contract.propertyId)}</td>
-                  <td>{contract.startDate}</td>
-                  <td>{contract.endDate}</td>
-                  <td>{contract.status}</td>
-                  <td>{contract.monthlyPayment.toLocaleString()} VND</td>
+              {userContracts.map(c => (
+                <tr
+                  key={c.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/contract-detail/${c.id}`)}
+                >
+                  <td>{c.id}</td>
+                  <td>{getPropertyName(c.propertyId)}</td>
+                  <td>{c.startDate}</td>
+                  <td>{c.endDate}</td>
+                  <td>{c.status}</td>
+                  <td>{c.monthlyPayment.toLocaleString()} VND</td>
                 </tr>
               ))}
             </tbody>
@@ -155,6 +193,25 @@ export default function UserDetail() {
         </>
       )}
       <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Quay lại</button>
+      <style>{`
+        .table-custom th,
+        .table-custom td {
+          border: none !important;
+          padding: 4px 8px;
+          vertical-align: baseline;
+        }
+
+        .table-custom th {
+          padding-right: 15px;
+          white-space: nowrap;
+        }
+
+        .table-custom td {
+          padding-left: 0;
+        }
+        table {
+        margin-bottom: 10px;}
+      `}</style>
     </div>
   );
 }

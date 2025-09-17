@@ -8,18 +8,9 @@
       "role": "admin",
       "id": "u1",
       "likeProperties": [
-        "r1"
-      ]
-    },
-    {
-      "name": "Trần Thị Khách",
-      "username": "user3",
-      "password": "123",
-      "avatar": "/asset/u2.jpg",
-      "role": "user",
-      "id": "c1e3",
-      "likeProperties": [
-        "r1"
+        "4e06",
+        "a8e4",
+        "aabe"
       ]
     },
     {
@@ -28,7 +19,20 @@
       "username": "user1",
       "password": "123",
       "role": "user",
-      "avatar": "/asset/u1.jpg"
+      "avatar": "/asset/u1.jpg",
+      "likeProperties": [
+        "db18"
+      ]
+    },
+    {
+      "id": "6a61",
+      "name": "Papa Nda",
+      "username": "papa",
+      "email": "papa@testnda.com",
+      "password": "123",
+      "role": "user",
+      "avatar": null,
+      "likeProperties": []
     }
   ],
   "properties": [
@@ -42,32 +46,13 @@
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "likes": [
-        "c1e3",
-        "u1"
+        "c1e3"
       ],
-      "likeCount": 3,
+      "likeCount": 2,
       "amenitiesList": [
         "Wifi",
         "TV",
         "Điều hòa"
-      ]
-    },
-    {
-      "id": "r2",
-      "name": "Phòng 202 - Chung cư B",
-      "description": "Phòng 30m2, view đẹp, yên tĩnh",
-      "address": "456 Nguyễn Trãi, Q.5, TP.HCM",
-      "price": 6000000,
-      "status": "available",
-      "createdBy": "admin",
-      "image": "/asset/r2.png",
-      "likes": [],
-      "likeCount": 0,
-      "amenitiesList": [
-        "Wifi",
-        "TV",
-        "Điều hòa",
-        "Máy giặt"
       ]
     },
     {
@@ -129,7 +114,7 @@
       "description": "Phòng 26m2, gần trường học, yên tĩnh",
       "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
       "price": 5200000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "likes": [],
@@ -193,30 +178,83 @@
         "Điều hòa",
         "Tủ lạnh"
       ]
+    },
+    {
+      "id": "db18",
+      "name": "Phòng 105 - Chung cư AAAAA",
+      "description": "nha dep nha dep",
+      "address": " TP.HCM",
+      "price": 9000000,
+      "status": "available",
+      "image": "/asset/r3.png",
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Máy giặt"
+      ],
+      "likes": [
+        "6a6b"
+      ],
+      "likeCount": 1
     }
   ],
   "contracts": [
     {
-      "userId": "c1e3",
-      "propertyId": "r6",
+      "userId": "6a6b",
+      "propertyId": "r8",
       "startDate": "2025-09-14",
       "endDate": "2025-09-26",
-      "guests": 1,
-      "monthlyPayment": 3200000,
-      "status": "pending",
-      "paidAt": "",
+      "guests": 2,
+      "monthlyPayment": 4160000,
+      "status": "paid",
+      "paidAt": "2025-09-20",
       "id": "5e08"
     },
     {
       "id": "4338",
       "userId": "6a6b",
-      "propertyId": "r2",
+      "propertyId": null,
       "startDate": "2025-09-20",
       "endDate": "2025-10-12",
       "guests": "2",
       "status": "paid",
       "paidAt": "2025-09-18",
       "monthlyPayment": 8800000
+    },
+    {
+      "id": "52c5",
+      "userId": "edd5",
+      "propertyId": "4e06",
+      "startDate": "2025-09-17",
+      "endDate": "2025-09-19",
+      "guests": 3,
+      "monthlyPayment": 10000000,
+      "status": "pending",
+      "payAt": null
+    },
+    {
+      "id": "e27a",
+      "userId": "u1",
+      "propertyId": "4e06",
+      "startDate": "2025-09-17",
+      "endDate": "2025-09-19",
+      "guests": 2,
+      "monthlyPayment": 6666667,
+      "status": "pending",
+      "payAt": null
+    },
+    {
+      "id": "a553",
+      "userId": "6a61",
+      "propertyId": null,
+      "startDate": "2025-09-17",
+      "endDate": "2025-09-19",
+      "guests": 3,
+      "monthlyPayment": 10000000,
+      "status": "paid",
+      "payAt": null,
+      "paidAt": "2025-09-17"
     }
   ],
   "news": [

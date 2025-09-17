@@ -36,7 +36,9 @@ export default function PropertyManage() {
       price: 0,
       status: "available",
       image: "",
-      amenitiesList: []
+      amenitiesList: [],
+      likes: [],
+      likeCount: 0
     }
   });
 
