@@ -36,6 +36,18 @@ export default function News() {
     fetchData();
   }, []);
 
+  const validateNews = (data) => {
+    if (!data.title.trim()) {
+      alert("Tiêu đề không được để trống!");
+      return false;
+    }
+    if (!data.summary.trim()) {
+      alert("Nội dung không được để trống!");
+      return false;
+    }
+    return true;
+  };
+
   const handleDelete = async (id) => {
     try {
       await fetch(`${NEWS_URL}/${id}`, { method: "DELETE" });
@@ -70,6 +82,7 @@ export default function News() {
   };
 
   const handleAdd = async () => {
+    if (!validateNews(newData)) return;
     try {
       const newItem = {
         ...newData,

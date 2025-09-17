@@ -30,7 +30,9 @@ export default function HomePage() {
       price: 0,
       status: "available",
       image: "",
-      amenitiesList: []
+      amenitiesList: [],
+      likes: [],
+      likeCount: 0  
     }
   });
 

@@ -23,16 +23,6 @@
       "likeProperties": [
         "db18"
       ]
-    },
-    {
-      "id": "6a61",
-      "name": "Papa Nda",
-      "username": "papa",
-      "email": "papa@testnda.com",
-      "password": "123",
-      "role": "user",
-      "avatar": null,
-      "likeProperties": []
     }
   ],
   "properties": [
@@ -178,25 +168,6 @@
         "Điều hòa",
         "Tủ lạnh"
       ]
-    },
-    {
-      "id": "db18",
-      "name": "Phòng 105 - Chung cư AAAAA",
-      "description": "nha dep nha dep",
-      "address": " TP.HCM",
-      "price": 9000000,
-      "status": "available",
-      "image": "/asset/r3.png",
-      "amenitiesList": [
-        "Wifi",
-        "TV",
-        "Điều hòa",
-        "Máy giặt"
-      ],
-      "likes": [
-        "6a6b"
-      ],
-      "likeCount": 1
     }
   ],
   "contracts": [
@@ -210,51 +181,6 @@
       "status": "paid",
       "paidAt": "2025-09-20",
       "id": "5e08"
-    },
-    {
-      "id": "4338",
-      "userId": "6a6b",
-      "propertyId": null,
-      "startDate": "2025-09-20",
-      "endDate": "2025-10-12",
-      "guests": "2",
-      "status": "paid",
-      "paidAt": "2025-09-18",
-      "monthlyPayment": 8800000
-    },
-    {
-      "id": "52c5",
-      "userId": "edd5",
-      "propertyId": "4e06",
-      "startDate": "2025-09-17",
-      "endDate": "2025-09-19",
-      "guests": 3,
-      "monthlyPayment": 10000000,
-      "status": "pending",
-      "payAt": null
-    },
-    {
-      "id": "e27a",
-      "userId": "u1",
-      "propertyId": "4e06",
-      "startDate": "2025-09-17",
-      "endDate": "2025-09-19",
-      "guests": 2,
-      "monthlyPayment": 6666667,
-      "status": "pending",
-      "payAt": null
-    },
-    {
-      "id": "a553",
-      "userId": "6a61",
-      "propertyId": null,
-      "startDate": "2025-09-17",
-      "endDate": "2025-09-19",
-      "guests": 3,
-      "monthlyPayment": 10000000,
-      "status": "paid",
-      "payAt": null,
-      "paidAt": "2025-09-17"
     }
   ],
   "news": [
@@ -277,10 +203,10 @@
       "summary": "Tham gia sự kiện offline để kết nối với các chủ nhà và người thuê khác."
     },
     {
-      "id": "4",
-      "title": "Giới thiệu tính năng mới trên nền tảng",
-      "date": "01/09/2025",
-      "summary": "Chúng tôi ra mắt các tính năng mới giúp bạn tìm nhà dễ dàng hơn."
+      "title": "Giới thiệu tính năng mới trên website",
+      "summary": "<p>Chúng tôi ra mắt các tính năng mới giúp bạn tìm nhà dễ dàng hơn.</p>",
+      "date": "2025-09-17T12:05:37.096Z",
+      "id": "4"
     }
   ]
 }
