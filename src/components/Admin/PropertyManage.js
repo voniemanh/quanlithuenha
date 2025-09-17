@@ -65,7 +65,7 @@ export default function PropertyManage() {
     return true;
   };
 
-  const handleEdit = async (property) => {
+  const handleSave = async (property) => {
     if (!validateProperty(editData)) return;
 
     try {
@@ -265,7 +265,7 @@ export default function PropertyManage() {
                     <>
                       <button
                         className="btn btn-outline-primary btn-sm me-1"
-                        onClick={() => handleEdit(p)}
+                        onClick={() => handleSave(p)}
                       >
                         Lưu
                       </button>

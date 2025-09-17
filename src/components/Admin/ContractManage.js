@@ -95,7 +95,7 @@ export default function ContractManage() {
     return true;
   };
 
-  const handleEdit = async (data) => {
+  const handleSave = async (data) => {
     if (!validateContract(data)) return;
 
     try {
@@ -292,7 +292,7 @@ export default function ContractManage() {
                     <>
                       <button 
                         className="btn btn-outline-primary btn-sm me-1" 
-                        onClick={() => handleEdit(editData)}>
+                        onClick={() => handleSave(editData)}>
                         Lưu
                       </button>
                       <button 

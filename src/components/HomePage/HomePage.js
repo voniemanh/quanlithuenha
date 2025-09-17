@@ -211,7 +211,6 @@ export default function HomePage() {
           </Col>
         ))}
       </Row>
-
       <ModalWrapper show={modalOpen} handleClose={() => setModalOpen(false)} title="Chỉnh sửa bất động sản">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-2"><label className="form-label">Tên</label><input type="text" className="form-control" {...register("name", { required: true })} /></div>
