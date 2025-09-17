@@ -89,7 +89,8 @@ export default function UserManage() {
       <button
         className="btn-outline-black mb-3"
         onClick={() => {
-          reset({ name: "", username: "", password: "", role: "user", avatar: "" });
+          reset();
+          setEditingId(null);
           setAvatarPreview("");
           setModalOpen(true);
         }}

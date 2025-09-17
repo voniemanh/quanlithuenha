@@ -7,7 +7,9 @@
       "avatar": "/asset/u1.jpg",
       "role": "admin",
       "id": "u1",
-      "likeProperties": []
+      "likeProperties": [
+        "r1"
+      ]
     },
     {
       "name": "Trần Thị Khách",
@@ -19,6 +21,14 @@
       "likeProperties": [
         "r1"
       ]
+    },
+    {
+      "id": "6a6b",
+      "name": "Nguyễn Văn A",
+      "username": "user1",
+      "password": "123",
+      "role": "user",
+      "avatar": "/asset/u1.jpg"
     }
   ],
   "properties": [
@@ -28,13 +38,14 @@
       "description": "Phòng 25m2, có nội thất, gần trung tâm",
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
       "price": 8000000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "likes": [
-        "c1e3"
+        "c1e3",
+        "u1"
       ],
-      "likeCount": 2,
+      "likeCount": 3,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -118,7 +129,7 @@
       "description": "Phòng 26m2, gần trường học, yên tĩnh",
       "address": "505 Võ Thị Sáu, Q.3, TP.HCM",
       "price": 5200000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "likes": [],
@@ -186,49 +197,26 @@
   ],
   "contracts": [
     {
-      "id": "5509",
       "userId": "c1e3",
-      "propertyId": "r8",
-      "startDate": "2025-09-12",
-      "endDate": "2025-11-29",
-      "guests": "2",
-      "monthlyPayment": 27040000,
-      "status": "paid",
-      "paidAt": "2025-09-12"
-    },
-    {
-      "id": "5e08",
-      "userId": "c1e3",
-      "propertyId": "r1",
-      "startDate": "2025-09-16",
-      "endDate": "2025-09-20",
-      "guests": 3,
-      "monthlyPayment": 3200000,
-      "status": "paid",
-      "payAt": null,
-      "paidAt": "2025-09-16"
-    },
-    {
-      "id": "f062",
-      "userId": "u1",
-      "propertyId": "r1",
-      "startDate": "2025-09-20",
-      "endDate": "2025-09-28",
+      "propertyId": "r6",
+      "startDate": "2025-09-14",
+      "endDate": "2025-09-26",
       "guests": 1,
-      "monthlyPayment": 2133333,
-      "status": "pending",
-      "payAt": null
-    },
-    {
-      "id": "282a",
-      "userId": "u1",
-      "propertyId": "r1",
-      "startDate": "2025-10-24",
-      "endDate": "2025-10-30",
-      "guests": 2,
       "monthlyPayment": 3200000,
       "status": "pending",
-      "payAt": null
+      "paidAt": "",
+      "id": "5e08"
+    },
+    {
+      "id": "4338",
+      "userId": "6a6b",
+      "propertyId": "r2",
+      "startDate": "2025-09-20",
+      "endDate": "2025-10-12",
+      "guests": "2",
+      "status": "paid",
+      "paidAt": "2025-09-18",
+      "monthlyPayment": 8800000
     }
   ],
   "news": [
