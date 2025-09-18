@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Row, Col, Spinner } from "react-bootstrap";
+import { Card, Row, Col, Spinner, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
@@ -20,6 +20,8 @@ export default function HomePage() {
   const [editingId, setEditingId] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
   const [favourites, setFavourites] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); 
   const navigate = useNavigate();
 
   const { register, handleSubmit, reset } = useForm({
@@ -171,6 +173,17 @@ export default function HomePage() {
     }
   };
 
+  const sortedProperties = properties
+    .filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.address.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOrder === "asc") return a.price - b.price;
+      if (sortOrder === "desc") return b.price - a.price;
+      return 0;
+    });
+
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center my-5">
@@ -181,37 +194,60 @@ export default function HomePage() {
 
   return (
     <div className="container my-4">
+      <div className="d-flex justify-content-between align-items-center mb-3 rounded">
+        <Form.Control
+          type="text"
+          placeholder="Tìm kiếm theo tên hoặc địa chỉ..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ maxWidth: "300px" }}
+        />
+        <Form.Select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          style={{ maxWidth: "200px" }}
+        >
+          <option value="">Sắp xếp theo giá</option>
+          <option value="asc">Giá tăng dần</option>
+          <option value="desc">Giá giảm dần</option>
+        </Form.Select>
+      </div>
+
       <Row className="g-3">
-        {properties.map((property) => (
-          <Col key={property.id} xs={6} sm={6} md={4} lg={3} xl={2} className="d-flex justify-content-center">
-            <Card className="property-card" onClick={() => handleCardClick(property.id)}>
-              <Card.Img variant="top" src={property.image} />
-              <div className={`heart-icon ${favourites.includes(property.id) ? "active" : ""}`} onClick={(e) => handleFavourite(e, property)}>
-                <span className="like-count">{property.likeCount || 0}</span>
-                <FontAwesomeIcon icon={favourites.includes(property.id) ? solidHeart : regularHeart} className="heart" />
-              </div>
-              <Card.Body className="card-body d-flex flex-column">
-                <div className="content flex-grow-1">
-                  <Card.Title className="property-title">{property.name}</Card.Title>
-                  <Card.Text className="property-text">Mô tả: {property.description}</Card.Text>
-                  <Card.Text className="property-text">Địa chỉ: {property.address}</Card.Text>
-                  <Card.Text className="property-text" style={{fontStyle: "italic"}}>Giá: {property.price.toLocaleString()} VND / tháng</Card.Text>
+        {sortedProperties.length === 0 ? (
+          <p>Không tìm thấy bất động sản phù hợp.</p>
+        ) : (
+          sortedProperties.map((property) => (
+            <Col key={property.id} xs={6} sm={6} md={4} lg={3} xl={2} className="d-flex justify-content-center">
+              <Card className="property-card" onClick={() => handleCardClick(property.id)}>
+                <Card.Img variant="top" src={property.image} />
+                <div className={`heart-icon ${favourites.includes(property.id) ? "active" : ""}`} onClick={(e) => handleFavourite(e, property)}>
+                  <span className="like-count">{property.likeCount || 0}</span>
+                  <FontAwesomeIcon icon={favourites.includes(property.id) ? solidHeart : regularHeart} className="heart" />
                 </div>
-                <div className="status-wrapper">
-                  <button disabled className={`status-button ${property.status === "available" ? "status-available" : "status-unavailable"}`}>
-                    {property.status === "available" ? "Còn trống" : "Đã cho thuê"}
-                  </button>
-                  {currentUser?.role === "admin" && (
-                    <div className="admin-links">
-                      <span className="edit" onClick={(e) => handleEdit(e, property)}>Sửa |</span>
-                      <span className="delete" onClick={(e) => handleDelete(e, property.id)}>Xoá</span>
-                    </div>
-                  )}
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+                <Card.Body className="card-body d-flex flex-column">
+                  <div className="content flex-grow-1">
+                    <Card.Title className="property-title">{property.name}</Card.Title>
+                    <Card.Text className="property-text">Mô tả: {property.description}</Card.Text>
+                    <Card.Text className="property-text">Địa chỉ: {property.address}</Card.Text>
+                    <Card.Text className="property-text" style={{fontStyle: "italic"}}>Giá: {property.price.toLocaleString()} VND / tháng</Card.Text>
+                  </div>
+                  <div className="status-wrapper">
+                    <button disabled className={`status-button ${property.status === "available" ? "status-available" : "status-unavailable"}`}>
+                      {property.status === "available" ? "Còn trống" : "Đã cho thuê"}
+                    </button>
+                    {currentUser?.role === "admin" && (
+                      <div className="admin-links">
+                        <span className="edit" onClick={(e) => handleEdit(e, property)}>Sửa |</span>
+                        <span className="delete" onClick={(e) => handleDelete(e, property.id)}>Xoá</span>
+                      </div>
+                    )}
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        )}
       </Row>
       <ModalWrapper show={modalOpen} handleClose={() => setModalOpen(false)} title="Chỉnh sửa bất động sản">
         <form onSubmit={handleSubmit(onSubmit)}>
