@@ -25,13 +25,14 @@ export default function Footer() {
         <p>Đăng ký nhận bản tin của chúng tôi</p>
         <form onSubmit={handleSubmit} className="footer-form">
           <input
+            className="rounded-pill"
             type="email"
             placeholder="Email của bạn"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <button type="submit">Đăng ký</button>
+          <button className="rounded-pill" type="submit">Đăng ký</button>
         </form>
         {message && <p className="footer-message">{message}</p>}
       </div>
