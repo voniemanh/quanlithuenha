@@ -195,15 +195,17 @@ export default function HomePage() {
 
   return (
     <div className="container my-4">
-      <div className="d-flex justify-content-between align-items-center mb-3 rounded">
+      <div className="d-flex justify-content-between align-items-center mb-4">
         <Form.Control
+          className="rounded-pill"
           type="text"
-          placeholder="Tìm kiếm theo keyword..."
+          placeholder="Tìm kiếm theo từ khoá..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ maxWidth: "300px" }}
         />
         <Form.Select
+          className="rounded-pill"
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
           style={{ maxWidth: "200px" }}

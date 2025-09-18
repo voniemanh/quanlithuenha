@@ -23,7 +23,6 @@
       "likeProperties": [
         "db18",
         "r9",
-        "r3",
         "r1"
       ]
     }
@@ -58,10 +57,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r3.png",
-      "likes": [
-        "6a6b"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
