@@ -176,7 +176,8 @@ export default function HomePage() {
   const sortedProperties = properties
     .filter((p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.address.toLowerCase().includes(searchTerm.toLowerCase())
+      p.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.description.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
       if (sortOrder === "asc") return a.price - b.price;
@@ -197,7 +198,7 @@ export default function HomePage() {
       <div className="d-flex justify-content-between align-items-center mb-3 rounded">
         <Form.Control
           type="text"
-          placeholder="Tìm kiếm theo tên hoặc địa chỉ..."
+          placeholder="Tìm kiếm theo keyword..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ maxWidth: "300px" }}
