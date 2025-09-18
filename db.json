@@ -4,7 +4,7 @@
       "name": "Nguyễn Văn Chủ",
       "username": "admin",
       "password": "123",
-      "avatar": "/asset/u1.jpg",
+      "avatar": "https://i.postimg.cc/GpJKJXbM/images.jpg",
       "role": "admin",
       "id": "u1",
       "likeProperties": [
@@ -19,7 +19,7 @@
       "username": "user1",
       "password": "123",
       "role": "user",
-      "avatar": "/asset/u1.jpg",
+      "avatar": "https://i.postimg.cc/9QtYwhZ4/yellowbird-downflap.png",
       "likeProperties": [
         "db18"
       ]
