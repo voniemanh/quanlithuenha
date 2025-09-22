@@ -44,7 +44,7 @@ export default function Register({ show, handleClose }) {
     const { name, username, email, password, passwordConfirm } = formData;
 
     if (password !== passwordConfirm) {
-      alert("Passwords do not match!");
+      alert("Passwords không khớp!");
       return;
     }
 
@@ -57,7 +57,7 @@ export default function Register({ show, handleClose }) {
       resetForm();
     } catch (error) {
       console.error("Error registering user:", error);
-      alert("Register failed!");
+      alert("Đăng ký không thành công!");
     }
   };
 
