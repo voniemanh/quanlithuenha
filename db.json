@@ -11,7 +11,6 @@
         "4e06",
         "a8e4",
         "aabe",
-        "r8",
         "r1"
       ]
     },
@@ -113,7 +112,7 @@
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "likes": [],
-      "likeCount": 0,
+      "likeCount": -1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -188,6 +187,17 @@
       "status": "paid",
       "paidAt": "2025-09-20",
       "id": "5e08"
+    },
+    {
+      "id": "ae27",
+      "userId": "u1",
+      "propertyId": "r6",
+      "startDate": "2025-09-12",
+      "endDate": "2025-09-21",
+      "guests": "2",
+      "status": "paid",
+      "monthlyPayment": 4800000,
+      "paidAt": "2025-09-25"
     }
   ],
   "news": [

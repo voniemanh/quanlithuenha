@@ -160,8 +160,7 @@ export default function UserDetail() {
           </>
         )}
       </div>
-      {user.role !== "admin" && (
-        <>
+        <div>
           <h2 className="mb-3">Danh sách hợp đồng</h2>
           <table className="table table-striped table-hover">
             <thead>
@@ -191,8 +190,7 @@ export default function UserDetail() {
               ))}
             </tbody>
           </table>
-        </>
-      )}
+        </div>
       <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Quay lại</button>
       <style>{`
         .table-custom th,

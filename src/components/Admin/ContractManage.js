@@ -17,7 +17,7 @@ export default function ContractManage() {
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, reset, watch } = useForm({
+  const { register, handleSubmit, reset, watch, setValue } = useForm({
     defaultValues: {
       userId: "",
       propertyId: "",
@@ -25,6 +25,7 @@ export default function ContractManage() {
       endDate: "",
       guests: 1,
       status: "pending",
+      monthlyPayment: 0,
       paidAt: "",
     },
   });
@@ -74,6 +75,9 @@ export default function ContractManage() {
     return calculatePayment(price, watch("guests") || 1, watch("startDate"), watch("endDate"));
   }, [watch("propertyId"), watch("startDate"), watch("endDate"), watch("guests"), properties]);
 
+  useEffect(() => {
+  setValue("monthlyPayment", modalMonthlyPayment);
+  }, [modalMonthlyPayment, setValue]);
 
   const validateContract = (data) => {
     const start = new Date(data.startDate);
@@ -377,7 +381,7 @@ export default function ContractManage() {
           </div>
           <div className="mb-2">
             <label className="form-label">Số tiền phải trả</label>
-            <input type="number" className="form-control" value={modalMonthlyPayment} readOnly/>
+            <input type="number" className="form-control" {...register("monthlyPayment")} value={modalMonthlyPayment} readOnly/>
           </div>
           <div className="mb-2">
             <label className="form-label">Trạng thái</label>
