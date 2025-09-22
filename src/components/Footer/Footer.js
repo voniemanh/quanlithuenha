@@ -6,15 +6,14 @@ import "./Footer.css";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email.includes("@")) {
-      setMessage("Email không hợp lệ!");
+      alert("Email không hợp lệ!");
       return;
     }
-    setMessage(`Đăng ký thành công! ${email} sẽ nhận thông tin mới nhất.`);
+    alert(`Đăng ký thành công! ${email} sẽ nhận thông tin mới nhất.`);
     setEmail("");
   };
 
@@ -34,7 +33,6 @@ export default function Footer() {
           />
           <button className="rounded-pill" type="submit">Đăng ký</button>
         </form>
-        {message && <p className="footer-message">{message}</p>}
       </div>
 
       <hr className="footer-divider" />
