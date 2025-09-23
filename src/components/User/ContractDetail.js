@@ -188,7 +188,7 @@ export default function ContractDetail() {
                 </tr>
                 <tr>
                   <td className="fw-bold">Tổng tiền:</td>
-                  <td>{contract.monthlyPayment.toLocaleString()} VND</td>
+                  <td>{contract.payment.toLocaleString()} VND</td>
                 </tr>
                 <tr>
                   <td className="fw-bold">Trạng thái:</td>
@@ -227,7 +227,7 @@ export default function ContractDetail() {
           </div>
         </div>
       </div>
-      {!isAdmin && isOwner && (
+      {isOwner && (
         <div className="mt-3">
           {contract.status === "pending" && (
             <button

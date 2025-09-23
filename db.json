@@ -11,7 +11,8 @@
         "4e06",
         "a8e4",
         "aabe",
-        "r1"
+        "r1",
+        "r6"
       ]
     },
     {
@@ -25,6 +26,19 @@
         "db18",
         "r9",
         "r1"
+      ]
+    },
+    {
+      "id": "b7fd",
+      "name": "test",
+      "username": "me",
+      "password": "123",
+      "role": "user",
+      "avatar": "/asset/u2.jpg",
+      "likeProperties": [
+        "r3",
+        "r5",
+        "r6"
       ]
     }
   ],
@@ -58,8 +72,10 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r3.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "b7fd"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
@@ -75,8 +91,10 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r5.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "b7fd"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Security camera",
         "Paid dryer",
@@ -92,8 +110,11 @@
       "status": "available",
       "createdBy": "u3",
       "image": "/asset/r6.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1",
+        "b7fd"
+      ],
+      "likeCount": 2,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -112,7 +133,7 @@
       "createdBy": "u2",
       "image": "/asset/r8.png",
       "likes": [],
-      "likeCount": -1,
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -146,7 +167,7 @@
       "description": "Phòng 24m2, đầy đủ tiện nghi, gần chợ",
       "address": "707 Cách Mạng Tháng 8, Q.10, TP.HCM",
       "price": 4800000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "u1",
       "image": "/asset/r10.png",
       "likes": [],
@@ -178,26 +199,37 @@
   ],
   "contracts": [
     {
-      "userId": "6a6b",
-      "propertyId": "r8",
-      "startDate": "2025-09-14",
-      "endDate": "2025-09-26",
-      "guests": 2,
-      "monthlyPayment": 4160000,
-      "status": "paid",
-      "paidAt": "2025-09-20",
-      "id": "5e08"
-    },
-    {
-      "id": "ae27",
-      "userId": "u1",
-      "propertyId": "r6",
-      "startDate": "2025-09-12",
-      "endDate": "2025-09-21",
+      "id": "6243",
+      "userId": "b7fd",
+      "propertyId": "r10",
+      "startDate": "2025-09-19",
+      "endDate": "2025-10-12",
       "guests": "2",
       "status": "paid",
-      "monthlyPayment": 4800000,
-      "paidAt": "2025-09-25"
+      "payment": 7360000,
+      "paidAt": "2025-09-24"
+    },
+    {
+      "id": "96c5",
+      "userId": "u1",
+      "propertyId": "r5",
+      "startDate": "2025-10-04",
+      "endDate": "2025-11-09",
+      "guests": 2,
+      "payment": 10800000,
+      "status": "paid",
+      "paidAt": "2025-09-23"
+    },
+    {
+      "id": "7185",
+      "userId": "6a6b",
+      "propertyId": "r8",
+      "startDate": "2025-09-12",
+      "endDate": "2025-10-11",
+      "guests": 1,
+      "status": "paid",
+      "payment": 5026667,
+      "paidAt": "2025-09-24"
     }
   ],
   "news": [

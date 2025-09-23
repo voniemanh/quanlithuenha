@@ -25,7 +25,7 @@ export default function ContractManage() {
       endDate: "",
       guests: 1,
       status: "pending",
-      monthlyPayment: 0,
+      payment: 0,
       paidAt: "",
     },
   });
@@ -64,20 +64,20 @@ export default function ContractManage() {
 
     const property = properties.find((p) => p.id === editData.propertyId);
     const price = property?.price || 0;
-    const payment = calculatePayment(price, editData.guests || 1, editData.startDate, editData.endDate);
+    const oncePayment = calculatePayment(price, editData.guests || 1, editData.startDate, editData.endDate);
 
-    setEditData((prev) => ({ ...prev, monthlyPayment: payment }));
+    setEditData((prev) => ({ ...prev, payment: oncePayment }));
   }, [editData.startDate, editData.endDate, editData.guests, editData.propertyId, properties, editingId]);
 
-  const modalMonthlyPayment = useMemo(() => {
+  const modalPayment = useMemo(() => {
     const property = properties.find((p) => p.id === watch("propertyId"));
     const price = property?.price || 0;
     return calculatePayment(price, watch("guests") || 1, watch("startDate"), watch("endDate"));
   }, [watch("propertyId"), watch("startDate"), watch("endDate"), watch("guests"), properties]);
 
   useEffect(() => {
-  setValue("monthlyPayment", modalMonthlyPayment);
-  }, [modalMonthlyPayment, setValue]);
+    setValue("payment", modalPayment);
+  }, [modalPayment, setValue]);
 
   const validateContract = (data) => {
     const start = new Date(data.startDate);
@@ -263,7 +263,7 @@ export default function ContractManage() {
                   ) : c.guests}
                 </td>
                 <td>{property?.price}</td>
-                <td>{isEditing ? editData.monthlyPayment : calculatePayment(property?.price, c.guests, c.startDate, c.endDate)}</td>
+                <td>{isEditing ? editData.payment : calculatePayment(property?.price, c.guests, c.startDate, c.endDate)}</td>
                 <td>
                   {isEditing ? (
                     <select
@@ -381,7 +381,7 @@ export default function ContractManage() {
           </div>
           <div className="mb-2">
             <label className="form-label">Số tiền phải trả</label>
-            <input type="number" className="form-control" {...register("monthlyPayment")} value={modalMonthlyPayment} readOnly/>
+            <input type="number" className="form-control" {...register("payment")} value={modalPayment} readOnly/>
           </div>
           <div className="mb-2">
             <label className="form-label">Trạng thái</label>

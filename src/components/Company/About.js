@@ -105,7 +105,7 @@ export default function About() {
       {/* Call to action */}
       <div className="text-center">
         <p className="mb-3 fs-5">Sẵn sàng tìm căn nhà lý tưởng của bạn?</p>
-        <button onClick={() => navigate("/")} className="btn-black px-4">
+        <button onClick={() => navigate("/")} className="btn-black px-4 btn-lg">
           Xem nhà ngay
         </button>
       </div>

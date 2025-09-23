@@ -185,7 +185,7 @@ export default function UserDetail() {
                   <td>{c.startDate}</td>
                   <td>{c.endDate}</td>
                   <td>{c.status}</td>
-                  <td>{c.monthlyPayment.toLocaleString()} VND</td>
+                  <td>{c.payment.toLocaleString()} VND</td>
                 </tr>
               ))}
             </tbody>
