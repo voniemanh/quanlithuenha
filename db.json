@@ -33,10 +33,7 @@
       "password": "123",
       "role": "admin",
       "avatar": "/asset/u2.jpg",
-      "likeProperties": [
-        "r3",
-        "r6"
-      ]
+      "likeProperties": []
     }
   ],
   "properties": [
@@ -69,10 +66,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r3.png",
-      "likes": [
-        "b7fd"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
@@ -105,10 +100,8 @@
       "status": "available",
       "createdBy": "u3",
       "image": "/asset/r6.png",
-      "likes": [
-        "b7fd"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Wifi",
         "TV",
