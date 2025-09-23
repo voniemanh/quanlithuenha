@@ -37,7 +37,6 @@
       "avatar": "/asset/u2.jpg",
       "likeProperties": [
         "r3",
-        "r5",
         "r6"
       ]
     }
@@ -91,10 +90,8 @@
       "status": "available",
       "createdBy": "admin",
       "image": "/asset/r5.png",
-      "likes": [
-        "b7fd"
-      ],
-      "likeCount": 1,
+      "likes": [],
+      "likeCount": 0,
       "amenitiesList": [
         "Security camera",
         "Paid dryer",

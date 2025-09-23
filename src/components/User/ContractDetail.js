@@ -135,7 +135,6 @@ export default function ContractDetail() {
   if (!contract || !property || !user) return <p>Không tìm thấy thông tin hợp đồng!</p>;
 
   const isOwner = currentUser?.id === contract.userId;
-  const isAdmin = currentUser?.role === "admin";
 
   return (
     <div className="container my-4 p-4">
