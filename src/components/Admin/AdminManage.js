@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserManage from "./UserManage";
 import PropertyManage from "./PropertyManage";
 import ContractManage from "./ContractManage";
@@ -8,9 +8,10 @@ import { useUser } from "../Context/UserContext";
 export default function AdminManage() {
   const { currentUser } = useUser(); 
   const [tab, setTab] = useState("users");
+  const navigate = useNavigate();
 
   if (!currentUser || currentUser.role !== "admin") {
-    return <Navigate to="/" />;
+    navigate("/");
   }
 
   return (

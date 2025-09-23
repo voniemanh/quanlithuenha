@@ -39,14 +39,14 @@ export default function UserManage() {
   }, []);
 
   const validateUser = (data, editingUserId = null) => {
-    if (users.some(u => u.username === data.username && u.id !== editingUserId)) {
+    if (users.some(u => u?.username === data.username && u.id !== editingUserId)) {
       alert("Username đã tồn tại!");
       return false;
     }
     if (
-      editingUserId === currentUser.id &&
+      editingUserId === currentUser?.id &&
       data.role === "user" &&
-      users.find(u => u.id === editingUserId)?.role === "admin"
+      users.find(u => u?.id === editingUserId)?.role === "admin"
     ) {
       alert("Bạn không thể hạ quyền admin của chính mình!");
       return false;
@@ -68,14 +68,14 @@ export default function UserManage() {
   };
 
   const handleDelete = async (id) => {
-    if (id === currentUser.id) {
+    if (id === currentUser?.id) {
       alert("Bạn không thể xóa chính mình!");
       return;
     }
     if (window.confirm("Bạn có chắc muốn xóa user này?")) {
       try {
         await axios.delete(`${USERS_URL}/${id}`);
-        setUsers(users.filter((u) => u.id !== id));
+        setUsers(users.filter((u) => u?.id !== id));
       } catch {
         alert("Lỗi khi xóa người dùng!");
       }
@@ -146,7 +146,7 @@ export default function UserManage() {
                       value={editData.role}
                       onChange={(e) => {
                         if (
-                          user.id === currentUser.id &&
+                          user.id === currentUser?.id &&
                           editData.role === "admin" &&
                           e.target.value !== "admin"
                         ) {
@@ -226,7 +226,7 @@ export default function UserManage() {
                       <button
                         className="btn btn-outline-danger btn-sm"
                         onClick={() => handleDelete(user.id)}
-                        disabled={user.id === currentUser.id}
+                        disabled={user.id === currentUser?.id}
                       >
                         Xóa
                       </button>

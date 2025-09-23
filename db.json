@@ -10,9 +10,7 @@
       "likeProperties": [
         "4e06",
         "a8e4",
-        "aabe",
-        "r1",
-        "r6"
+        "aabe"
       ]
     },
     {
@@ -21,7 +19,7 @@
       "username": "user1",
       "password": "123",
       "role": "user",
-      "avatar": "https://i.postimg.cc/9QtYwhZ4/yellowbird-downflap.png",
+      "avatar": "/asset/u1.jpg",
       "likeProperties": [
         "db18",
         "r9",
@@ -31,9 +29,9 @@
     {
       "id": "b7fd",
       "name": "test",
-      "username": "me",
+      "username": "tui",
       "password": "123",
-      "role": "user",
+      "role": "admin",
       "avatar": "/asset/u2.jpg",
       "likeProperties": [
         "r3",
@@ -55,7 +53,7 @@
         "c1e3",
         "6a6b"
       ],
-      "likeCount": 3,
+      "likeCount": 2,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -108,10 +106,9 @@
       "createdBy": "u3",
       "image": "/asset/r6.png",
       "likes": [
-        "u1",
         "b7fd"
       ],
-      "likeCount": 2,
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -164,7 +161,7 @@
       "description": "Phòng 24m2, đầy đủ tiện nghi, gần chợ",
       "address": "707 Cách Mạng Tháng 8, Q.10, TP.HCM",
       "price": 4800000,
-      "status": "rented",
+      "status": "available",
       "createdBy": "u1",
       "image": "/asset/r10.png",
       "likes": [],
@@ -195,17 +192,6 @@
     }
   ],
   "contracts": [
-    {
-      "id": "6243",
-      "userId": "b7fd",
-      "propertyId": "r10",
-      "startDate": "2025-09-19",
-      "endDate": "2025-10-12",
-      "guests": "2",
-      "status": "paid",
-      "payment": 7360000,
-      "paidAt": "2025-09-24"
-    },
     {
       "id": "96c5",
       "userId": "u1",
