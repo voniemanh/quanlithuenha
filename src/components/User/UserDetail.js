@@ -163,8 +163,8 @@ export default function UserDetail() {
         <div>
           <h2 className="mb-3">Danh sách hợp đồng</h2>
           <div style={{ overflowX: "auto" }}>
-            <table className="table table-striped table-hover">
-              <thead>
+            <table className="table table-striped table-hover table-bordered">
+              <thead className="align-top text-center">
                 <tr>
                   <th>Mã hợp đồng</th>
                   <th>Phòng</th>
