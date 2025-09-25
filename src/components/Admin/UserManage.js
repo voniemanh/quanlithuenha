@@ -97,148 +97,148 @@ export default function UserManage() {
       >
         + Thêm người dùng
       </button>
-
-      <table className="table table-bordered table-hover">
-        <thead className="table-secondary text-center">
-          <tr>
-            <th>ID</th>
-            <th>Tên</th>
-            <th>Username</th>
-            <th>Role</th>
-            <th>Avatar</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => {
-            const isEditing = user.id === editingId;
-            return (
-              <tr key={user.id} className="text-center align-middle">
-                <td>{user.id}</td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editData.name}
-                      onChange={(e) => setEditData({ ...editData, name: e.target.value })}
-                    />
-                  ) : (
-                    user.name
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editData.username}
-                      onChange={(e) => setEditData({ ...editData, username: e.target.value })}
-                    />
-                  ) : (
-                    user.username
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <select
-                      className="form-select"
-                      value={editData.role}
-                      onChange={(e) => {
-                        if (
-                          user.id === currentUser?.id &&
-                          editData.role === "admin" &&
-                          e.target.value !== "admin"
-                        ) {
-                          alert("Bạn không thể hạ quyền admin của chính mình!");
-                          return;
-                        }
-                        setEditData({ ...editData, role: e.target.value });
-                      }}
-                    >
-                      <option value="user">User</option>
-                      <option value="admin">Admin</option>
-                    </select>
-                  ) : (
-                    user.role
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editData.avatar}
-                      onChange={(e) => setEditData({ ...editData, avatar: e.target.value })}
-                    />
-                  ) : (
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="rounded-circle"
-                      width="50"
-                      height="50"
-                    />
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <>
-                      <button
-                        className="btn btn-outline-primary btn-sm me-1"
-                        onClick={async () => {
-                          if (!validateUser(editData, user.id)) return;
-                          try {
-                            await axios.put(`${USERS_URL}/${user.id}`, editData);
-                            setEditingId(null);
-                            fetchUsers();
-                          } catch {
-                            alert("Lỗi khi lưu!");
+      <div style={{ overflowX: "auto" }}>
+        <table className="table table-bordered table-hover">
+          <thead className="table-secondary text-center">
+            <tr>
+              <th>ID</th>
+              <th>Tên</th>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Avatar</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              const isEditing = user.id === editingId;
+              return (
+                <tr key={user.id} className="text-center align-middle">
+                  <td>{user.id}</td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={editData.name}
+                        onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                      />
+                    ) : (
+                      user.name
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={editData.username}
+                        onChange={(e) => setEditData({ ...editData, username: e.target.value })}
+                      />
+                    ) : (
+                      user.username
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <select
+                        className="form-select"
+                        value={editData.role}
+                        onChange={(e) => {
+                          if (
+                            user.id === currentUser?.id &&
+                            editData.role === "admin" &&
+                            e.target.value !== "admin"
+                          ) {
+                            alert("Bạn không thể hạ quyền admin của chính mình!");
+                            return;
                           }
+                          setEditData({ ...editData, role: e.target.value });
                         }}
                       >
-                        Lưu
-                      </button>
-                      <button
-                        className="btn btn-outline-secondary btn-sm"
-                        onClick={() => setEditingId(null)}
-                      >
-                        Hủy
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        className="btn btn-outline-success btn-sm me-1"
-                        onClick={() => viewDetail(user.id)}
-                      >
-                        Xem
-                      </button>
-                      <button
-                        className="btn btn-outline-warning btn-sm me-1"
-                        onClick={() => {
-                          setEditingId(user.id);
-                          setEditData(user);
-                        }}
-                      >
-                        Sửa
-                      </button>
-                      <button
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => handleDelete(user.id)}
-                        disabled={user.id === currentUser?.id}
-                      >
-                        Xóa
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                    ) : (
+                      user.role
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={editData.avatar}
+                        onChange={(e) => setEditData({ ...editData, avatar: e.target.value })}
+                      />
+                    ) : (
+                      <img
+                        src={user.avatar}
+                        alt={user.name}
+                        className="rounded-circle"
+                        width="50"
+                        height="50"
+                      />
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <>
+                        <button
+                          className="btn btn-outline-primary btn-sm me-1"
+                          onClick={async () => {
+                            if (!validateUser(editData, user.id)) return;
+                            try {
+                              await axios.put(`${USERS_URL}/${user.id}`, editData);
+                              setEditingId(null);
+                              fetchUsers();
+                            } catch {
+                              alert("Lỗi khi lưu!");
+                            }
+                          }}
+                        >
+                          Lưu
+                        </button>
+                        <button
+                          className="btn btn-outline-secondary btn-sm"
+                          onClick={() => setEditingId(null)}
+                        >
+                          Hủy
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="btn btn-outline-success btn-sm me-1"
+                          onClick={() => viewDetail(user.id)}
+                        >
+                          Xem
+                        </button>
+                        <button
+                          className="btn btn-outline-warning btn-sm me-1"
+                          onClick={() => {
+                            setEditingId(user.id);
+                            setEditData(user);
+                          }}
+                        >
+                          Sửa
+                        </button>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => handleDelete(user.id)}
+                          disabled={user.id === currentUser?.id}
+                        >
+                          Xóa
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <ModalWrapper
         show={modalOpen}
         handleClose={() => setModalOpen(false)}

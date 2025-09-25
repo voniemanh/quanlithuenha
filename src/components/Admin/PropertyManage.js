@@ -144,172 +144,172 @@ export default function PropertyManage() {
       >
         + Thêm bất động sản
       </button>
-
-      <table className="table table-bordered table-hover">
-        <thead className="table-secondary text-center align-top">
-          <tr>
-            <th>ID</th>
-            <th>Tên</th>
-            <th>Địa chỉ</th>
-            <th>Giá</th>
-            <th>Trạng thái</th>
-            <th>Hình ảnh</th>
-            <th>Tiện ích</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          {properties.map((p) => {
-            const isEditing = p.id === editingId;
-            return (
-              <tr key={p.id} className="text-center align-middle">
-                <td>{p.id}</td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editData.name}
-                      onChange={(e) => setEditData({ ...editData, name: e.target.value })}
-                    />
-                  ) : (
-                    p.name
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editData.address}
-                      onChange={(e) => setEditData({ ...editData, address: e.target.value })}
-                    />
-                  ) : (
-                    p.address
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="number"
-                      className="form-control"
-                      min="0"
-                      value={editData.price}
-                      onChange={(e) => {
-                        const value = Number(e.target.value);
-                        setEditData({ ...editData, price: value < 0 ? 0 : value });
-                      }}
-                    />
-                  ) : (
-                    p.price
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <select
-                      className="form-select"
-                      value={editData.status}
-                      onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-                    >
-                      <option value="available">Available</option>
-                      <option value="rented">Rented</option>
-                    </select>
-                  ) : (
-                    p.status
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editData.image}
-                      onChange={(e) => setEditData({ ...editData, image: e.target.value })}
-                    />
-                  ) : (
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      width="50"
-                      height="auto"
-                      style={{ borderRadius: "2px" }}
-                    />
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <select
-                      multiple
-                      className="form-control"
-                      value={editData.amenitiesList || []}
-                      onChange={(e) => {
-                        const selected = Array.from(
-                          e.target.selectedOptions,
-                          (option) => option.value
-                        );
-                        setEditData({ ...editData, amenitiesList: selected });
-                      }}
-                    >
-                      {amenities.map((amenity) => (
-                        <option key={amenity} value={amenity}>
-                          {amenity}
-                        </option>
-                      ))}
-                    </select>
-                  ) : Array.isArray(p.amenitiesList) ? (
-                    p.amenitiesList.join(", ")
-                  ) : (
-                    ""
-                  )}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <>
-                      <button
-                        className="btn btn-outline-primary btn-sm me-1"
-                        onClick={() => handleSave(p)}
+      <div style={{ overflowX: "auto" }}>
+        <table className="table table-bordered table-hover">
+          <thead className="table-secondary text-center align-top">
+            <tr>
+              <th>ID</th>
+              <th>Tên</th>
+              <th>Địa chỉ</th>
+              <th>Giá</th>
+              <th>Trạng thái</th>
+              <th>Hình ảnh</th>
+              <th>Tiện ích</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            {properties.map((p) => {
+              const isEditing = p.id === editingId;
+              return (
+                <tr key={p.id} className="text-center align-middle">
+                  <td>{p.id}</td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={editData.name}
+                        onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                      />
+                    ) : (
+                      p.name
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={editData.address}
+                        onChange={(e) => setEditData({ ...editData, address: e.target.value })}
+                      />
+                    ) : (
+                      p.address
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        className="form-control"
+                        min="0"
+                        value={editData.price}
+                        onChange={(e) => {
+                          const value = Number(e.target.value);
+                          setEditData({ ...editData, price: value < 0 ? 0 : value });
+                        }}
+                      />
+                    ) : (
+                      p.price
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <select
+                        className="form-select"
+                        value={editData.status}
+                        onChange={(e) => setEditData({ ...editData, status: e.target.value })}
                       >
-                        Lưu
-                      </button>
-                      <button
-                        className="btn btn-outline-secondary btn-sm"
-                        onClick={() => setEditingId(null)}
-                      >
-                        Hủy
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        className="btn btn-outline-success btn-sm me-1"
-                        onClick={() => viewDetail(p.id)}
-                      >
-                        Xem
-                      </button>
-                      <button
-                        className="btn btn-outline-warning btn-sm me-1"
-                        onClick={() => {
-                          setEditingId(p.id);
-                          setEditData(p);
+                        <option value="available">Available</option>
+                        <option value="rented">Rented</option>
+                      </select>
+                    ) : (
+                      p.status
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={editData.image}
+                        onChange={(e) => setEditData({ ...editData, image: e.target.value })}
+                      />
+                    ) : (
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        width="50"
+                        height="auto"
+                        style={{ borderRadius: "2px" }}
+                      />
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <select
+                        multiple
+                        className="form-control"
+                        value={editData.amenitiesList || []}
+                        onChange={(e) => {
+                          const selected = Array.from(
+                            e.target.selectedOptions,
+                            (option) => option.value
+                          );
+                          setEditData({ ...editData, amenitiesList: selected });
                         }}
                       >
-                        Sửa
-                      </button>
-                      <button
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => handleDelete(p.id)}
-                      >
-                        Xóa
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
+                        {amenities.map((amenity) => (
+                          <option key={amenity} value={amenity}>
+                            {amenity}
+                          </option>
+                        ))}
+                      </select>
+                    ) : Array.isArray(p.amenitiesList) ? (
+                      p.amenitiesList.join(", ")
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <>
+                        <button
+                          className="btn btn-outline-primary btn-sm me-1"
+                          onClick={() => handleSave(p)}
+                        >
+                          Lưu
+                        </button>
+                        <button
+                          className="btn btn-outline-secondary btn-sm"
+                          onClick={() => setEditingId(null)}
+                        >
+                          Hủy
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="btn btn-outline-success btn-sm me-1"
+                          onClick={() => viewDetail(p.id)}
+                        >
+                          Xem
+                        </button>
+                        <button
+                          className="btn btn-outline-warning btn-sm me-1"
+                          onClick={() => {
+                            setEditingId(p.id);
+                            setEditData(p);
+                          }}
+                        >
+                          Sửa
+                        </button>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => handleDelete(p.id)}
+                        >
+                          Xóa
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <ModalWrapper
         show={modalOpen}
         handleClose={() => setModalOpen(false)}

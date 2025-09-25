@@ -162,34 +162,36 @@ export default function UserDetail() {
       </div>
         <div>
           <h2 className="mb-3">Danh sách hợp đồng</h2>
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Mã hợp đồng</th>
-                <th>Phòng</th>
-                <th>Ngày bắt đầu</th>
-                <th>Ngày kết thúc</th>
-                <th>Trạng thái</th>
-                <th>Tổng tiền</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userContracts.map(c => (
-                <tr
-                  key={c.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => navigate(`/contract-detail/${c.id}`)}
-                >
-                  <td>{c.id}</td>
-                  <td>{getPropertyName(c.propertyId)}</td>
-                  <td>{c.startDate}</td>
-                  <td>{c.endDate}</td>
-                  <td>{c.status}</td>
-                  <td>{c.payment.toLocaleString()} VND</td>
+          <div style={{ overflowX: "auto" }}>
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Mã hợp đồng</th>
+                  <th>Phòng</th>
+                  <th>Ngày bắt đầu</th>
+                  <th>Ngày kết thúc</th>
+                  <th>Trạng thái</th>
+                  <th>Tổng tiền</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {userContracts.map(c => (
+                  <tr
+                    key={c.id}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/contract-detail/${c.id}`)}
+                  >
+                    <td>{c.id}</td>
+                    <td>{getPropertyName(c.propertyId)}</td>
+                    <td>{c.startDate}</td>
+                    <td>{c.endDate}</td>
+                    <td>{c.status}</td>
+                    <td>{c.payment.toLocaleString()} VND</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Quay lại</button>
       <style>{`

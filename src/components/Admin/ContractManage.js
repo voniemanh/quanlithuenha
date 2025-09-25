@@ -178,164 +178,164 @@ export default function ContractManage() {
       >
         + Thêm hợp đồng
       </button>
+       <div style={{ overflowX: "auto" }}>
+        <table className="table table-bordered table-hover">
+          <thead className="table-secondary text-center align-top">
+            <tr>
+              <th>ID</th>
+              <th>Người thuê</th>
+              <th>Bất động sản</th>
+              <th>Ngày bắt đầu</th>
+              <th>Ngày kết thúc</th>
+              <th>Khách</th>
+              <th>Giá phòng gốc</th>
+              <th>Số tiền phải trả</th>
+              <th>Trạng thái</th>
+              <th>Ngày thanh toán</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contracts.map((c) => {
+              const user = users.find((u) => u.id === c.userId);
+              const property = properties.find((p) => p.id === c.propertyId);
+              const isEditing = editingId === c.id;
 
-      <table className="table table-bordered table-hover">
-        <thead className="table-secondary text-center align-top">
-          <tr>
-            <th>ID</th>
-            <th>Người thuê</th>
-            <th>Bất động sản</th>
-            <th>Ngày bắt đầu</th>
-            <th>Ngày kết thúc</th>
-            <th>Khách</th>
-            <th>Giá phòng gốc</th>
-            <th>Số tiền phải trả</th>
-            <th>Trạng thái</th>
-            <th>Ngày thanh toán</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contracts.map((c) => {
-            const user = users.find((u) => u.id === c.userId);
-            const property = properties.find((p) => p.id === c.propertyId);
-            const isEditing = editingId === c.id;
-
-            return (
-              <tr key={c.id} className="text-center align-middle">
-                <td>{c.id}</td>
-                <td>
-                  {isEditing ? (
-                    <select
-                      className="form-select"
-                      value={editData.userId}
-                      onChange={(e) => setEditData({ ...editData, userId: e.target.value })}
-                    >
-                      <option value="">Chọn người thuê</option>
-                      {users.map((u) => (
-                        <option key={u.id} value={u.id}>{u.name}</option>
-                      ))}
-                    </select>
-                  ) : (user?.name || "Người thuê bị xóa")}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <select
-                      className="form-select"
-                      value={editData.propertyId}
-                      onChange={(e) => setEditData({ ...editData, propertyId: e.target.value })}
-                    >
-                      <option value="">Chọn BĐS</option>
-                      {properties.map((p) => (
-                        <option key={p.id} value={p.id}>{p.name}</option>
-                      ))}
-                    </select>
-                  ) : (property?.name || "BĐS bị xóa")}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="date"
-                      className="form-control"
-                      value={editData.startDate}
-                      onChange={(e) => setEditData({ ...editData, startDate: e.target.value })}
-                    />
-                  ) : c.startDate}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="date"
-                      className="form-control"
-                      value={editData.endDate}
-                      onChange={(e) => setEditData({ ...editData, endDate: e.target.value })}
-                    />
-                  ) : c.endDate}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={editData.guests}
-                      onChange={(e) => setEditData({ ...editData, guests: Number(e.target.value) })}
-                    />
-                  ) : c.guests}
-                </td>
-                <td>{property?.price}</td>
-                <td>{isEditing ? editData.payment : calculatePayment(property?.price, c.guests, c.startDate, c.endDate)}</td>
-                <td>
-                  {isEditing ? (
-                    <select
-                      className="form-select"
-                      value={editData.status}
-                      onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="confirmed">Confirmed</option>
-                      <option value="paid">Paid</option>
-                      <option value="canceled">Canceled</option>
-                      <option value="completed">Completed</option>
-                    </select>
-                  ) : c.status}
-                </td>
-                <td>
-                  {isEditing ? (
-                    (editData.status === "paid" || editData.status === "completed") ? (
+              return (
+                <tr key={c.id} className="text-center align-middle">
+                  <td>{c.id}</td>
+                  <td>
+                    {isEditing ? (
+                      <select
+                        className="form-select"
+                        value={editData.userId}
+                        onChange={(e) => setEditData({ ...editData, userId: e.target.value })}
+                      >
+                        <option value="">Chọn người thuê</option>
+                        {users.map((u) => (
+                          <option key={u.id} value={u.id}>{u.name}</option>
+                        ))}
+                      </select>
+                    ) : (user?.name || "Người thuê bị xóa")}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <select
+                        className="form-select"
+                        value={editData.propertyId}
+                        onChange={(e) => setEditData({ ...editData, propertyId: e.target.value })}
+                      >
+                        <option value="">Chọn BĐS</option>
+                        {properties.map((p) => (
+                          <option key={p.id} value={p.id}>{p.name}</option>
+                        ))}
+                      </select>
+                    ) : (property?.name || "BĐS bị xóa")}
+                  </td>
+                  <td>
+                    {isEditing ? (
                       <input
                         type="date"
                         className="form-control"
-                        value={editData.paidAt || ""}
-                        onChange={(e) => setEditData({ ...editData, paidAt: e.target.value })}
+                        value={editData.startDate}
+                        onChange={(e) => setEditData({ ...editData, startDate: e.target.value })}
                       />
-                    ) : "Chưa thanh toán"
-                  ) : (c.paidAt || "Chưa thanh toán")}
-                </td>
-                <td>
-                  {isEditing ? (
-                    <>
-                      <button 
-                        className="btn btn-outline-primary btn-sm me-1" 
-                        onClick={() => handleSave(editData)}>
-                        Lưu
-                      </button>
-                      <button 
-                        className="btn btn-outline-secondary btn-sm" 
-                        onClick={() => setEditingId(null)}>
-                        Hủy
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button 
-                        className="btn btn-outline-success btn-sm me-1" 
-                        onClick={() => viewDetail(c.id)}>
-                        Xem
-                      </button>
-                      <button 
-                        className="btn btn-outline-warning btn-sm me-1" 
-                        onClick={() => {
-                          setEditingId(c.id);
-                          setEditData({ ...c });
-                        }} 
-                        disabled={modalOpen}>
-                        Sửa
-                      </button>
-                      <button 
-                        className="btn btn-outline-danger btn-sm" 
-                        onClick={() => handleDelete(c.id)} 
-                        disabled={modalOpen}>
-                        Xóa
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-
+                    ) : c.startDate}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={editData.endDate}
+                        onChange={(e) => setEditData({ ...editData, endDate: e.target.value })}
+                      />
+                    ) : c.endDate}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        className="form-control"
+                        value={editData.guests}
+                        onChange={(e) => setEditData({ ...editData, guests: Number(e.target.value) })}
+                      />
+                    ) : c.guests}
+                  </td>
+                  <td>{property?.price}</td>
+                  <td>{isEditing ? editData.payment : calculatePayment(property?.price, c.guests, c.startDate, c.endDate)}</td>
+                  <td>
+                    {isEditing ? (
+                      <select
+                        className="form-select"
+                        value={editData.status}
+                        onChange={(e) => setEditData({ ...editData, status: e.target.value })}
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="paid">Paid</option>
+                        <option value="canceled">Canceled</option>
+                        <option value="completed">Completed</option>
+                      </select>
+                    ) : c.status}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      (editData.status === "paid" || editData.status === "completed") ? (
+                        <input
+                          type="date"
+                          className="form-control"
+                          value={editData.paidAt || ""}
+                          onChange={(e) => setEditData({ ...editData, paidAt: e.target.value })}
+                        />
+                      ) : "Chưa thanh toán"
+                    ) : (c.paidAt || "Chưa thanh toán")}
+                  </td>
+                  <td>
+                    {isEditing ? (
+                      <>
+                        <button 
+                          className="btn btn-outline-primary btn-sm me-1" 
+                          onClick={() => handleSave(editData)}>
+                          Lưu
+                        </button>
+                        <button 
+                          className="btn btn-outline-secondary btn-sm" 
+                          onClick={() => setEditingId(null)}>
+                          Hủy
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button 
+                          className="btn btn-outline-success btn-sm me-1" 
+                          onClick={() => viewDetail(c.id)}>
+                          Xem
+                        </button>
+                        <button 
+                          className="btn btn-outline-warning btn-sm me-1" 
+                          onClick={() => {
+                            setEditingId(c.id);
+                            setEditData({ ...c });
+                          }} 
+                          disabled={modalOpen}>
+                          Sửa
+                        </button>
+                        <button 
+                          className="btn btn-outline-danger btn-sm" 
+                          onClick={() => handleDelete(c.id)} 
+                          disabled={modalOpen}>
+                          Xóa
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {/* Modal thêm hợp đồng */}
       <ModalWrapper show={modalOpen} handleClose={() => setModalOpen(false)} title="Thêm hợp đồng">
         <form id="contractForm" onSubmit={handleSubmit(onSubmit)}>
