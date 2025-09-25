@@ -197,7 +197,7 @@ export default function HomePage() {
     <div className="container my-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <Form.Control
-          className="rounded-pill"
+          className="rounded-pill search-input"
           type="text"
           placeholder="Tìm kiếm theo từ khoá..."
           value={searchTerm}

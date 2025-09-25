@@ -141,4 +141,7 @@
   .property-card .heart-icon .like-count {
     font-size: 0.75rem;
   }
+  .search-input {
+    width: 50%!important;
+  }
 }
