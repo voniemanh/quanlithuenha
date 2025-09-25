@@ -23,9 +23,7 @@ export default function PropertyManage() {
     "Bathtub",
     "Luggage dropoff allowed",
     "Security camera",
-    "Paid dryer",
-    "Washer",
-    "Air conditioning"
+    "Paid dryer"
   ];
 
   const { register, handleSubmit, reset } = useForm({

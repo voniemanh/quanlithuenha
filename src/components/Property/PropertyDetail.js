@@ -5,7 +5,7 @@ import { PROPERTIES_URL} from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faWifi, faTv, faBuilding, faSoap, faFan, faSnowflake, 
-  faBath, faSuitcaseRolling, faVideo, faHeart  
+  faBath, faSuitcaseRolling, faVideo, faHeart, faTable  
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
 import { checkConflict } from "../util/CheckConflict";
@@ -17,13 +17,11 @@ const amenityIcons = {
   "Điều hòa": faSnowflake,
   "Máy giặt": faSoap,
   "Tủ lạnh": faBuilding,
-  "Bàn làm việc": faSuitcaseRolling,
+  "Bàn làm việc": faTable,
   "Bathtub": faBath,
   "Luggage dropoff allowed": faSuitcaseRolling,
   "Security camera": faVideo,
-  "Paid dryer": faFan,
-  "Washer": faSoap,
-  "Air conditioning": faSnowflake
+  "Paid dryer": faFan
 };
 
 export default function PropertyDetail() {

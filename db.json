@@ -54,7 +54,14 @@
       "amenitiesList": [
         "Wifi",
         "TV",
-        "Điều hòa"
+        "Điều hòa",
+        "Máy giặt",
+        "Tủ lạnh",
+        "Bàn làm việc",
+        "Bathtub",
+        "Luggage dropoff allowed",
+        "Security camera",
+        "Paid dryer"
       ]
     },
     {
@@ -87,8 +94,7 @@
       "likeCount": 0,
       "amenitiesList": [
         "Security camera",
-        "Paid dryer",
-        "Air conditioning"
+        "Paid dryer"
       ]
     },
     {
@@ -206,6 +212,17 @@
       "status": "paid",
       "payment": 5026667,
       "paidAt": "2025-09-24"
+    },
+    {
+      "id": "d063",
+      "userId": "b7fd",
+      "propertyId": "r5",
+      "startDate": "2025-09-25",
+      "endDate": "2025-10-05",
+      "guests": "2",
+      "status": "completed",
+      "payment": 3000000,
+      "paidAt": "2025-09-25"
     }
   ],
   "news": [
