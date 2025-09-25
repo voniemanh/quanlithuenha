@@ -65,13 +65,31 @@
       ]
     },
     {
+      "id": "r2",
+      "name": "Phòng 202 - Chung cư B",
+      "description": "Phòng 30m2, view đẹp, gần công viên",
+      "address": "456 Nguyễn Trãi, Q.5, TP.HCM",
+      "price": 6000000,
+      "status": "rented",
+      "createdBy": "u1",
+      "image": "/asset/r2.png",
+      "likes": [],
+      "likeCount": 0,
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Tủ lạnh"
+      ]
+    },
+    {
       "id": "r3",
       "name": "Phòng 303 - Chung cư C",
       "description": "Phòng 28m2, đầy đủ tiện nghi, gần siêu thị",
       "address": "789 Trần Hưng Đạo, Q.1, TP.HCM",
       "price": 5000000,
       "status": "available",
-      "createdBy": "admin",
+      "createdBy": "u2",
       "image": "/asset/r3.png",
       "likes": [],
       "likeCount": 0,
@@ -82,13 +100,32 @@
       ]
     },
     {
+      "id": "r4",
+      "name": "Phòng 404 - Chung cư D",
+      "description": "Phòng 32m2, nội thất cao cấp, an ninh tốt",
+      "address": "101 Nguyễn Đình Chiểu, Q.3, TP.HCM",
+      "price": 9000000,
+      "status": "available",
+      "createdBy": "u2",
+      "image": "/asset/r4.png",
+      "likes": [],
+      "likeCount": 0,
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Tủ lạnh",
+        "Máy giặt"
+      ]
+    },
+    {
       "id": "r5",
       "name": "Phòng 505 - Chung cư E",
       "description": "Phòng 22m2, giá rẻ, tiện đi lại",
       "address": "202 Phan Xích Long, Q.Phú Nhuận, TP.HCM",
       "price": 4500000,
       "status": "available",
-      "createdBy": "admin",
+      "createdBy": "u1",
       "image": "/asset/r5.png",
       "likes": [],
       "likeCount": 0,
@@ -114,6 +151,24 @@
         "Điều hòa",
         "Tủ lạnh",
         "Máy giặt"
+      ]
+    },
+    {
+      "id": "r7",
+      "name": "Phòng 707 - Chung cư G",
+      "description": "Phòng 29m2, gần trung tâm thương mại, yên tĩnh",
+      "address": "404 Võ Văn Tần, Q.3, TP.HCM",
+      "price": 6500000,
+      "status": "available",
+      "createdBy": "u1",
+      "image": "/asset/r7.png",
+      "likes": [],
+      "likeCount": 0,
+      "amenitiesList": [
+        "Wifi",
+        "TV",
+        "Điều hòa",
+        "Tủ lạnh"
       ]
     },
     {

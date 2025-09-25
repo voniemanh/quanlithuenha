@@ -43,7 +43,7 @@ export default function AdminManage() {
         </li>
       </ul>
 
-      <div>
+      <div className="fade-in">
         {tab === "users" && <UserManage />}
         {tab === "properties" && <PropertyManage />}
         {tab === "contracts" && <ContractManage />}

@@ -72,7 +72,7 @@ export default function UserDetail() {
   const getPropertyName = (propertyId) => properties.find(p => p.id === propertyId)?.name || "Không xác định";
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 fade-in">
       <h2 className="mb-4">Thông tin cá nhân</h2>
       <table className="table-custom">
         <tbody>

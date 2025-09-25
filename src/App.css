@@ -107,3 +107,18 @@ p {
   padding: 12px 24px;
   font-size: 1rem;
 }
+
+
+ .fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }

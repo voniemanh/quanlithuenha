@@ -137,7 +137,7 @@ export default function ContractDetail() {
   const isOwner = currentUser?.id === contract.userId;
 
   return (
-    <div className="container my-4 p-4">
+    <div className="container my-4 p-4 fade-in">
       <h3 className="mb-4">Chi tiết hợp đồng</h3>
 
       <div ref={printRef} className="card p-3">

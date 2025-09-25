@@ -195,7 +195,7 @@ export default function HomePage() {
 
   return (
     <div className="container my-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex justify-content-between align-items-center mb-4 fade-in">
         <Form.Control
           className="rounded-pill search-input"
           type="text"
@@ -216,7 +216,7 @@ export default function HomePage() {
         </Form.Select>
       </div>
 
-      <Row className="g-3">
+      <Row className="g-3 fade-in">
         {sortedProperties.length === 0 ? (
           <p>Không tìm thấy bất động sản phù hợp.</p>
         ) : (

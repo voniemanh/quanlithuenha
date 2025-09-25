@@ -39,7 +39,7 @@ export default function Contact() {
     }
   };
   return (
-    <div className="container my-5">
+    <div className="container my-5 fade-in">
       <h1 className="text-center mb-4">Contact Us</h1>
       <p className="text-center mb-4">
         Hãy liên hệ với chúng tôi qua form dưới đây hoặc đến trực tiếp văn phòng.

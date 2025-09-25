@@ -20,7 +20,7 @@ export default function About() {
   ];
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 fade-in">
       <h1 className="text-center mb-4">About Us</h1>
       <p className="text-center mb-5 fs-5 text-muted">
         Chúng tôi là nền tảng hàng đầu trong việc kết nối người thuê và chủ nhà, 

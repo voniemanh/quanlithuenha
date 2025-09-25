@@ -104,7 +104,7 @@ export default function News() {
   };
 
   return (
-    <div className="container my-4">
+    <div className="container my-4 fade-in">
       <h1 className="mb-4 text-center">Thông báo</h1>
       {newsList.length === 0 ? (
         <p className="text-center text-muted">Chưa có thông báo nào</p>
