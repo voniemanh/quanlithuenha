@@ -8,6 +8,7 @@ import {
   faBath, faSuitcaseRolling, faVideo, faHeart, faTable  
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext";
+import { useAlert } from "../Context/AlertContext";
 import { checkConflict } from "../util/CheckConflict";
 import { Carousel } from "react-bootstrap";
 
@@ -28,6 +29,7 @@ export default function PropertyDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useUser();
+  const {showAlert,showConfirm} = useAlert();
 
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -68,11 +70,11 @@ export default function PropertyDetail() {
 
   const handleRent = async () => {
     if (!currentUser) {
-      alert("Vui lòng đăng nhập để thuê phòng!");
+      showAlert("Vui lòng đăng nhập để thuê phòng!", "warning");
       return;
     }
     if (!checkIn || !checkOut) {
-      alert("Vui lòng chọn ngày check-in và check-out!");
+      showAlert("Vui lòng chọn ngày check-in và check-out!", "warning");
       return;
     }
     const start = new Date(checkIn);
@@ -80,12 +82,12 @@ export default function PropertyDetail() {
     const today = new Date();
     today.setHours(0,0,0,0);
     if (start < today) {
-      alert("Ngày check-in phải từ hôm nay trở đi!");
+      showAlert("Ngày check-in phải từ hôm nay trở đi!", "warning");
       return;
     }
     const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
     if (diffDays <= 0) {
-      alert("Ngày check-out phải sau ngày check-in!");
+      showAlert("Ngày check-out phải sau ngày check-in!", "warning");
       return;
     }
 
@@ -93,7 +95,7 @@ export default function PropertyDetail() {
       const { data: contracts } = await axios.get(`${PROPERTIES_URL.replace("/properties", "")}/contracts`);
 
       if (checkConflict(contracts, property.id, checkIn, checkOut)) {
-        alert("Phòng đã được thuê trong khoảng thời gian này!");
+        showAlert("Phòng đã được thuê trong khoảng thời gian này!", "warning");
         return;
       }
 
@@ -113,11 +115,11 @@ export default function PropertyDetail() {
         newContract
       );
       const newContractId = res.data.id;
-      alert("Thuê phòng thành công!");
+      showAlert("Thuê phòng thành công!", "success");
       navigate(`/contract-detail/${newContractId}`);
     } catch (err) {
       console.error(err);
-      alert("Có lỗi xảy ra, vui lòng thử lại.");
+      showAlert("Có lỗi xảy ra, vui lòng thử lại.", "error");
     }
   };
 
