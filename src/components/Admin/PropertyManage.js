@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { PROPERTIES_URL, CONTRACTS_URL } from "../../config";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "../Context/AlertContext";
 
 export default function PropertyManage() {
   const [properties, setProperties] = useState([]);
@@ -12,6 +13,7 @@ export default function PropertyManage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const navigate = useNavigate();
+  const {showAlert, showConfirm} = useAlert();
 
   const amenities = [
     "Wifi",
@@ -45,7 +47,7 @@ export default function PropertyManage() {
       const res = await axios.get(PROPERTIES_URL);
       setProperties(res.data);
     } catch {
-      alert("Lỗi khi lấy danh sách bất động sản!");
+      showAlert("Lỗi khi lấy danh sách bất động sản!", "error");
     }
   };
 
@@ -55,11 +57,11 @@ export default function PropertyManage() {
 
   const validateProperty = (data) => {
     if (!data.name || !data.address) {
-      alert("Tên và địa chỉ là bắt buộc!");
+      showAlert("Tên và địa chỉ là bắt buộc!", "error");
       return false;
     }
     if (data.price < 1000000) {
-      alert("Giá phải lớn hơn hoặc bằng 1 triệu!");
+      showAlert("Giá phải lớn hơn hoặc bằng 1 triệu!", "error");
       return false;
     }
     return true;
@@ -85,7 +87,7 @@ export default function PropertyManage() {
         });
 
         if (hasActiveContract) {
-          alert("Không thể đổi thành Available vì hợp đồng vẫn đang hiệu lực!");
+          showAlert("Không thể đổi thành Available vì hợp đồng vẫn đang hiệu lực!", "error");
           return;
         }
       }
@@ -93,8 +95,9 @@ export default function PropertyManage() {
       await axios.put(`${PROPERTIES_URL}/${property.id}`, editData);
       setEditingId(null);
       fetchProperties();
+      showAlert("Lưu thành công!", "success");
     } catch {
-      alert("Lỗi khi lưu!");
+      showAlert("Lỗi khi lưu!", "error");
     }
   };
 
@@ -111,19 +114,21 @@ export default function PropertyManage() {
       setModalOpen(false);
       reset();
       setImagePreview("");
+      showAlert("Lưu bất động sản thành công!", "success");
     } catch {
-      alert("Lỗi khi lưu bất động sản!");
+      showAlert("Lỗi khi lưu bất động sản!", "error");
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Bạn có chắc muốn xóa bất động sản này?")) {
-      try {
-        await axios.delete(`${PROPERTIES_URL}/${id}`);
-        fetchProperties();
-      } catch {
-        alert("Lỗi khi xóa bất động sản!");
-      }
+    const confirm = await showConfirm("Bạn có chắc muốn xóa bất động sản này?");
+    if (!confirm) return;
+    try {
+      await axios.delete(`${PROPERTIES_URL}/${id}`);
+      fetchProperties();
+      showAlert("Xóa bất động sản thành công!", "success");
+    } catch {
+      showAlert("Lỗi khi xóa bất động sản!", "error");
     }
   };
 
