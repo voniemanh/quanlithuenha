@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NEWS_URL } from "../../config";
 import { useUser } from "../Context/UserContext";
+import { useAlert } from "../Context/AlertContext";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -11,6 +12,7 @@ export default function News() {
   const [newData, setNewData] = useState({ title: "", summary: "" });
 
   const { currentUser } = useUser();
+  const { showAlert, showConfirm } = useAlert();
   const isAdmin = currentUser?.role === "admin";
 
   const formatDate = (isoDate) => {
@@ -38,22 +40,27 @@ export default function News() {
 
   const validateNews = (data) => {
     if (!data.title.trim()) {
-      alert("Tiêu đề không được để trống!");
+      showAlert("Tiêu đề không được để trống!", "error");
       return false;
     }
     if (!data.summary.trim()) {
-      alert("Nội dung không được để trống!");
+      showAlert("Nội dung không được để trống!", "error");
       return false;
     }
     return true;
   };
 
   const handleDelete = async (id) => {
+    const confirm = await showConfirm("Bạn có chắc chắn muốn xoá thông báo này?");
+    if (!confirm) return;
+
     try {
       await fetch(`${NEWS_URL}/${id}`, { method: "DELETE" });
       setNewsList((prev) => prev.filter((n) => n.id !== id));
+      showAlert("Xoá thông báo thành công!", "success");
     } catch (error) {
       console.error("Error deleting news:", error);
+      showAlert("Xoá thông báo thất bại!", "error");
     }
   };
 
@@ -76,8 +83,10 @@ export default function News() {
           .sort((a, b) => new Date(b.date) - new Date(a.date))
       );
       setEditingId(null);
+      showAlert("Cập nhật thông báo thành công!", "success");
     } catch (error) {
       console.error("Error updating news:", error);
+      showAlert("Cập nhật thông báo thất bại!", "error");
     }
   };
 
@@ -98,8 +107,10 @@ export default function News() {
         [...prev, newItem].sort((a, b) => new Date(b.date) - new Date(a.date))
       );
       setNewData({ title: "", summary: "" });
+      showAlert("Thêm thông báo thành công!", "success");
     } catch (error) {
       console.error("Error adding news:", error);
+      showAlert("Thêm thông báo thất bại!", "error");
     }
   };
 
