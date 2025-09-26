@@ -172,7 +172,7 @@ export default function ContractManage() {
   const viewDetail = (id) => navigate(`/contract-detail/${id}`);
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 fade-in">
       <button
         className="btn-outline-black mb-3"
         onClick={() => {
