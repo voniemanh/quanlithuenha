@@ -10,12 +10,14 @@ import { checkAvailable } from "../util/CheckAvailable";
 import { useUser } from "../Context/UserContext";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useForm } from "react-hook-form";
+import { useAlert } from "../Context/AlertContext";
 import "./HomePage.css";
 
 export default function HomePage() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const { currentUser, setCurrentUser } = useUser();
+  const { showAlert, showConfirm } = useAlert();
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
@@ -91,7 +93,7 @@ export default function HomePage() {
   const handleFavourite = async (e, property) => {
     e.stopPropagation();
     if (!currentUser) {
-      alert("Bạn cần đăng nhập để bấm like!");
+      showAlert("Bạn cần đăng nhập để bấm like!", "warning");
       return;
     }
 
@@ -120,7 +122,7 @@ export default function HomePage() {
       await axios.patch(`${USERS_URL}/${currentUser.id}`, { likeProperties: updatedUserLikes });
     } catch (err) {
       console.error(err);
-      alert("Cập nhật like thất bại!");
+      showAlert("Cập nhật like thất bại!", "error");
     }
   };
 
@@ -134,25 +136,27 @@ export default function HomePage() {
 
   const handleDelete = async (e, id) => {
     e.stopPropagation();
-    if (window.confirm("Bạn có chắc muốn xoá phòng này?")) {
+    const confirm = await showConfirm("Bạn có chắc muốn xoá phòng này?");
+    if (confirm) {
       try {
+        
         await axios.delete(`${PROPERTIES_URL}/${id}`);
         setProperties(properties.filter(p => p.id !== id));
-        alert("Xoá thành công!");
+        showAlert("Xoá thành công!", "success");
       } catch (err) {
         console.error(err);
-        alert("Xoá thất bại!");
+        showAlert("Xoá thất bại!", "error");
       }
     }
   };
 
   const validateProperty = (data) => {
     if (!data.name || !data.address) {
-      alert("Tên và địa chỉ là bắt buộc!");
+      showAlert("Tên và địa chỉ là bắt buộc!", "warning");
       return false;
     }
     if (data.price < 0) {
-      alert("Giá phải lớn hơn hoặc bằng 0!");
+      showAlert("Giá phải lớn hơn hoặc bằng 0!", "warning");
       return false;
     }
     return true;
@@ -167,9 +171,9 @@ export default function HomePage() {
       setEditingId(null);
       reset();
       setImagePreview("");
-      alert("Cập nhật thành công!");
+      showAlert("Cập nhật thành công!", "success");
     } catch {
-      alert("Lỗi khi lưu bất động sản!");
+      showAlert("Lỗi khi lưu bất động sản!", "error");
     }
   };
 

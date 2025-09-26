@@ -35,7 +35,9 @@
       "password": "123",
       "role": "admin",
       "avatar": "/asset/u2.jpg",
-      "likeProperties": []
+      "likeProperties": [
+        "r2"
+      ]
     }
   ],
   "properties": [
@@ -75,8 +77,10 @@
       "status": "rented",
       "createdBy": "u1",
       "image": "/asset/r2.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "b7fd"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -230,24 +234,6 @@
         "Wifi",
         "TV",
         "Điều hòa"
-      ]
-    },
-    {
-      "id": "r11",
-      "name": "Phòng 1111 - Chung cư K",
-      "description": "Phòng 35m2, view đẹp, gần công viên",
-      "address": "808 Nguyễn Văn Trỗi, Q.Phú Nhuận, TP.HCM",
-      "price": 7000000,
-      "status": "available",
-      "createdBy": "u2",
-      "image": "/asset/r4.png",
-      "likes": [],
-      "likeCount": 0,
-      "amenitiesList": [
-        "Wifi",
-        "TV",
-        "Điều hòa",
-        "Tủ lạnh"
       ]
     }
   ],
