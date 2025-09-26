@@ -4,10 +4,12 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { USERS_URL } from "../../config";
 import { useUser } from "../Context/UserContext";
+import { useAlert} from "../Context/AlertContext";
 import ModalWrapper from "../Modal/ModalWrapper";
 
 export default function UserManage() {
   const { currentUser } = useUser();
+  const { showAlert, showConfirm } = useAlert();
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,7 +32,7 @@ export default function UserManage() {
       const res = await axios.get(USERS_URL);
       setUsers(res.data);
     } catch {
-      alert("Lỗi khi lấy danh sách người dùng!");
+      showAlert("Lỗi khi lấy danh sách người dùng!", "error");
     }
   };
 
@@ -40,7 +42,7 @@ export default function UserManage() {
 
   const validateUser = (data, editingUserId = null) => {
     if (users.some(u => u?.username === data.username && u.id !== editingUserId)) {
-      alert("Username đã tồn tại!");
+      showAlert("Username đã tồn tại!", "error");
       return false;
     }
     if (
@@ -48,7 +50,7 @@ export default function UserManage() {
       data.role === "user" &&
       users.find(u => u?.id === editingUserId)?.role === "admin"
     ) {
-      alert("Bạn không thể hạ quyền admin của chính mình!");
+      showAlert("Bạn không thể hạ quyền admin của chính mình!", "error");
       return false;
     }
     return true;
@@ -62,24 +64,27 @@ export default function UserManage() {
       setModalOpen(false);
       reset();
       setAvatarPreview("");
+      showAlert("Thêm người dùng thành công!", "success");
     } catch {
-      alert("Lỗi khi thêm người dùng!");
+      showAlert("Lỗi khi thêm người dùng!", "error");
     }
   };
 
   const handleDelete = async (id) => {
     if (id === currentUser?.id) {
-      alert("Bạn không thể xóa chính mình!");
+      showAlert("Bạn không thể xóa chính mình!", "error");
       return;
     }
-    if (window.confirm("Bạn có chắc muốn xóa user này?")) {
+    const confirm = await showConfirm("Bạn có chắc muốn xóa user này?");
+    if (confirm) {
       try {
         await axios.delete(`${USERS_URL}/${id}`);
         setUsers(users.filter((u) => u?.id !== id));
       } catch {
-        alert("Lỗi khi xóa người dùng!");
+        showAlert("Lỗi khi xóa người dùng!", "error");
       }
     }
+    showAlert("Xóa người dùng thành công!", "success");
   };
 
   const viewDetail = (id) => navigate(`/user-detail/${id}`);
@@ -150,7 +155,7 @@ export default function UserManage() {
                             editData.role === "admin" &&
                             e.target.value !== "admin"
                           ) {
-                            alert("Bạn không thể hạ quyền admin của chính mình!");
+                            showAlert("Bạn không thể hạ quyền admin của chính mình!", "error");
                             return;
                           }
                           setEditData({ ...editData, role: e.target.value });
