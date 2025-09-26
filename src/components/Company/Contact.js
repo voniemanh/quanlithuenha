@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useAlert } from "../Context/AlertContext";
 
 export default function Contact() {
+  const { showAlert, showConfirm } = useAlert();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,7 +36,7 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      alert("Form hợp lệ! Gửi thành công 🎉");
+      showAlert("Form hợp lệ! Gửi thành công 🎉", "success");
       setFormData({ name: "", email: "", message: "" });
     }
   };
