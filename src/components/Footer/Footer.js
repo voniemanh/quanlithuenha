@@ -2,18 +2,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAlert } from "../Context/AlertContext";
 import "./Footer.css";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const { showAlert } = useAlert();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email.includes("@")) {
-      alert("Email không hợp lệ!");
+      showAlert("Email không hợp lệ!", "error");
       return;
     }
-    alert(`Đăng ký thành công! ${email} sẽ nhận thông tin mới nhất.`);
+    showAlert(`Đăng ký thành công! ${email} sẽ nhận thông tin mới nhất.`, "success");
     setEmail("");
   };
 
