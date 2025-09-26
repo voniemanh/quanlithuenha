@@ -11,8 +11,8 @@
         "4e06",
         "a8e4",
         "aabe",
-        "r1",
-        "r3"
+        "r3",
+        "r4"
       ]
     },
     {
@@ -50,10 +50,9 @@
       "image": "/asset/r1.png",
       "likes": [
         "c1e3",
-        "6a6b",
-        "u1"
+        "6a6b"
       ],
-      "likeCount": 3,
+      "likeCount": 2,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -73,7 +72,7 @@
       "description": "Phòng 30m2, view đẹp, gần công viên",
       "address": "456 Nguyễn Trãi, Q.5, TP.HCM",
       "price": 6000000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "u1",
       "image": "/asset/r2.png",
       "likes": [],
@@ -113,8 +112,10 @@
       "status": "available",
       "createdBy": "u2",
       "image": "/asset/r4.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -283,6 +284,17 @@
       "status": "completed",
       "payment": 3000000,
       "paidAt": "2025-09-25"
+    },
+    {
+      "id": "63ef",
+      "userId": "u1",
+      "propertyId": "r2",
+      "startDate": "2025-09-26",
+      "endDate": "2025-10-12",
+      "guests": 2,
+      "payment": 6400000,
+      "status": "paid",
+      "paidAt": "2025-09-26"
     }
   ],
   "news": [
