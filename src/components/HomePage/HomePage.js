@@ -11,7 +11,6 @@ import { useUser } from "../Context/UserContext";
 import ModalWrapper from "../Modal/ModalWrapper";
 import { useForm } from "react-hook-form";
 import { useAlert } from "../Context/AlertContext";
-import "./HomePage.css";
 
 export default function HomePage() {
   const [properties, setProperties] = useState([]);

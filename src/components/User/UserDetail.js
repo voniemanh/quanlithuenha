@@ -163,59 +163,159 @@ export default function UserDetail() {
           </>
         )}
       </div>
-        <div>
-          <h2 className="mb-3">Danh sách hợp đồng</h2>
-          <div style={{ overflowX: "auto" }}>
-            <table className="table table-hover table-bordered">
-              <thead className="align-top text-center table-secondary">
-                <tr>
-                  <th>Mã hợp đồng</th>
-                  <th>Phòng</th>
-                  <th>Ngày bắt đầu</th>
-                  <th>Ngày kết thúc</th>
-                  <th>Trạng thái</th>
-                  <th>Tổng tiền</th>
+      <div>
+        <h2 className="mb-3 mt-5">Danh sách hợp đồng</h2>
+        <div style={{ overflowX: "auto" }}>
+          <table className="table table-hover table-bordered mt-2">
+            <thead className="align-top text-center table-secondary">
+              <tr>
+                <th>Mã hợp đồng</th>
+                <th>Phòng</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th>Trạng thái</th>
+                <th>Tổng tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userContracts.map(c => (
+                <tr
+                  key={c.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/contract-detail/${c.id}`)}
+                >
+                  <td>{c.id}</td>
+                  <td>{getPropertyName(c.propertyId)}</td>
+                  <td>{c.startDate}</td>
+                  <td>{c.endDate}</td>
+                  <td>{c.status}</td>
+                  <td>{c.payment.toLocaleString()} VND</td>
                 </tr>
-              </thead>
-              <tbody>
-                {userContracts.map(c => (
-                  <tr
-                    key={c.id}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/contract-detail/${c.id}`)}
-                  >
-                    <td>{c.id}</td>
-                    <td>{getPropertyName(c.propertyId)}</td>
-                    <td>{c.startDate}</td>
-                    <td>{c.endDate}</td>
-                    <td>{c.status}</td>
-                    <td>{c.payment.toLocaleString()} VND</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
+      <h2 className="mb-3 mt-5">List phòng đã lưu</h2>
+      <div className="saved-properties-scroll mb-5 mt-3">
+        {user.likeProperties && user.likeProperties.length > 0 ? (
+          <>
+            <button
+              className="scroll-btn left"
+              onClick={() => {
+                document.querySelector(".saved-properties-scroll-inner").scrollBy({ left: -220, behavior: "smooth" });
+              }}
+            >
+              {'<'}
+            </button>
+            <div className="saved-properties-scroll-inner">
+              {user.likeProperties.map((propertyId) => {
+                const property = properties.find(p => p.id === propertyId);
+                if (!property) return null;
+                return (
+                  <div key={property.id} className="property-card" onClick={() => navigate(`/property-detail/${property.id}`)}>
+                    <div className="property-img-wrapper">
+                      <img src={property.image} alt={property.name} />
+                      <div className="property-info">
+                        <p className="property-name">{property.name}</p>
+                        <p className="property-price">{property.price.toLocaleString()} VND / tháng</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <button
+              className="scroll-btn right"
+              onClick={() => {
+                document.querySelector(".saved-properties-scroll-inner").scrollBy({ left: 220, behavior: "smooth" });
+              }}
+            >
+              {'>'}
+            </button>
+          </>
+        ) : (
+          <p>Chưa có phòng nào được lưu.</p>
+        )}
+      </div>
       <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Quay lại</button>
-      <style>{`
-        .table-custom th,
-        .table-custom td {
-          border: none !important;
-          padding: 4px 8px;
-          vertical-align: baseline;
+      <style>
+        {`
+        .saved-properties-scroll {
+          position: relative;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          overflow: hidden;
         }
 
-        .table-custom th {
-          padding-right: 15px;
+        .saved-properties-scroll-inner {
+          display: flex;
+          overflow-x: auto;
           white-space: nowrap;
+          scroll-behavior: smooth;
+          scrollbar-width: none; 
+          -ms-overflow-style: none;
         }
 
-        .table-custom td {
-          padding-left: 0;
+        .saved-properties-scroll-inner::-webkit-scrollbar {
+          display: none; 
         }
-        table {
-        margin-bottom: 10px;}
-      `}</style>
+
+        .property-card {
+          margin-right: 15px;
+          flex: 0 0 200px; 
+        }
+        .property-card:last-child {
+          margin-right: 0!important;
+        }
+        .property-img-wrapper {
+          position: relative;
+        }
+
+        .property-img-wrapper img {
+          width: 100%;
+          height: 180px;
+          object-fit: cover;
+        }
+
+        .property-info {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+          color: #fff;
+          padding: 10px;
+          box-sizing: border-box;
+        }
+
+        .property-name {
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        .property-price {
+          font-size: 12px;
+        }
+        .scroll-btn {
+          border: none;
+          background-color: white;
+          font-size: 28px;
+          cursor: pointer;
+          z-index: 10;
+          color: #a9a8a8ff;
+        }
+
+        .scroll-btn.left {
+          left: -15px;
+        }
+
+        .scroll-btn.right {
+          right: -15px;
+        }
+      `}
+    </style>
+
     </div>
   );
 }

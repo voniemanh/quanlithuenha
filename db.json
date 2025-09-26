@@ -11,8 +11,9 @@
         "4e06",
         "a8e4",
         "aabe",
-        "r3",
-        "r4"
+        "r8",
+        "r4",
+        "r3"
       ]
     },
     {
@@ -98,9 +99,10 @@
       "createdBy": "u2",
       "image": "/asset/r3.png",
       "likes": [
+        "u1",
         "u1"
       ],
-      "likeCount": 1,
+      "likeCount": 2,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
@@ -117,9 +119,10 @@
       "createdBy": "u2",
       "image": "/asset/r4.png",
       "likes": [
+        "u1",
         "u1"
       ],
-      "likeCount": 1,
+      "likeCount": 2,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -190,8 +193,10 @@
       "status": "rented",
       "createdBy": "u2",
       "image": "/asset/r8.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Wifi",
         "TV",
