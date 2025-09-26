@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CONTRACTS_URL, PROPERTIES_URL, USERS_URL } from "../../config";
 import { useUser } from "../Context/UserContext";
+import { useAlert } from "../Context/AlertContext";
 import { checkAvailable } from "../util/CheckAvailable";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -11,6 +12,7 @@ export default function ContractDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useUser();
+  const { showAlert, showConfirm } = useAlert();
 
   const [contract, setContract] = useState(null);
   const [property, setProperty] = useState(null);
@@ -93,14 +95,19 @@ export default function ContractDetail() {
   const handleCancel = async () => {
     if (!contract || contract.status !== "pending") return;
     setUpdating(true);
+    const confirm = await showConfirm("Bạn có chắc chắn muốn hủy hợp đồng này?");
+    if (!confirm) {
+      setUpdating(false);
+      return;
+    }
     try {
       const updatedContract = { ...contract, status: "canceled" };
       await axios.put(`${CONTRACTS_URL}/${contract.id}`, updatedContract);
       setContract(updatedContract);
-      alert("Hủy hợp đồng thành công!");
+      showAlert("Hủy hợp đồng thành công!", "success");
     } catch (err) {
       console.error(err);
-      alert("Hủy hợp đồng thất bại!");
+      showAlert("Hủy hợp đồng thất bại!", "error");
     } finally {
       setUpdating(false);
     }
@@ -121,10 +128,10 @@ export default function ContractDetail() {
         await axios.put(`${PROPERTIES_URL}/${property.id}`, updatedProperty);
         setProperty(updatedProperty);
       }
-      alert("Thanh toán thành công!");
+      showAlert("Thanh toán thành công!", "success");
     } catch (err) {
       console.error(err);
-      alert("Thanh toán thất bại!");
+      showAlert("Thanh toán thất bại!", "error");
     } finally {
       setUpdating(false);
     }
