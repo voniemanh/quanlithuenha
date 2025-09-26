@@ -6,6 +6,7 @@ import { CONTRACTS_URL, USERS_URL, PROPERTIES_URL } from "../../config";
 import { checkAvailable } from "../util/CheckAvailable";
 import { checkConflict } from "../util/CheckConflict";
 import ModalWrapper from "../Modal/ModalWrapper";
+import { useAlert } from "../Context/AlertContext";
 
 export default function ContractManage() {
   const [contracts, setContracts] = useState([]);
@@ -14,6 +15,7 @@ export default function ContractManage() {
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
+  const { showAlert, showConfirm } = useAlert();
 
   const navigate = useNavigate();
 
@@ -51,7 +53,7 @@ export default function ContractManage() {
       setUsers(resUsers.data);
       setProperties(resProperties.data);
     } catch {
-      alert("Lỗi khi tải dữ liệu!");
+      showAlert("Lỗi khi tải dữ liệu!", "error");
     }
   };
 
@@ -85,14 +87,14 @@ export default function ContractManage() {
     const user = users.find((u) => u.id === data.userId);
     const property = properties.find((p) => p.id === data.propertyId);
 
-    if (!user) { alert("Người thuê không tồn tại!"); return false; }
-    if (!property) { alert("Bất động sản không tồn tại!"); return false; }
-    if (start > end) { alert("Ngày bắt đầu phải trước ngày kết thúc!"); return false; }
-    if (data.guests < 1 || data.guests > 3) { alert("Số khách phải từ 1 đến 3 người!"); return false; }
-    if ((data.status === "paid" || data.status === "completed") && !data.paidAt) { alert("Vui lòng chọn ngày thanh toán!"); return false; }
+    if (!user) { showAlert("Người thuê không tồn tại!", "error"); return false; }
+    if (!property) { showAlert("Bất động sản không tồn tại!", "error"); return false; }
+    if (start > end) { showAlert("Ngày bắt đầu phải trước ngày kết thúc!", "error"); return false; }
+    if (data.guests < 1 || data.guests > 3) { showAlert("Số khách phải từ 1 đến 3 người!", "error"); return false; }
+    if ((data.status === "paid" || data.status === "completed") && !data.paidAt) { showAlert("Vui lòng chọn ngày thanh toán!", "error"); return false; }
     if (data.status === "paid" || data.status === "confirmed") {
       if (checkConflict(contracts, data.propertyId, data.startDate, data.endDate, editingId)) {
-        alert("Phòng đã được thuê trong khoảng thời gian này!");
+        showAlert("Phòng đã được thuê trong khoảng thời gian này!", "error");
         return false;
       }
     }
@@ -116,9 +118,10 @@ export default function ContractManage() {
       setEditingId(null);
       setEditData({});
       fetchData();
+      showAlert("Lưu hợp đồng thành công!", "success");
     } catch (err) {
       console.error(err);
-      alert("Lỗi khi lưu hợp đồng!");
+      showAlert("Lỗi khi lưu hợp đồng!", "error");
     }
   };
 
@@ -147,20 +150,22 @@ export default function ContractManage() {
       setModalOpen(false);
       reset();
       fetchData();
+      showAlert("Lưu hợp đồng thành công!", "success");
     } catch (err) {
       console.error(err);
-      alert("Lỗi khi lưu hợp đồng!");
+      showAlert("Lỗi khi lưu hợp đồng!", "error");
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Bạn có chắc muốn xóa hợp đồng này?")) {
-      try {
-        await axios.delete(`${CONTRACTS_URL}/${id}`);
-        setContracts(prev => prev.filter(c => c.id !== id));
-      } catch {
-        alert("Lỗi khi xóa hợp đồng!");
-      }
+    const confirm = await showConfirm("Bạn có chắc muốn xóa hợp đồng này?");
+    if (!confirm) return;
+    try {
+      await axios.delete(`${CONTRACTS_URL}/${id}`);
+      setContracts(prev => prev.filter(c => c.id !== id));
+      showAlert("Xóa hợp đồng thành công!", "success");
+    } catch {
+      showAlert("Lỗi khi xóa hợp đồng!", "error");
     }
   };
 
