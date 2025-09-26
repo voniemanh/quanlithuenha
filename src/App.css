@@ -110,12 +110,12 @@ p {
 
 
  .fade-in {
-    animation: fadeIn 0.5s ease forwards;
+    animation: fadeIn 0.4s ease-out forwards;
   }
   @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(2px);
     }
     to {
         opacity: 1;

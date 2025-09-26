@@ -125,7 +125,7 @@ export default function PropertyDetail() {
   if (!property) return <p>Property not found!</p>;
 
   return (
-    <div className="container my-4">
+    <div className="container my-4 fade-in">
       <h2 className="mb-4 d-flex align-items-center">
         {property.name}
         <span className="ms-3 d-flex align-items-center fs-4 fw-normal">
