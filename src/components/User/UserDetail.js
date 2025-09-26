@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../Context/UserContext";
+import { useAlert } from "../Context/AlertContext";
 import axios from "axios";
 import { USERS_URL, PROPERTIES_URL, CONTRACTS_URL } from "../../config";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function UserDetail() {
   const { id } = useParams(); 
   const { currentUser, setCurrentUser } = useUser();
+  const { showAlert, showConfirm } = useAlert();
   const [user, setUser] = useState(null);
   const [contracts, setContracts] = useState([]);
   const [properties, setProperties] = useState([]);
@@ -32,7 +34,7 @@ export default function UserDetail() {
         setUser(userRes.data);
         setEditData(userRes.data);
       } else {
-        alert("Bạn không có quyền xem thông tin này");
+        showAlert("Bạn không có quyền xem thông tin này", "warning");
         navigate("/");
       }
     } catch (err) {
@@ -49,20 +51,21 @@ export default function UserDetail() {
         if (currentUser.id === user.id) setCurrentUser(res.data);
         setUser(res.data);
         setEditing(false);
-        alert("Cập nhật thành công!");
+        showAlert("Cập nhật thành công!", "success");
       })
-      .catch(() => alert("Lỗi khi cập nhật!"));
+      .catch(() => showAlert("Lỗi khi cập nhật!", "error"));
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Bạn có chắc muốn xoá tài khoản này?")) {
+  const handleDelete = async () => {
+    const confirm = await showConfirm("Bạn có chắc muốn xoá tài khoản này?");
+    if (confirm) {
       axios.delete(`${USERS_URL}/${user.id}`)
         .then(() => {
           if (currentUser.id === user.id) setCurrentUser(null);
-          alert("Xoá thành công!");
-          navigate("/"); 
+          showAlert("Xoá thành công!", "success");
+          navigate("/");
         })
-        .catch(() => alert("Lỗi khi xoá!"));
+        .catch(() => showAlert("Lỗi khi xoá!", "error"));
     }
   };
 
