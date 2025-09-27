@@ -262,8 +262,8 @@ export default function ContractDetail() {
         </div>
       )}
 
-      <button className="btn btn-outline-secondary mt-4" onClick={() => navigate(-1)}>
-        Quay lại
+      <button className="btn-outline-black mt-4" onClick={() => navigate(-1)}>
+        ← Back
       </button>
     </div>
   );

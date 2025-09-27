@@ -197,8 +197,9 @@ export default function UserManage() {
                               await axios.put(`${USERS_URL}/${user.id}`, editData);
                               setEditingId(null);
                               fetchUsers();
+                              showAlert("Cập nhật người dùng thành công!", "success");
                             } catch {
-                              alert("Lỗi khi lưu!");
+                              showAlert("Lỗi khi lưu!", "error");
                             }
                           }}
                         >

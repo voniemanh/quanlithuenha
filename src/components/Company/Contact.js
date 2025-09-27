@@ -124,7 +124,7 @@ export default function Contact() {
               )}
             </div>
 
-            <button type="submit" className="btn btn-dark">
+            <button type="submit" className="btn-black">
               Gửi
             </button>
           </form>

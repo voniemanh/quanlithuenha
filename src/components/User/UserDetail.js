@@ -140,7 +140,7 @@ export default function UserDetail() {
                     src={user.avatar}
                     alt="avatar"
                     className="img-thumbnail"
-                    style={{ width: 100, height: 100, borderRadius: "50%" }}
+                    style={{ width: 70, height: 70, borderRadius: "50%" }}
                   />
                 )
               )}
@@ -156,7 +156,7 @@ export default function UserDetail() {
           </>
         ) : (
           <>
-            <button className="btn btn-outline-primary me-2" onClick={() => setEditing(true)}>Sửa thông tin</button>
+            <button className="btn-outline-pink me-2 mt-3" onClick={() => setEditing(true)}>Sửa thông tin</button>
             {user.role !== "admin" && (
               <button className="btn btn-outline-danger" onClick={handleDelete}>Xoá tài khoản</button>
             )}
@@ -238,7 +238,7 @@ export default function UserDetail() {
           <p>Chưa có phòng nào được lưu.</p>
         )}
       </div>
-      <button className="btn btn-outline-secondary" onClick={() => navigate(-1)}>Quay lại</button>
+      <button className="btn-outline-black" onClick={() => navigate(-1)}>← Back</button>
       <style>
         {`
         .saved-properties-scroll {
@@ -246,7 +246,7 @@ export default function UserDetail() {
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          overflow: hidden;
+          overflow: visible;
         }
 
         .saved-properties-scroll-inner {
@@ -298,12 +298,27 @@ export default function UserDetail() {
           font-size: 12px;
         }
         .scroll-btn {
-          border: none;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          top: 50%;
+          border-radius: 50%;
+          transform: translateY(-50%);
+          border: 1px solid #FF385C;
           background-color: white;
-          font-size: 28px;
+          font-size: 20px;
           cursor: pointer;
           z-index: 10;
-          color: #a9a8a8ff;
+          color: #FF385C;
+          overflow: visible;
+          opacity: 0.8;
+        }
+        .scroll-btn:hover {
+          opacity: 0.5;
+          transition: all 0.3s ease-in-out;
         }
 
         .scroll-btn.left {
