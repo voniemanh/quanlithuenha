@@ -57,7 +57,6 @@ export default function SaveProperties({ likeProperties = [], properties = [] })
               <img src={property.image} alt={property.name} />
               <div className="property-info">
                 <h4>{property.name}</h4>
-                <p>{property.address}</p>
                 <p>{property.price.toLocaleString()} VND / tháng</p>
               </div>
             </div>
@@ -136,6 +135,11 @@ export default function SaveProperties({ likeProperties = [], properties = [] })
           font-size: 20px;
           border-radius: 50%;
         }
+        .arrow:hover {
+          background: rgba(0,0,0,0.7);
+          scale: 1.1;
+          transition: all 0.3s;
+          }
         .arrow.left { left: -20px; }
         .arrow.right { right: -20px; }
       `}</style>
