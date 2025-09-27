@@ -29,7 +29,7 @@ export default function PropertyDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useUser();
-  const {showAlert,showConfirm} = useAlert();
+  const {showAlert} = useAlert();
 
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);

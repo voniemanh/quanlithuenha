@@ -169,36 +169,40 @@ export default function UserDetail() {
       </div>
       <div>
         <h2 className="mb-3 mt-5">Danh sách hợp đồng</h2>
-        <div style={{ overflowX: "auto" }}>
-          <table className="table table-hover table-bordered mt-2">
-            <thead className="align-top text-center table-secondary">
-              <tr>
-                <th>Mã hợp đồng</th>
-                <th>Phòng</th>
-                <th>Ngày bắt đầu</th>
-                <th>Ngày kết thúc</th>
-                <th>Trạng thái</th>
-                <th>Tổng tiền</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userContracts.map(c => (
-                <tr
-                  key={c.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => navigate(`/contract-detail/${c.id}`)}
-                >
-                  <td>{c.id}</td>
-                  <td>{getPropertyName(c.propertyId)}</td>
-                  <td>{c.startDate}</td>
-                  <td>{c.endDate}</td>
-                  <td>{c.status}</td>
-                  <td>{c.payment.toLocaleString()} VND</td>
+        {userContracts.length > 0 ? (
+          <div style={{ overflowX: "auto" }}>
+            <table className="table table-hover table-bordered mt-2">
+              <thead className="align-top text-center table-secondary">
+                <tr>
+                  <th>Mã hợp đồng</th>
+                  <th>Phòng</th>
+                  <th>Ngày bắt đầu</th>
+                  <th>Ngày kết thúc</th>
+                  <th>Trạng thái</th>
+                  <th>Tổng tiền</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {userContracts.map(c => (
+                  <tr
+                    key={c.id}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/contract-detail/${c.id}`)}
+                  >
+                    <td>{c.id}</td>
+                    <td>{getPropertyName(c.propertyId)}</td>
+                    <td>{c.startDate}</td>
+                    <td>{c.endDate}</td>
+                    <td>{c.status}</td>
+                    <td>{c.payment.toLocaleString()} VND</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>Chưa có hợp đồng nào.</p>
+        )}
       </div>
       <h2 className="mb-3 mt-5">List phòng đã lưu</h2>
       <div className="saved-properties-scroll mb-5 mt-3">
