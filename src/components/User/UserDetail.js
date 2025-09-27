@@ -312,17 +312,17 @@ export default function UserDetail() {
           justify-content: center;
           align-items: center;
           border-radius: 50%;
-          border: none;
-          background-color:  rgba(0,0,0,0.6);
+          border: 1px solid #FF385C;
+          background-color:  white;
           font-size: 20px;
           cursor: pointer;
           z-index: 10;
-          color: white;
+          color: #FF385C;
           flex: 0 0 auto;
-          opacity: 0.7;
+          opacity: 0.8;
         }
         .scroll-btn:hover {
-          background-color: rgba(0,0,0,0.8);
+          opacity: 1;
           transform: scale(1.1);
           transition: all 0.3s ease-in-out;
         }
