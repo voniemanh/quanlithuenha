@@ -303,17 +303,13 @@ export default function UserDetail() {
           display: flex;
           justify-content: center;
           align-items: center;
-          position: absolute;
-          top: 50%;
           border-radius: 50%;
-          transform: translateY(-50%);
           border: 1px solid #FF385C;
           background-color: white;
           font-size: 20px;
           cursor: pointer;
           z-index: 10;
           color: #FF385C;
-          overflow: visible;
           opacity: 0.8;
         }
         .scroll-btn:hover {
@@ -323,10 +319,12 @@ export default function UserDetail() {
 
         .scroll-btn.left {
           left: -15px;
+          margin-right: 10px;
         }
 
         .scroll-btn.right {
           right: -15px;
+          margin-left: 10px;
         }
       `}
     </style>
