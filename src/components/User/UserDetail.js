@@ -74,6 +74,10 @@ export default function UserDetail() {
   const userContracts = contracts.filter(c => c.userId === user.id);
   const getPropertyName = (propertyId) => properties.find(p => p.id === propertyId)?.name || "Không xác định";
 
+  const savedList = user.likeProperties
+  ?.map(id => properties.find(p => p.id === id))
+  .filter(Boolean) || [];
+
   return (
     <div className="container mt-4 fade-in">
       <h2 className="mb-4">Thông tin cá nhân</h2>
@@ -198,7 +202,7 @@ export default function UserDetail() {
       </div>
       <h2 className="mb-3 mt-5">List phòng đã lưu</h2>
       <div className="saved-properties-scroll mb-5 mt-3">
-        {user.likeProperties && user.likeProperties.length > 0 ? (
+        {savedList.length > 0 ? (
           <>
             <button
               className="scroll-btn left"
@@ -298,32 +302,34 @@ export default function UserDetail() {
           font-size: 12px;
         }
         .scroll-btn {
-          width: 30px;
-          height: 30px;
+          width: 40px;
+          height: 40px;
           display: flex;
           justify-content: center;
           align-items: center;
           border-radius: 50%;
-          border: 1px solid #FF385C;
-          background-color: white;
+          border: none;
+          background-color:  rgba(0,0,0,0.6);
           font-size: 20px;
           cursor: pointer;
           z-index: 10;
-          color: #FF385C;
-          opacity: 0.8;
+          color: white;
+          flex: 0 0 auto;
+          opacity: 0.7;
         }
         .scroll-btn:hover {
-          opacity: 0.5;
+          background-color: rgba(0,0,0,0.8);
+          transform: scale(1.1);
           transition: all 0.3s ease-in-out;
         }
 
         .scroll-btn.left {
-          left: -15px;
+          left: 0;
           margin-right: 10px;
         }
 
         .scroll-btn.right {
-          right: -15px;
+          right: 0;
           margin-left: 10px;
         }
       `}
