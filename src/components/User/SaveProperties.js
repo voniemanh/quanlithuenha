@@ -1,60 +1,73 @@
 import React, { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function SaveProperties({ likeProperties, properties }) {
+export default function SaveProperties({ likeProperties = [], properties = [] }) {
   const galleryRef = useRef(null);
   const leftRef = useRef(null);
   const rightRef = useRef(null);
   const navigate = useNavigate();
 
-  const adjustArrow = () => {
-    const gallery = galleryRef.current;
-    if (!gallery || gallery.children.length === 0) return;
-
-    const firstCard = gallery.children[0];
-    const lastCard = gallery.children[gallery.children.length - 1];
-    const buttonHeight = 40;
-
-    if (leftRef.current && rightRef.current) {
-      leftRef.current.style.top =
-        firstCard.offsetTop + firstCard.offsetHeight / 2 - buttonHeight / 2 + "px";
-      rightRef.current.style.top =
-        lastCard.offsetTop + lastCard.offsetHeight / 2 - buttonHeight / 2 + "px";
-    }
-  };
-
   useEffect(() => {
+    const adjustArrow = () => {
+      const gallery = galleryRef.current;
+      if (!gallery || gallery.children.length === 0) return;
+
+      const firstCard = gallery.children[0];
+      const lastCard = gallery.children[gallery.children.length - 1];
+      const buttonHeight = 40;
+
+      if (leftRef.current && rightRef.current) {
+        leftRef.current.style.top =
+          firstCard.offsetTop + firstCard.offsetHeight / 2 - buttonHeight / 2 + "px";
+        rightRef.current.style.top =
+          lastCard.offsetTop + lastCard.offsetHeight / 2 - buttonHeight / 2 + "px";
+      }
+    };
+
     adjustArrow();
     window.addEventListener("resize", adjustArrow);
     return () => window.removeEventListener("resize", adjustArrow);
   }, [likeProperties]);
 
-  if (!likeProperties || likeProperties.length === 0) {
-    return <p>Chưa có phòng nào được lưu.</p>;
+  const savedList = likeProperties
+    .map(id => properties.find(p => p.id === id))
+    .filter(Boolean);
+
+  if (savedList.length === 0) {
+    return <p className="mb-5">Chưa có phòng nào được lưu.</p>;
   }
 
   return (
     <div className="gallery-wrapper mb-5 mt-3">
       <div className="gallery-container">
-        <button ref={leftRef} className="arrow left" onClick={() => galleryRef.current.scrollBy({ left: -220, behavior: "smooth" })}>
+        <button
+          ref={leftRef}
+          className="arrow left"
+          onClick={() => galleryRef.current.scrollBy({ left: -220, behavior: "smooth" })}
+        >
           {"<"}
         </button>
         <div className="gallery" ref={galleryRef}>
-          {likeProperties.map((propertyId) => {
-            const property = properties.find(p => p.id === propertyId);
-            if (!property) return null;
-            return (
-              <div key={property.id} className="property-card" onClick={() => navigate(`/property-detail/${property.id}`)}>
-                <img src={property.image} alt={property.name} />
-                <div className="property-info">
-                  <h4>{property.name}</h4>
-                  <p>{property.price.toLocaleString()} VND / tháng</p>
-                </div>
+          {savedList.map(property => (
+            <div
+              key={property.id}
+              className="property-card"
+              onClick={() => navigate(`/property-detail/${property.id}`)}
+            >
+              <img src={property.image} alt={property.name} />
+              <div className="property-info">
+                <h4>{property.name}</h4>
+                <p>{property.address}</p>
+                <p>{property.price.toLocaleString()} VND / tháng</p>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
-        <button ref={rightRef} className="arrow right" onClick={() => galleryRef.current.scrollBy({ left: 220, behavior: "smooth" })}>
+        <button
+          ref={rightRef}
+          className="arrow right"
+          onClick={() => galleryRef.current.scrollBy({ left: 220, behavior: "smooth" })}
+        >
           {">"}
         </button>
       </div>
@@ -102,9 +115,11 @@ export default function SaveProperties({ likeProperties, properties }) {
         .property-info h4 {
           font-weight: bold;
           font-size: 14px;
+          margin: 0 0 5px;
         }
         .property-info p {
           font-size: 12px;
+          margin: 2px 0;
         }
         .arrow {
           position: absolute;
@@ -120,11 +135,6 @@ export default function SaveProperties({ likeProperties, properties }) {
           justify-content: center;
           font-size: 20px;
           border-radius: 50%;
-        }
-        .arrow:hover {
-          background: rgba(0,0,0,0.7);
-          scale: 1.1;
-          transition: all 0.3s ease;
         }
         .arrow.left { left: -20px; }
         .arrow.right { right: -20px; }

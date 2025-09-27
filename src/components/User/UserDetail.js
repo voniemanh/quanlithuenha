@@ -198,11 +198,7 @@ export default function UserDetail() {
         </div>
       </div>
       <h2 className="mb-3 mt-5">List phòng đã lưu</h2>
-      {user.likeProperties && user.likeProperties.length > 0 ? (
-        <SaveProperties likeProperties={user.likeProperties} properties={properties} />
-      ) : (
-        <p>Chưa có phòng nào được lưu.</p>
-      )}
+      <SaveProperties likeProperties={user.likeProperties} properties={properties} />
       <button className="btn-outline-black" onClick={() => navigate(-1)}>← Back</button>
     </div>
   );
