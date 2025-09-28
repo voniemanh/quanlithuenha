@@ -152,7 +152,7 @@ export default function UserDetail() {
           </tr>
         </tbody>
       </table>
-      <div className="mb-4">
+      <div className="mb-4 mt-3">
         {editing ? (
           <>
             <button className="btn btn-outline-primary me-2" onClick={handleSave}>Lưu</button>
@@ -160,7 +160,7 @@ export default function UserDetail() {
           </>
         ) : (
           <>
-            <button className="btn-outline-pink me-2 mt-3" onClick={() => setEditing(true)}>Sửa thông tin</button>
+            <button className="btn btn-outline-primary me-2" onClick={() => setEditing(true)}>Sửa thông tin</button>
             {user.role !== "admin" && (
               <button className="btn btn-outline-danger" onClick={handleDelete}>Xoá tài khoản</button>
             )}
