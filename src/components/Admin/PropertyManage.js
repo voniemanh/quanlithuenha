@@ -158,7 +158,7 @@ export default function PropertyManage() {
               <th>Trạng thái</th>
               <th>Hình ảnh</th>
               <th>Tiện ích</th>
-              <th>Hành động</th>
+              <th colSpan={3}>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -265,7 +265,15 @@ export default function PropertyManage() {
                       ""
                     )}
                   </td>
-                  <td>
+                  <td className="border-end-0">
+                    <button
+                      className="btn btn-outline-success btn-sm me-1"
+                      onClick={() => viewDetail(p.id)}
+                    >
+                      Xem
+                    </button>
+                  </td>
+                  <td className="border-end-0">
                     {isEditing ? (
                       <>
                         <button
@@ -284,12 +292,6 @@ export default function PropertyManage() {
                     ) : (
                       <>
                         <button
-                          className="btn btn-outline-success btn-sm me-1"
-                          onClick={() => viewDetail(p.id)}
-                        >
-                          Xem
-                        </button>
-                        <button
                           className="btn btn-outline-warning btn-sm me-1"
                           onClick={() => {
                             setEditingId(p.id);
@@ -298,14 +300,16 @@ export default function PropertyManage() {
                         >
                           Sửa
                         </button>
-                        <button
-                          className="btn btn-outline-danger btn-sm"
-                          onClick={() => handleDelete(p.id)}
-                        >
-                          Xóa
-                        </button>
                       </>
                     )}
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => handleDelete(p.id)}
+                    >
+                      Xóa
+                    </button>
                   </td>
                 </tr>
               );
