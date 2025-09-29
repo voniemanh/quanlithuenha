@@ -254,6 +254,12 @@ p {
   color: white;
   text-shadow: 0 0 2px rgba(0,0,0,0.8);
 }
+@media (max-width: 991px) {
+    .action-col {
+    flex-direction: column!important;
+    align-items: center;
+  }
+}
 
 @media (max-width: 576px) {
   .property-card .heart-icon {
@@ -268,9 +274,5 @@ p {
   }
   .search-input {
     width: 50%!important;
-  }
-  .action-col {
-    flex-direction: column!important;
-    align-items: center;
   }
 }

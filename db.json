@@ -11,9 +11,10 @@
         "4e06",
         "a8e4",
         "aabe",
-        "r8",
-        "r4",
-        "r3"
+        "r1",
+        "r10",
+        "4fd4",
+        "r5"
       ]
     },
     {
@@ -140,8 +141,10 @@
       "status": "available",
       "createdBy": "u1",
       "image": "/asset/r5.png",
-      "likes": [],
-      "likeCount": 0,
+      "likes": [
+        "u1"
+      ],
+      "likeCount": 1,
       "amenitiesList": [
         "Security camera",
         "Paid dryer"
