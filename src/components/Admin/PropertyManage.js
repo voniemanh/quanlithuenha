@@ -265,19 +265,12 @@ export default function PropertyManage() {
                       ""
                     )}
                   </td>
-                  <td className="border-end-0">
-                    <button
-                      className="btn btn-outline-success btn-sm me-1"
-                      onClick={() => viewDetail(p.id)}
-                    >
-                      Xem
-                    </button>
-                  </td>
-                  <td className="border-end-0 border-start-0">
+                  <td>
+                    <div className="d-flex justify-content-center flex-row gap-2">
                     {isEditing ? (
                       <>
                         <button
-                          className="btn btn-outline-primary btn-sm me-1"
+                          className="btn btn-outline-primary btn-sm"
                           onClick={() => handleSave(p)}
                         >
                           Lưu
@@ -292,7 +285,13 @@ export default function PropertyManage() {
                     ) : (
                       <>
                         <button
-                          className="btn btn-outline-warning btn-sm me-1"
+                            className="btn btn-outline-success btn-sm me-1"
+                            onClick={() => viewDetail(p.id)}
+                          >
+                            Xem
+                          </button>
+                        <button
+                          className="btn btn-outline-warning btn-sm"
                           onClick={() => {
                             setEditingId(p.id);
                             setEditData(p);
@@ -300,16 +299,15 @@ export default function PropertyManage() {
                         >
                           Sửa
                         </button>
+                        <button
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => handleDelete(p.id)}
+                        >
+                          Xóa
+                        </button>
                       </>
                     )}
-                  </td>
-                  <td className="border-start-0">
-                    <button
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => handleDelete(p.id)}
-                    >
-                      Xóa
-                    </button>
+                    </div>
                   </td>
                 </tr>
               );

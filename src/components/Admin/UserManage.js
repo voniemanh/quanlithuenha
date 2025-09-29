@@ -187,10 +187,11 @@ export default function UserManage() {
                     )}
                   </td>
                   <td>
+                    <div  className="d-flex justify-content-center gap-2 flex-row">
                     {isEditing ? (
                       <>
                         <button
-                          className="btn btn-outline-primary btn-sm me-1"
+                          className="btn btn-outline-primary btn-sm"
                           onClick={async () => {
                             if (!validateUser(editData, user.id)) return;
                             try {
@@ -215,13 +216,13 @@ export default function UserManage() {
                     ) : (
                       <>
                         <button
-                          className="btn btn-outline-success btn-sm me-1"
+                          className="btn btn-outline-success btn-sm"
                           onClick={() => viewDetail(user.id)}
                         >
                           Xem
                         </button>
                         <button
-                          className="btn btn-outline-warning btn-sm me-1"
+                          className="btn btn-outline-warning btn-sm"
                           onClick={() => {
                             setEditingId(user.id);
                             setEditData(user);
@@ -238,6 +239,7 @@ export default function UserManage() {
                         </button>
                       </>
                     )}
+                    </div>
                   </td>
                 </tr>
               );
