@@ -35,7 +35,7 @@
       "name": "test",
       "username": "tui",
       "password": "123",
-      "role": "admin",
+      "role": "user",
       "avatar": "/asset/u2.jpg",
       "likeProperties": [
         "r2"
