@@ -10,14 +10,14 @@ import Contact from "./components/Company/Contact";
 import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./components/Context/UserContext";
 import News from "./components/Company/News";
-import Particles from "./components/util/Particles"; 
+// import Particles from "./components/util/Particles"; 
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
   return (
     <UserProvider>
-      <Particles fillColor="#e6f1f7" strokeColor="#3a92c5" />
+      {/* <Particles fillColor="#e6f1f7" strokeColor="#3a92c5" /> */}
       <div className="App">
         <NavBar />
         <main>
