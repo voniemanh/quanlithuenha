@@ -23,7 +23,7 @@ export default function About() {
     <div className="container my-5 fade-in">
       <h1 className="text-center mb-4">About Us</h1>
       <p className="text-center mb-5 fs-5 text-muted">
-        Chúng tôi là nền tảng hàng đầu trong việc kết nối người thuê và chủ nhà, 
+        Chúng tôi là dịch vụ cho thuê nhà ngắn hạn hàng đầu, 
         mang đến trải nghiệm thuê nhà tiện lợi, an toàn và minh bạch.
       </p>
 

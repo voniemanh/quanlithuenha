@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useAlert } from "../Context/AlertContext";
 
 export default function Contact() {
-  const { showAlert, showConfirm } = useAlert();
+  const { showAlert } = useAlert();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
