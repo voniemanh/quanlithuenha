@@ -273,7 +273,7 @@ export default function PropertyManage() {
                       Xem
                     </button>
                   </td>
-                  <td className="border-end-0">
+                  <td className="border-end-0 border-start-0">
                     {isEditing ? (
                       <>
                         <button
@@ -303,7 +303,7 @@ export default function PropertyManage() {
                       </>
                     )}
                   </td>
-                  <td>
+                  <td className="border-start-0">
                     <button
                       className="btn btn-outline-danger btn-sm"
                       onClick={() => handleDelete(p.id)}

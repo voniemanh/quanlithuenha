@@ -304,7 +304,7 @@ export default function ContractManage() {
                       Xem
                     </button>
                   </td>
-                  <td>
+                  <td className="border-end-0 border-start-0">
                     {isEditing ? (
                       <>
                         <button 
