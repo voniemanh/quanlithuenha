@@ -271,3 +271,9 @@ p {
   }
 }
 
+.border-start-0 {
+  border-left: none !important;
+}
+.border-end-0 {
+  border-right: none !important;
+}

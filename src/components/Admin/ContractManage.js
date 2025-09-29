@@ -197,7 +197,7 @@ export default function ContractManage() {
               <th>Số tiền phải trả</th>
               <th>Trạng thái</th>
               <th>Ngày thanh toán</th>
-              <th>Hành động</th>
+              <th colSpan={3}>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -296,6 +296,14 @@ export default function ContractManage() {
                       ) : "Chưa thanh toán"
                     ) : (c.paidAt || "Chưa thanh toán")}
                   </td>
+                  <td className="border-end-0">
+                    <button
+                      className="btn btn-outline-success btn-sm me-1"
+                      onClick={() => viewDetail(c.id)}
+                    >
+                      Xem
+                    </button>
+                  </td>
                   <td>
                     {isEditing ? (
                       <>
@@ -311,29 +319,24 @@ export default function ContractManage() {
                         </button>
                       </>
                     ) : (
-                      <>
-                        <button 
-                          className="btn btn-outline-success btn-sm me-1" 
-                          onClick={() => viewDetail(c.id)}>
-                          Xem
-                        </button>
-                        <button 
-                          className="btn btn-outline-warning btn-sm me-1" 
-                          onClick={() => {
-                            setEditingId(c.id);
-                            setEditData({ ...c });
-                          }} 
-                          disabled={modalOpen}>
-                          Sửa
-                        </button>
-                        <button 
-                          className="btn btn-outline-danger btn-sm" 
-                          onClick={() => handleDelete(c.id)} 
-                          disabled={modalOpen}>
-                          Xóa
-                        </button>
-                      </>
+                      <button 
+                        className="btn btn-outline-warning btn-sm me-1" 
+                        onClick={() => {
+                          setEditingId(c.id);
+                          setEditData({ ...c });
+                        }} 
+                        disabled={modalOpen}>
+                        Sửa
+                      </button>
                     )}
+                  </td>
+                  <td className="border-start-0">
+                    <button 
+                      className="btn btn-outline-danger btn-sm" 
+                      onClick={() => handleDelete(c.id)} 
+                      disabled={modalOpen}>
+                      Xóa
+                    </button>
                   </td>
                 </tr>
               );
