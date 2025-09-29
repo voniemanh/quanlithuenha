@@ -187,7 +187,7 @@ export default function UserManage() {
                     )}
                   </td>
                   <td>
-                    <div  className="d-flex justify-content-center gap-2 flex-row">
+                    <div  className="d-flex justify-content-center gap-2 flex-row action-col">
                     {isEditing ? (
                       <>
                         <button

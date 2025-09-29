@@ -269,11 +269,8 @@ p {
   .search-input {
     width: 50%!important;
   }
-}
-
-.border-start-0 {
-  border-left: none !important;
-}
-.border-end-0 {
-  border-right: none !important;
+  .action-col {
+    flex-direction: column!important;
+    align-items: center;
+  }
 }

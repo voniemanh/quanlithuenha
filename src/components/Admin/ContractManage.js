@@ -297,7 +297,7 @@ export default function ContractManage() {
                     ) : (c.paidAt || "Chưa thanh toán")}
                   </td>
                   <td>
-                    <div className="d-flex justify-content-center gap-2 flex-row">
+                    <div className="d-flex justify-content-center gap-2 flex-row action-col">
                     {isEditing ? (
                       <>
                         <button 

@@ -266,7 +266,7 @@ export default function PropertyManage() {
                     )}
                   </td>
                   <td>
-                    <div className="d-flex justify-content-center flex-row gap-2">
+                    <div className="d-flex justify-content-center flex-row gap-2 action-col">
                     {isEditing ? (
                       <>
                         <button
