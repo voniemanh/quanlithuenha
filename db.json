@@ -14,32 +14,32 @@
         "r1",
         "r10",
         "4fd4",
-        "r5"
+        "r4",
+        "r3"
       ]
     },
     {
       "id": "6a6b",
-      "name": "Nguyễn Văn A",
+      "name": "Nguyễn Văn An",
       "username": "user1",
       "password": "123",
-      "role": "user",
+      "role": "admin",
       "avatar": "/asset/u1.jpg",
       "likeProperties": [
         "db18",
         "r9",
-        "r1"
+        "r1",
+        "r3",
+        "r4"
       ]
     },
     {
-      "id": "b7fd",
-      "name": "test",
-      "username": "tui",
+      "id": "a5fe",
+      "name": "tuôi",
+      "username": "user2",
       "password": "123",
       "role": "user",
-      "avatar": "/asset/u2.jpg",
-      "likeProperties": [
-        "r2"
-      ]
+      "avatar": "/asset/u2.jpg"
     }
   ],
   "properties": [
@@ -49,7 +49,7 @@
       "description": "Phòng 25m2, có nội thất, gần trung tâm",
       "address": "123 Lý Thường Kiệt, Q.10, TP.HCM",
       "price": 8000000,
-      "status": "available",
+      "status": "rented",
       "createdBy": "admin",
       "image": "/asset/r1.png",
       "likes": [
@@ -58,16 +58,9 @@
       ],
       "likeCount": 2,
       "amenitiesList": [
-        "Wifi",
         "TV",
         "Điều hòa",
-        "Máy giặt",
-        "Tủ lạnh",
-        "Bàn làm việc",
-        "Bathtub",
-        "Luggage dropoff allowed",
-        "Security camera",
-        "Paid dryer"
+        "Máy giặt"
       ]
     },
     {
@@ -101,9 +94,11 @@
       "image": "/asset/r3.png",
       "likes": [
         "u1",
+        "u1",
+        "6a6b",
         "u1"
       ],
-      "likeCount": 2,
+      "likeCount": 4,
       "amenitiesList": [
         "Paid dryer",
         "Washer",
@@ -121,9 +116,11 @@
       "image": "/asset/r4.png",
       "likes": [
         "u1",
+        "u1",
+        "6a6b",
         "u1"
       ],
-      "likeCount": 2,
+      "likeCount": 4,
       "amenitiesList": [
         "Wifi",
         "TV",
@@ -226,23 +223,6 @@
         "Tủ lạnh",
         "Bàn làm việc"
       ]
-    },
-    {
-      "id": "r10",
-      "name": "Phòng 1010 - Chung cư J",
-      "description": "Phòng 24m2, đầy đủ tiện nghi, gần chợ",
-      "address": "707 Cách Mạng Tháng 8, Q.10, TP.HCM",
-      "price": 4800000,
-      "status": "available",
-      "createdBy": "u1",
-      "image": "/asset/r10.png",
-      "likes": [],
-      "likeCount": 0,
-      "amenitiesList": [
-        "Wifi",
-        "TV",
-        "Điều hòa"
-      ]
     }
   ],
   "contracts": [
@@ -270,7 +250,7 @@
     },
     {
       "id": "d063",
-      "userId": "b7fd",
+      "userId": null,
       "propertyId": "r5",
       "startDate": "2025-09-25",
       "endDate": "2025-10-05",
@@ -302,15 +282,26 @@
       "paidAt": null
     },
     {
-      "id": "3781",
+      "id": "979b",
       "userId": "6a6b",
-      "propertyId": "r6",
-      "startDate": "2025-09-28",
+      "propertyId": "r1",
+      "startDate": "2025-09-29",
+      "endDate": "2025-10-05",
+      "guests": 2,
+      "payment": 3200000,
+      "status": "paid",
+      "paidAt": "2025-09-29"
+    },
+    {
+      "id": "e785",
+      "userId": "6a6b",
+      "propertyId": "r9",
+      "startDate": "2025-09-29",
       "endDate": "2025-10-12",
-      "guests": 1,
-      "payment": 3733333,
-      "status": "canceled",
-      "paidAt": null
+      "guests": "2",
+      "status": "pending",
+      "payment": 6500000,
+      "paidAt": ""
     }
   ],
   "news": [
